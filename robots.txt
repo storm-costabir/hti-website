@@ -19,4 +19,11 @@ Allow: /
 # /magazine-blog.html?id=61, whose path does not begin with "/?".
 Disallow: /?
 
+# /templates/ holds three candidate homepage layouts carrying the homepage's
+# own content, kept there while one is chosen. Three near-duplicates of the
+# strongest page on the domain would split its signals and spend crawl budget
+# on pages that will be deleted. Each template also carries a noindex tag -
+# this line is the belt to that pair of braces, and comes out with the folder.
+Disallow: /templates/
+
 Sitemap: https://www.hti-india.com/sitemap.xml

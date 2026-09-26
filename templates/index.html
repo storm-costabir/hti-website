@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HTI Homepage Layouts</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="../images/brand/hti-favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --porcelain:#FAF8F5; --paper:#FFFFFF; --ink:#14181A; --ink-2:#333B3D;
+      --ink-3:#5D6668; --ink-4:#8A9294; --line:#E4E0D9; --line-2:#CFCAC0;
+      --red:#E31E24; --red-2:#B3161B;
+      --petrol:#0E4B4F; --petrol-t:#E4EDEC;
+      --plum:#5C3350; --clay:#8C4A2F; --moss:#3D5440; --indigo:#2A3A63;
+      --gut:clamp(18px,4vw,52px);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Montserrat',system-ui,sans-serif; background:var(--porcelain); color:var(--ink-2);
+           -webkit-font-smoothing:antialiased; font-size:16px; line-height:1.62; }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button { font:inherit; color:inherit; cursor:pointer; }
+    [hidden] { display:none !important; }
+    :focus-visible { outline:2px solid var(--petrol); outline-offset:3px; }
+    h1, h2, h3 { color:var(--ink); }
+    .shell { max-width:1220px; margin:0 auto; padding-inline:var(--gut); }
+    code { background:#EFEBE4; padding:1px 6px; font-size:13px; border-radius:3px; }
+
+    .top { border-bottom:1px solid var(--line); padding-top:env(safe-area-inset-top,0px); }
+    .top-in { max-width:1220px; margin:0 auto; padding:14px var(--gut);
+              display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .top img { width:78px; height:auto; }
+    .top .tag { font-size:10.5px; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--petrol); }
+    .top a.back { margin-left:auto; font-size:13.5px; font-weight:600; color:var(--ink-3); }
+    .top a.back:hover { color:var(--red); }
+
+    .intro { padding-block:clamp(38px,5.5vw,70px) clamp(24px,3vw,36px); }
+    .intro h1 { font-size:clamp(28px,4.4vw,50px); font-weight:700; letter-spacing:-.028em;
+                line-height:1.05; max-width:20ch; }
+    .intro .lede { font-size:clamp(15.5px,1.5vw,18px); color:var(--ink-3); max-width:68ch; margin-top:20px; }
+
+    .kept { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px;
+            margin-top:28px; }
+    .kept div { background:var(--paper); border:1px solid var(--line); border-left:3px solid var(--petrol);
+                border-radius:8px; padding:16px 18px; }
+    .kept b { display:block; font-size:10.5px; font-weight:700; letter-spacing:.14em;
+              text-transform:uppercase; color:var(--petrol); margin-bottom:6px; }
+    .kept p { font-size:14px; color:var(--ink-3); line-height:1.55; }
+    .kept .drop { border-left-color:var(--red); }
+    .kept .drop b { color:var(--red); }
+
+    .controls { display:flex; flex-wrap:wrap; gap:10px; align-items:center;
+                padding-block:18px 16px; border-top:1px solid var(--line); margin-top:clamp(28px,3.6vw,44px); }
+    .seg { display:flex; border:1px solid var(--line-2); background:var(--paper);
+           border-radius:999px; overflow:hidden; }
+    .seg button { border:0; background:none; padding:11px 22px; font-size:13px; font-weight:700;
+                  color:var(--ink-3); transition:background .16s, color .16s; white-space:nowrap; }
+    .seg button[aria-pressed="true"] { background:var(--petrol); color:#fff; }
+    .seg button:not([aria-pressed="true"]):hover { background:var(--petrol-t); color:var(--petrol); }
+    .controls .spacer { margin-left:auto; }
+    .open-new { font-size:13.5px; font-weight:700; color:var(--red); display:inline-flex; align-items:center; gap:7px; }
+
+    .frame-wrap { background:#EFEBE4; border:1px solid var(--line); border-radius:12px; padding:12px;
+                  margin-bottom:clamp(36px,4.5vw,60px); }
+    .frame-box { background:var(--paper); border-radius:7px; overflow:hidden; margin:0 auto; transition:max-width .3s ease; }
+    .frame-box[data-w="desktop"] { max-width:100%; }
+    .frame-box[data-w="tablet"]  { max-width:834px; }
+    .frame-box[data-w="phone"]   { max-width:414px; }
+    iframe { width:100%; height:min(78vh,900px); border:0; display:block; }
+    .frame-note { background:var(--paper); border:1px solid var(--line); border-left:3px solid var(--red);
+                  border-radius:8px; padding:18px 20px; font-size:14.5px; color:var(--ink-3); }
+    .frame-note b { color:var(--ink); }
+
+    .cards { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:clamp(12px,1.6vw,20px);
+             padding-bottom:clamp(44px,5.5vw,72px); }
+    @media (max-width:900px) { .cards { grid-template-columns:1fr; } }
+    .card { background:var(--paper); border:1px solid var(--line); border-radius:12px;
+            display:flex; flex-direction:column; overflow:hidden; }
+    .swatches { display:flex; height:10px; }
+    .swatches i { flex:1; }
+    .card-body { padding:26px; display:flex; flex-direction:column; gap:12px; flex:1; }
+    .card .letter { font-size:10.5px; font-weight:700; letter-spacing:.17em; text-transform:uppercase; color:var(--petrol); }
+    .card.ref .letter { color:var(--ink-4); }
+    .card h2 { font-size:23px; font-weight:700; letter-spacing:-.024em; line-height:1.15; }
+    .card .gist { font-size:14.5px; color:var(--ink-3); line-height:1.58; }
+    .card h3 { font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+               color:var(--ink-4); margin-top:6px; }
+    .card ul { list-style:none; display:grid; gap:8px; }
+    .card li { font-size:13.5px; color:var(--ink-2); padding-left:22px; position:relative; line-height:1.5; }
+    .card li::before { content:''; position:absolute; left:0; top:.52em; width:12px; height:2px;
+                       background:var(--petrol); border-radius:1px; }
+    .card.ref li::before { background:var(--line-2); }
+    .card .go { margin-top:auto; padding-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+    .card .go a, .card .go button { font-size:12.5px; font-weight:700; padding:12px 20px;
+                                    border:1px solid var(--line-2); background:var(--paper); border-radius:999px; }
+    .card .go .solid { background:var(--red); color:#fff; border-color:var(--red); }
+    .card .go .solid:hover { background:var(--red-2); border-color:var(--red-2); }
+    .card .go button:hover { background:var(--ink); color:#fff; border-color:var(--ink); }
+
+    .chapters { display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+    .chapters span { font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+                     color:#fff; padding:5px 11px; border-radius:999px; }
+
+    .notes { border-top:1px solid var(--line); padding-block:clamp(34px,4.5vw,56px) clamp(52px,6.5vw,84px); }
+    .notes h2 { font-size:clamp(21px,2.6vw,30px); font-weight:700; letter-spacing:-.024em; }
+    .notes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:26px 32px; margin-top:26px; }
+    .note h3 { font-size:15px; font-weight:700; margin-bottom:8px; }
+    .note p { font-size:14px; color:var(--ink-3); line-height:1.6; }
+    .foot { border-top:1px solid var(--line); padding-block:22px calc(28px + env(safe-area-inset-bottom,0px));
+            font-size:12.5px; color:var(--ink-4); }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+    <div class="top-in">
+      <img src="../images/brand/hti-logo-nav.webp" width="240" height="182" alt="HTI India" />
+      <span class="tag">Homepage layouts &mdash; round three</span>
+      <a class="back" href="../index.html">&larr; The live homepage</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro shell">
+      <h1>Your scroll, recoloured, and made to respond.</h1>
+      <p class="lede">You kept two things: the live hero, and the scroll from Brass &mdash; where each chapter&rsquo;s title parks in the left column and stays while its content moves past on the right. Both are here. The colour is new, and the page now answers when you touch it.</p>
+
+      <div class="kept">
+        <div>
+          <b>Kept</b>
+          <p>The live hero, exactly as it is. And the sticky-chapter scroll you liked, as the spine of the whole page.</p>
+        </div>
+        <div class="drop">
+          <b>Gone</b>
+          <p>The yellow, and everything else from the last round. No signal colours anywhere.</p>
+        </div>
+        <div>
+          <b>New colour</b>
+          <p>Five muted jewel tones, one per chapter. Colourful without a single loud colour &mdash; and the colour tells you where you are.</p>
+        </div>
+        <div>
+          <b>New interaction</b>
+          <p>A programme matcher, counters that count up, a review spotlight, cards that open, and a bar that changes hue as you read.</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Choose a template">
+          <button type="button" data-t="g-chapters.html" aria-pressed="true">G &middot; Chapters &mdash; new</button>
+          <button type="button" data-t="d-brass.html" aria-pressed="false">D &middot; Brass &mdash; for reference</button>
+        </div>
+        <div class="seg" id="widths" role="group" aria-label="Choose a screen width">
+          <button type="button" data-w="desktop" aria-pressed="true">Desktop</button>
+          <button type="button" data-w="tablet" aria-pressed="false">Tablet</button>
+          <button type="button" data-w="phone" aria-pressed="false">Phone</button>
+        </div>
+        <span class="spacer"></span>
+        <a class="open-new" id="openNew" href="g-chapters.html" target="_blank" rel="noopener">Open full screen &rarr;</a>
+      </div>
+    </section>
+
+    <div class="shell">
+      <div class="frame-wrap">
+        <!-- Opened straight off the disk, Chrome treats every file:// page as
+             its own origin and refuses to render this iframe. The templates
+             themselves open from disk fine, so the preview is swapped for a note. -->
+        <p class="frame-note" id="frameNote" hidden>
+          <b>The live preview needs a local server.</b>
+          Opened straight from the file system, the browser blocks one page from
+          framing another. The templates work fine from disk &mdash; use the
+          <b>Open</b> buttons below, or serve the folder and the preview comes back.
+        </p>
+        <div class="frame-box" id="box" data-w="desktop">
+          <iframe id="frame" src="g-chapters.html" title="Template preview" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <section class="shell">
+      <div class="cards">
+
+        <article class="card">
+          <div class="swatches" aria-hidden="true">
+            <i style="background:#0E4B4F"></i><i style="background:#5C3350"></i><i style="background:#8C4A2F"></i>
+            <i style="background:#3D5440"></i><i style="background:#2A3A63"></i>
+            <i style="background:#E31E24"></i><i style="background:#FAF8F5"></i><i style="background:#14181A"></i>
+          </div>
+          <div class="card-body">
+            <span class="letter">Template G &mdash; the new one</span>
+            <h2>Chapters</h2>
+            <p class="gist">The scroll you liked, kept exactly. What changed is that every chapter now owns a muted jewel tone &mdash; and the colour is doing a job, not decorating: as you scroll the page changes hue, and the hue tells you which chapter you are in.</p>
+
+            <h3>The seven chapters</h3>
+            <div class="chapters">
+              <span style="background:#0E4B4F">01 Programmes</span>
+              <span style="background:#5C3350">02 Method</span>
+              <span style="background:#8C4A2F">03 Proof</span>
+              <span style="background:#3D5440">04 Trainers</span>
+              <span style="background:#2A3A63">05 The app</span>
+              <span style="background:#0E4B4F">06 Clients</span>
+              <span style="background:#3D5440">07 Cities</span>
+            </div>
+
+            <h3>What it does when you touch it</h3>
+            <ul>
+              <li><b>Programme matcher</b> &mdash; pick the room, then the team; the list narrows live, and the enquiry button carries your choice into the contact form</li>
+              <li><b>Counters</b> that count up the first time the numbers scroll into view</li>
+              <li><b>Review spotlight</b> &mdash; one at a time, moved by arrows, dots or the arrow keys, and nothing auto-advances</li>
+              <li><b>Trainer cards</b> that open in place with a real line about each person, not a restated job title</li>
+              <li><b>App stepper</b> you click through, one step readable at a time</li>
+              <li><b>A reading progress bar</b>, and a nav bar that takes the colour of the chapter you are in</li>
+            </ul>
+
+            <h3>On colour</h3>
+            <ul>
+              <li>Every accent is desaturated and dark &mdash; rich rather than bright, and all clear contrast on the porcelain ground</li>
+              <li>They sit at about the same value, so no chapter shouts over its neighbours</li>
+              <li>Red is not one of them. It is spent only on things you can click, so red keeps meaning &ldquo;action&rdquo;</li>
+              <li>All of the motion switches off for a visitor who has asked for reduced motion</li>
+            </ul>
+
+            <div class="go">
+              <a class="solid" href="g-chapters.html" target="_blank" rel="noopener">Open Chapters</a>
+              <button type="button" data-t="g-chapters.html">Preview above</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card ref">
+          <div class="swatches" aria-hidden="true">
+            <i style="background:#F6F2EA"></i><i style="background:#FFFFFF"></i>
+            <i style="background:#0B0B0C"></i><i style="background:#B8873B"></i><i style="background:#E31E24"></i>
+          </div>
+          <div class="card-body">
+            <span class="letter">Template D &mdash; for reference</span>
+            <h2>Brass &amp; Ink</h2>
+            <p class="gist">Left here so you can put the two side by side. This is where the scroll came from &mdash; same sticky chapter titles, same two-column programme index &mdash; but on one colour rather than seven, and with nothing interactive below the hero.</p>
+            <h3>What G changed from it</h3>
+            <ul>
+              <li>Brass became five chapter tones</li>
+              <li>The programme index gained the matcher above it</li>
+              <li>The single big quote became a spotlight you can move through</li>
+              <li>Trainer portraits became cards that open</li>
+              <li>The numbers band now counts up</li>
+            </ul>
+            <div class="go">
+              <a class="solid" href="d-brass.html" target="_blank" rel="noopener">Open Brass</a>
+              <button type="button" data-t="d-brass.html">Preview above</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="notes shell">
+      <h2>What to look at</h2>
+      <div class="notes-grid">
+        <div class="note">
+          <h3>Scroll it slowly.</h3>
+          <p>The chapter title holds in the left column while its content passes on the right, and the accent shifts from petrol to plum to clay to moss to indigo as you go. That shift is the thing to judge.</p>
+        </div>
+        <div class="note">
+          <h3>Use the matcher.</h3>
+          <p>Chapter 01. Pick Hotels, then Kitchen. One programme. Then press the button &mdash; it opens the contact form already knowing what you run. That is a warmer lead than a blank form.</p>
+        </div>
+        <div class="note">
+          <h3>Check it on a phone.</h3>
+          <p>Use the Phone width, or open it on your handset. The chapters stack, the matcher stays usable, and Call and WhatsApp sit in a fixed bar within thumb reach.</p>
+        </div>
+        <div class="note">
+          <h3>Nothing was lost.</h3>
+          <p>The same fifteen programmes, eight numbers, seven full reviews, seven trainers, sixty logos and ten city links. One <code>h1</code>, headings in order, real alt text, every link in the HTML whatever is filtered.</p>
+        </div>
+        <div class="note">
+          <h3>Still not right?</h3>
+          <p>Name the one thing &mdash; a colour that jars, a section that feels empty, an interaction that gets in the way. A single sentence of that beats another whole template from me.</p>
+        </div>
+        <div class="note">
+          <h3>If it is right.</h3>
+          <p>Say so and I will wire it up as the real homepage: the live <code>&lt;head&gt;</code> carried over, the schema blocks, the click tracking, and the old file kept as a rollback.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot shell">
+    Layout test only &mdash; not linked from the site, not indexed.
+  </footer>
+
+  <script>
+  (function () {
+    const frame = document.getElementById('frame');
+    const box   = document.getElementById('box');
+    const link  = document.getElementById('openNew');
+
+    if (location.protocol === 'file:') {
+      document.getElementById('frameNote').hidden = false;
+      box.hidden = true;
+      document.getElementById('widths').hidden = true;
+    }
+
+    function pick (src) {
+      frame.src = src;
+      link.href = src;
+      document.querySelectorAll('.seg [data-t]').forEach(b =>
+        b.setAttribute('aria-pressed', b.dataset.t === src));
+    }
+    document.querySelectorAll('[data-t]').forEach(b =>
+      b.addEventListener('click', () => {
+        pick(b.dataset.t);
+        if (!b.closest('.seg')) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }));
+
+    document.querySelectorAll('button[data-w]').forEach(b =>
+      b.addEventListener('click', () => {
+        box.dataset.w = b.dataset.w;
+        document.querySelectorAll('button[data-w]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      }));
+  })();
+  </script>
+</body>
+
+</html>

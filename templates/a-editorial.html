@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Template A — Editorial | HTI India layout test</title>
+  <!-- These three templates reproduce the homepage content word for word. Left
+       crawlable they would be three duplicates of the strongest page on the
+       domain, splitting its signals and burning crawl budget the site is
+       already short of. noindex until one is promoted; /templates/ is also
+       disallowed in robots.txt. -->
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="../images/brand/hti-favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+  <style>
+    /* Gilroy, the three approved cuts only, declared as ONE family at their
+       true weights so 700 picks the real Bold instead of smearing a synthetic
+       one over it. Heavy is not fetched and must not be. */
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:300; font-display:swap;
+      src:local('Gilroy-Light'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Light.woff') format('woff'); }
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:500; font-display:swap;
+      src:local('Gilroy-Medium'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Medium.woff') format('woff'); }
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:700; font-display:swap;
+      src:local('Gilroy-Bold'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Bold.woff') format('woff'); }
+  </style>
+
+  <style>
+    /* =====================================================================
+       TEMPLATE A — "THE LEDGER"
+       ---------------------------------------------------------------------
+       An editorial layout. The organising idea is the RULE: hairlines divide
+       everything, sections are numbered like chapters, and the page reads
+       top to bottom in one column of argument rather than as a stack of
+       unrelated marketing bands.
+
+       Palette is untouched from the live site — warm paper #f3f2ef, ink #111,
+       brand red #e31e24, black bands. Everything that changed is layout.
+       ===================================================================== */
+
+    :root {
+      --bg:      #f3f2ef;   /* warm paper, as live */
+      --bg-2:    #ede9e3;   /* one step deeper, as live */
+      --paper:   #fff;
+      --black:   #000;
+      --ink:     #111;
+      --ink-2:   #3a332e;
+      --ink-3:   #5f574f;
+      --ink-4:   #7d746b;
+      --red:     #e31e24;
+      --red-deep:#a8161c;
+      --line:    #ddd7cf;
+      --line-2:  #c9c0b5;
+
+      --gut: clamp(20px, 5vw, 64px);
+      --col: 1280px;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:84px; }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+    body {
+      font-family:'Montserrat', system-ui, sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button { font:inherit; color:inherit; background:none; border:0; cursor:pointer; }
+    /* The UA rule for [hidden] is display:none at class specificity, so any
+       later `display:` on a class beats it. The venue tab panels hide by the
+       hidden attribute, so this keeps them actually hidden. */
+    [hidden] { display:none !important; }
+
+    .display { font-family:'Gilroy','Montserrat',sans-serif; font-weight:700; letter-spacing:-.022em; line-height:1.02; }
+
+    .shell { max-width:var(--col); margin:0 auto; padding-inline:var(--gut); }
+
+    /* screen-reader only, for the labels a sighted reader gets from layout */
+    .sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+          overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+    :focus-visible { outline:2px solid var(--red); outline-offset:3px; border-radius:2px; }
+
+    /* ---------------------------------------------------------------- NAV
+       A masthead, not a floating pill. It sits on a hairline and stays
+       there; the only thing that changes on scroll is the paper going
+       opaque so type does not collide with it. */
+    .mast {
+      position:sticky; top:0; z-index:60;
+      background:var(--bg);
+      border-bottom:1px solid var(--line);
+      padding-top:env(safe-area-inset-top, 0px);
+    }
+    .mast-in {
+      max-width:var(--col); margin:0 auto; padding-inline:var(--gut);
+      height:68px; display:flex; align-items:center; gap:28px;
+    }
+    /* 84px wide is 64px tall at the logo's 240x182 ratio, which fits inside
+       the 68px bar. Any wider and the star on the H clips off the top. */
+    .mast-logo img { width:84px; height:auto; }
+    .mast-nav { display:flex; gap:26px; margin-left:auto; align-items:center; }
+    .mast-nav a {
+      font-size:13.5px; font-weight:500; color:var(--ink-2);
+      padding:6px 0; position:relative;
+    }
+    .mast-nav a::after {
+      content:''; position:absolute; left:0; right:0; bottom:0; height:1.5px;
+      background:var(--red); transform:scaleX(0); transform-origin:left;
+      transition:transform .22s ease;
+    }
+    .mast-nav a:hover::after, .mast-nav a[aria-current="true"]::after { transform:scaleX(1); }
+    .mast-cta {
+      font-size:13.5px; font-weight:700; color:#fff !important;
+      background:var(--red); padding:10px 20px; border-radius:2px;
+      transition:background .2s ease;
+    }
+    .mast-cta:hover { background:var(--red-deep); }
+    .mast-cta::after { display:none !important; }
+    .mast-tel {
+      font-size:13.5px; font-weight:600; color:var(--ink);
+      display:inline-flex; align-items:center; gap:7px;
+    }
+    .mast-tel svg { width:15px; height:15px; color:var(--red); }
+
+    .mast-burger { display:none; margin-left:auto; width:40px; height:40px; align-items:center; justify-content:center; }
+    .mast-burger span { display:block; width:20px; height:2px; background:var(--ink); position:relative; }
+    .mast-burger span::before, .mast-burger span::after {
+      content:''; position:absolute; left:0; width:20px; height:2px; background:var(--ink);
+      transition:transform .2s ease;
+    }
+    .mast-burger span::before { top:-6px; } .mast-burger span::after { top:6px; }
+
+    @media (max-width:900px) {
+      .mast-burger { display:flex; }
+      .mast-nav {
+        position:fixed; inset:calc(68px + env(safe-area-inset-top,0px)) 0 auto 0;
+        background:var(--bg); border-bottom:1px solid var(--line);
+        flex-direction:column; align-items:stretch; gap:0; padding:8px var(--gut) 20px;
+        margin-left:0; display:none;
+      }
+      .mast-nav.open { display:flex; }
+      .mast-nav a { padding:14px 0; border-bottom:1px solid var(--line); font-size:16px; }
+      .mast-nav a::after { display:none; }
+      .mast-cta { text-align:center; margin-top:14px; padding:14px; border-bottom:0 !important; }
+      .mast-tel { padding:14px 0; }
+    }
+
+    /* --------------------------------------------------------------- HERO
+       No logo wall competing with the H1. One statement, set as large as the
+       column allows, then a ruled row of the numbers that back it up — the
+       masthead device of a broadsheet. */
+    /* padding-block, never the `padding` shorthand: .hero and .sec also carry
+       .shell, and a shorthand here would reset .shell's side gutter to zero
+       and put every section flush against the edge of a phone screen. */
+    .hero { padding-block:clamp(56px, 9vw, 112px) 0; }
+    .hero-eyebrow {
+      font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase;
+      color:var(--red-deep); margin-bottom:26px;
+      display:flex; align-items:center; gap:14px;
+    }
+    .hero-eyebrow::after { content:''; flex:1; height:1px; background:var(--line-2); }
+
+    .hero h1 { font-size:clamp(38px, 7.2vw, 96px); max-width:19ch; margin-bottom:0; }
+    .hero h1 .tail { color:var(--red); display:inline; }
+    .hero h1 .caret {
+      display:inline-block; width:.055em; height:.82em; background:var(--red);
+      vertical-align:-.06em; margin-left:.06em; animation:blink 1.05s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity:0; } }
+    @media (prefers-reduced-motion:reduce) { .hero h1 .caret { animation:none; } }
+
+    .hero-body {
+      display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);
+      gap:clamp(28px,5vw,72px); align-items:end;
+      margin-top:clamp(28px,4vw,48px);
+    }
+    .hero-sub { font-size:clamp(17px,1.65vw,21px); line-height:1.5; color:var(--ink-2); font-weight:500; }
+    .hero-note { font-size:14.5px; color:var(--ink-3); margin-top:14px; }
+    .hero-note em { font-style:normal; color:var(--red-deep); font-weight:600; }
+
+    .hero-actions { display:flex; flex-wrap:wrap; gap:12px; }
+    @media (max-width:820px) { .hero-body { grid-template-columns:1fr; align-items:start; } }
+
+    .btn {
+      display:inline-flex; align-items:center; gap:10px; justify-content:center;
+      font-size:15px; font-weight:700; padding:15px 26px; border-radius:2px;
+      transition:background .2s ease, color .2s ease, border-color .2s ease;
+    }
+    .btn svg { width:17px; height:17px; }
+    .btn-solid { background:var(--red); color:#fff; }
+    .btn-solid:hover { background:var(--red-deep); }
+    .btn-line { border:1.5px solid var(--ink); color:var(--ink); }
+    .btn-line:hover { background:var(--ink); color:var(--bg); }
+    .btn-invert { border:1.5px solid rgba(255,255,255,.45); color:#fff; }
+    .btn-invert:hover { background:#fff; color:var(--black); border-color:#fff; }
+
+    /* the ruled numbers strip — the piece that makes the hero feel like a
+       masthead rather than a banner */
+    .ledger {
+      margin-top:clamp(44px,6vw,76px);
+      border-top:2px solid var(--ink); border-bottom:1px solid var(--line);
+      display:grid; grid-template-columns:repeat(8,1fr);
+    }
+    .ledger div { padding:20px 14px 22px; border-left:1px solid var(--line); }
+    .ledger div:first-child { border-left:0; padding-left:0; }
+    .ledger b { font-family:'Gilroy',sans-serif; font-weight:700; font-size:clamp(20px,2.3vw,30px);
+                display:block; letter-spacing:-.02em; line-height:1; }
+    .ledger span { display:block; margin-top:7px; font-size:11px; font-weight:600;
+                   letter-spacing:.055em; text-transform:uppercase; color:var(--ink-4); line-height:1.35; }
+    @media (max-width:1000px) { .ledger { grid-template-columns:repeat(4,1fr); }
+      .ledger div:nth-child(4n+1) { border-left:0; padding-left:0; }
+      .ledger div:nth-child(n+5) { border-top:1px solid var(--line); } }
+    @media (max-width:560px) { .ledger { grid-template-columns:repeat(2,1fr); }
+      .ledger div { border-left:1px solid var(--line); padding-left:14px; }
+      .ledger div:nth-child(odd) { border-left:0; padding-left:0; }
+      .ledger div:nth-child(n+3) { border-top:1px solid var(--line); } }
+
+    /* ------------------------------------------------------- SECTION HEADS
+       Numbered like chapters. The number is the navigation: the rail on the
+       left repeats it, so a reader always knows where in the argument they
+       are — which the current stack of unlabelled bands cannot tell them. */
+    .sec { padding-block:clamp(64px,8vw,116px); border-top:1px solid var(--line); }
+    .sec-head { display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(18px,3vw,44px); align-items:start; margin-bottom:clamp(32px,4.5vw,56px); }
+    .sec-num {
+      font-family:'Gilroy',sans-serif; font-weight:700; font-size:13px; letter-spacing:.06em;
+      color:var(--red); padding-top:.5em; min-width:2.4em;
+    }
+    .sec-head h2 { font-family:'Gilroy',sans-serif; font-weight:700; letter-spacing:-.022em;
+                   font-size:clamp(28px,4.2vw,52px); line-height:1.06; max-width:22ch; }
+    .sec-head p { margin-top:16px; font-size:clamp(15.5px,1.4vw,18px); color:var(--ink-3); max-width:62ch; line-height:1.6; }
+
+    /* ----------------------------------------------------------- PROGRAMMES
+       The homepage has never listed these. Fifteen programme pages sit behind
+       a hover dropdown, which means the page with the most authority on the
+       domain links to them weakly, and a phone visitor cannot reach them at
+       all. As an index they are crawlable, scannable, and let a visitor
+       self-select before they ever fill anything in. */
+    .tabs { display:flex; flex-wrap:wrap; gap:0; border-bottom:1px solid var(--line); margin-bottom:6px; }
+    .tabs button {
+      font-size:14px; font-weight:600; color:var(--ink-4);
+      padding:13px 22px 13px 0; margin-right:28px; position:relative;
+      transition:color .2s ease;
+    }
+    .tabs button::after {
+      content:''; position:absolute; left:0; right:28px; bottom:-1px; height:2px;
+      background:var(--ink); transform:scaleX(0); transform-origin:left; transition:transform .22s ease;
+    }
+    .tabs button[aria-selected="true"] { color:var(--ink); }
+    .tabs button[aria-selected="true"]::after { transform:scaleX(1); }
+    .tabs button:hover { color:var(--ink-2); }
+    .tabs .count { font-size:11px; font-weight:700; color:var(--ink-4); margin-left:7px; vertical-align:2px; }
+
+    .prog-group {
+      font-size:11px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--ink-4); padding:30px 0 10px; border-bottom:1px solid var(--line);
+    }
+    .prog-row {
+      display:grid; grid-template-columns:minmax(150px,1.5fr) minmax(0,2fr) minmax(0,3fr) auto;
+      gap:clamp(14px,2.5vw,36px); align-items:baseline;
+      padding:22px 14px 22px 0; border-bottom:1px solid var(--line);
+      position:relative; transition:background .18s ease, padding-left .18s ease;
+    }
+    .prog-row::before {
+      content:''; position:absolute; left:0; top:0; bottom:-1px; width:2px;
+      background:var(--red); transform:scaleY(0); transform-origin:top; transition:transform .2s ease;
+    }
+    .prog-row:hover { background:rgba(227,30,36,.035); padding-left:16px; }
+    .prog-row:hover::before { transform:scaleY(1); }
+    .prog-code { font-family:'Gilroy',sans-serif; font-weight:700; font-size:clamp(19px,2.1vw,26px); letter-spacing:-.02em; }
+    .prog-who { font-size:14px; color:var(--ink-2); font-weight:600; }
+    .prog-line { font-size:14.5px; color:var(--ink-3); line-height:1.55; }
+    .prog-go { color:var(--red); opacity:0; transform:translateX(-6px); transition:opacity .2s, transform .2s; }
+    .prog-go svg { width:20px; height:20px; }
+    .prog-row:hover .prog-go, .prog-row:focus-visible .prog-go { opacity:1; transform:none; }
+    @media (max-width:860px) {
+      .prog-row { grid-template-columns:1fr auto; gap:6px 14px; padding:20px 0; }
+      .prog-code { grid-column:1; }
+      .prog-go { grid-column:2; grid-row:1; opacity:1; transform:none; align-self:center; }
+      .prog-who { grid-column:1 / -1; }
+      .prog-line { grid-column:1 / -1; }
+      .prog-row:hover { padding-left:0; }
+    }
+
+    .prog-foot {
+      display:flex; flex-wrap:wrap; gap:22px 34px; align-items:center;
+      padding-top:28px; margin-top:4px;
+    }
+    .prog-foot a { font-size:14.5px; font-weight:700; color:var(--red); display:inline-flex; align-items:center; gap:8px; }
+    .prog-foot a svg { width:16px; height:16px; transition:transform .2s ease; }
+    .prog-foot a:hover svg { transform:translateX(4px); }
+
+    /* ----------------------------------------------------------- MORE LIST */
+    .more-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); border-top:1px solid var(--line); }
+    .more-grid a {
+      padding:22px 22px 24px 0; border-bottom:1px solid var(--line); border-right:1px solid var(--line);
+      transition:background .18s ease;
+    }
+    .more-grid a:hover { background:rgba(227,30,36,.035); }
+    .more-grid b { display:block; font-size:16px; font-weight:700; letter-spacing:-.01em; }
+    .more-grid span { display:block; margin-top:5px; font-size:13.5px; color:var(--ink-3); }
+
+    /* -------------------------------------------------------------- METHOD
+       The one dark band on the page. It carries the video and the three
+       reasons, set as numbered notes in a margin — the editorial equivalent
+       of the current icon row, but reading as one argument. */
+    .dark { background:var(--black); color:#fff; padding:clamp(64px,8vw,116px) 0; }
+    .dark .sec-head h2 { color:#fff; }
+    .dark .sec-head p { color:rgba(255,255,255,.62); }
+    .dark .sec-num { color:var(--red); }
+
+    .method { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:clamp(28px,4.5vw,64px); align-items:start; }
+    @media (max-width:880px) { .method { grid-template-columns:1fr; } }
+    .method-media { border-radius:3px; overflow:hidden; background:#111; aspect-ratio:16/10; }
+    .method-media video { width:100%; height:100%; object-fit:cover; display:block; }
+    .method-note { display:grid; grid-template-columns:auto 1fr; gap:18px;
+                   padding:24px 0; border-top:1px solid rgba(255,255,255,.16); }
+    .method-note:first-child { border-top:0; padding-top:0; }
+    .method-note img { width:34px; height:34px; filter:invert(1) brightness(1.6); opacity:.85; }
+    .method-note h3 { font-family:'Gilroy',sans-serif; font-weight:700; font-size:19px; letter-spacing:-.015em; margin-bottom:8px; }
+    .method-note p { font-size:14.5px; line-height:1.62; color:rgba(255,255,255,.66); }
+
+    .dark-rule { border-top:1px solid rgba(255,255,255,.16); margin-top:clamp(44px,6vw,72px); padding-top:clamp(32px,4vw,48px); }
+
+    /* white-on-black logo wall, static. A marquee that never stops is a
+       thing to wait for; a wall is a thing to read. */
+    /* The hairline grid is drawn by each CELL, not by a fill behind the whole
+       container. The logo count rarely divides evenly into a responsive column
+       count, and a container fill turns the empty tail of the last row into a
+       grey slab hanging off the end of the wall. */
+    .wall { display:grid; grid-template-columns:repeat(auto-fill,minmax(116px,1fr)); gap:1px; }
+    .wall-cell { background:var(--black); box-shadow:0 0 0 1px rgba(255,255,255,.12);
+                 aspect-ratio:136/64; display:grid; place-items:center; padding:12px; }
+    .wall-cell img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;
+                     opacity:.62; transition:opacity .22s ease; }
+    .wall-cell:hover img { opacity:1; }
+
+    .wall-label { font-size:11px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+                  color:rgba(255,255,255,.5); margin-bottom:18px; }
+
+    /* --------------------------------------------------------------- PROOF
+       One quote set at display size, then the rest as a ruled column of
+       shorter pulls. Reading seven full testimonials in a row is a chore;
+       one long one plus six pulls is how a features page actually does it. */
+    .lead-quote { display:grid; grid-template-columns:auto minmax(0,1fr); gap:clamp(20px,3.5vw,44px); align-items:start; }
+    .lead-quote .mark {
+      font-family:'Gilroy',serif; font-size:clamp(64px,9vw,128px); line-height:.72;
+      color:var(--red); opacity:.9;
+    }
+    .lead-quote blockquote p {
+      font-family:'Gilroy',sans-serif; font-weight:500; letter-spacing:-.015em;
+      font-size:clamp(19px,2.35vw,30px); line-height:1.36; color:var(--ink);
+    }
+    .quote-by { display:flex; align-items:center; gap:14px; margin-top:26px; }
+    .quote-by img { width:48px; height:48px; border-radius:50%; object-fit:cover; flex:none; }
+    .quote-by b { display:block; font-size:15px; font-weight:700; }
+    .quote-by span { display:block; font-size:13px; color:var(--ink-3); }
+    .quote-by a { color:var(--ink-4); transition:color .2s ease; }
+    .quote-by a:hover { color:#0a66c2; }
+    .quote-by a svg { width:19px; height:19px; }
+    @media (max-width:640px) { .lead-quote { grid-template-columns:1fr; gap:4px; }
+      .lead-quote .mark { font-size:56px; } }
+
+    .pulls { columns:2; column-gap:clamp(28px,4vw,56px); margin-top:clamp(40px,5.5vw,72px);
+             border-top:1px solid var(--line); padding-top:8px; }
+    @media (max-width:760px) { .pulls { columns:1; } }
+    .pull { break-inside:avoid; padding:26px 0; border-bottom:1px solid var(--line); }
+    .pull p { font-size:16px; line-height:1.55; font-weight:500; color:var(--ink-2); }
+    .pull p::before { content:'\201C'; color:var(--red); font-weight:700; }
+    .pull p::after  { content:'\201D'; color:var(--red); font-weight:700; }
+    .pull figcaption { display:flex; align-items:center; gap:11px; margin-top:16px; }
+    .pull figcaption img { width:34px; height:34px; border-radius:50%; object-fit:cover; flex:none; }
+    .pull figcaption b { font-size:13.5px; font-weight:700; display:block; }
+    .pull figcaption span { font-size:12px; color:var(--ink-4); display:block; }
+
+    .expand { margin-top:14px; font-size:13px; font-weight:700; color:var(--red); display:inline-flex; gap:7px; align-items:center; }
+    .expand svg { width:14px; height:14px; transition:transform .2s ease; }
+    details[open] .expand svg { transform:rotate(90deg); }
+    details > summary { list-style:none; cursor:pointer; }
+    details > summary::-webkit-details-marker { display:none; }
+    .full-text { font-size:15px; line-height:1.68; color:var(--ink-3); margin-top:18px;
+                 padding-left:18px; border-left:2px solid var(--line-2); }
+
+    /* --------------------------------------------------------------- APP */
+    .app-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,260px); gap:clamp(30px,5vw,72px); align-items:center; }
+    @media (max-width:820px) { .app-row { grid-template-columns:1fr; } .app-shot { order:-1; max-width:220px; } }
+    .app-shot img { width:100%; border-radius:14px; }
+    .app-step { display:grid; grid-template-columns:auto 1fr; gap:20px; padding:26px 0; border-top:1px solid var(--line); }
+    .app-step:first-child { border-top:2px solid var(--ink); }
+    .app-step .n { font-family:'Gilroy',sans-serif; font-weight:700; font-size:13px; color:var(--red); padding-top:.35em; }
+    .app-step h3 { font-family:'Gilroy',sans-serif; font-weight:700; font-size:clamp(18px,1.9vw,22px); letter-spacing:-.015em; margin-bottom:8px; }
+    .app-step p { font-size:15px; color:var(--ink-3); line-height:1.6; }
+
+    /* ----------------------------------------------------------- TRAINERS
+       A row of portraits that scrolls by finger on a phone and sits as a
+       grid on a desktop. No arrows, no dots, no auto-advance pulling a face
+       away mid-read. */
+    /* minmax(0,1fr), not 1fr: a plain 1fr track refuses to shrink below the
+       intrinsic width of the portrait inside it, so four 300px images would
+       push the row wider than the column it sits in. */
+    .faces { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(14px,2vw,26px); }
+    @media (max-width:1000px) { .faces { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+    @media (max-width:680px) {
+      .faces { display:flex; overflow-x:auto; scroll-snap-type:x mandatory;
+               gap:14px; margin-inline:calc(var(--gut) * -1); padding-inline:var(--gut) ;
+               scrollbar-width:none; }
+      .faces::-webkit-scrollbar { display:none; }
+      .face { flex:0 0 63%; scroll-snap-align:start; }
+    }
+    .face img { width:100%; aspect-ratio:1; object-fit:cover; filter:grayscale(1); transition:filter .3s ease; background:var(--bg-2); }
+    .face:hover img { filter:none; }
+    .face h3 { font-size:15.5px; font-weight:700; margin-top:14px; letter-spacing:-.01em; }
+    .face p { font-size:12.5px; color:var(--ink-3); margin-top:3px; line-height:1.4; }
+
+    /* --------------------------------------------------------------- PRESS */
+    .press { display:flex; flex-wrap:wrap; align-items:center; gap:clamp(24px,4vw,56px); }
+    .press img { height:26px; width:auto; object-fit:contain; opacity:.5; filter:grayscale(1);
+                 transition:opacity .22s ease, filter .22s ease; }
+    .press img:hover { opacity:1; filter:none; }
+
+    /* -------------------------------------------------------------- CITIES */
+    .cities { display:flex; flex-wrap:wrap; gap:9px; }
+    .cities a {
+      border:1px solid var(--line-2); border-radius:999px; padding:9px 18px;
+      font-size:14px; font-weight:600; background:var(--paper);
+      transition:border-color .2s ease, color .2s ease;
+    }
+    .cities a:hover { border-color:var(--red); color:var(--red); }
+
+    /* ----------------------------------------------------------- CLOSING */
+    .close { background:var(--black); color:#fff; padding:clamp(64px,8vw,112px) 0; text-align:center; }
+    .close h2 { font-family:'Gilroy',sans-serif; font-weight:700; letter-spacing:-.025em;
+                font-size:clamp(30px,5.6vw,68px); line-height:1.04; max-width:16ch; margin:0 auto; }
+    .close p { color:rgba(255,255,255,.6); font-size:16px; margin:22px auto 0; max-width:52ch; }
+    .close-actions { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-top:34px; }
+    .close-meta { margin-top:44px; padding-top:28px; border-top:1px solid rgba(255,255,255,.16);
+                  display:flex; flex-wrap:wrap; gap:14px 36px; justify-content:center;
+                  font-size:14px; color:rgba(255,255,255,.72); }
+    .close-meta a { display:inline-flex; align-items:center; gap:9px; font-weight:600; }
+    .close-meta a:hover { color:#fff; }
+    .close-meta svg { width:16px; height:16px; color:var(--red); }
+
+    /* --------------------------------------------------------------- FOOT */
+    .foot { background:var(--bg-2); padding:clamp(48px,6vw,80px) 0 0; border-top:1px solid var(--line); }
+    .foot-cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:36px 28px; }
+    .foot-col h2 { font-size:11px; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+                   color:var(--ink-4); margin-bottom:16px; }
+    .foot-col a { display:block; font-size:14px; color:var(--ink-2); padding:5px 0; transition:color .18s ease; }
+    .foot-col a:hover { color:var(--red); }
+    .foot-bar { margin-top:clamp(40px,5vw,64px); border-top:1px solid var(--line); padding:26px 0;
+                display:flex; flex-wrap:wrap; gap:18px; align-items:center; justify-content:space-between; }
+    .foot-social { display:flex; gap:14px; }
+    .foot-social a { color:var(--ink-4); transition:color .2s ease; }
+    .foot-social a:hover { color:var(--red); }
+    .foot-social svg { width:20px; height:20px; }
+    .foot-copy { font-size:12px; color:var(--ink-4); padding-bottom:calc(26px + env(safe-area-inset-bottom,0px)); }
+    .foot-addr { font-size:13px; color:var(--ink-3); max-width:44ch; }
+
+    /* ------------------------------------------------------------- RAIL
+       A sticky chapter index. It is the reason the numbering exists: on a
+       long page a reader wants to know how much is left and to jump. Hidden
+       below 1240px, where there is no margin to put it in. */
+    /* 1600px, not 1420: the shell is 1280 wide and centred, so at 1440 there
+       are only 80px of margin either side and the rail would print straight
+       through the first line of the H1. It appears only when there is real
+       margin to live in. */
+    .rail { display:none; }
+    @media (min-width:1600px) {
+      .rail {
+        display:block; position:fixed; left:28px; top:50%; transform:translateY(-50%); z-index:40;
+      }
+      .rail a {
+        display:flex; align-items:center; gap:10px; padding:7px 0;
+        font-size:11px; font-weight:600; letter-spacing:.07em; text-transform:uppercase;
+        color:var(--ink-4); transition:color .2s ease;
+      }
+      .rail a::before { content:''; width:16px; height:1px; background:var(--line-2); transition:width .22s ease, background .22s ease; }
+      .rail a:hover, .rail a.on { color:var(--ink); }
+      .rail a.on::before { width:30px; background:var(--red); }
+      .rail.on-dark a { color:rgba(255,255,255,.55); }
+      .rail.on-dark a:hover, .rail.on-dark a.on { color:#fff; }
+    }
+
+    /* ---------------------------------------------------- MOBILE ACTION BAR
+       On a phone the two things a hospitality buyer actually does are call
+       and WhatsApp. On the live site both are a scroll away; here they are
+       always one thumb-reach away. */
+    .thumb { display:none; }
+    @media (max-width:760px) {
+      .thumb {
+        display:grid; grid-template-columns:1fr 1fr; gap:1px;
+        position:fixed; left:0; right:0; bottom:0; z-index:70;
+        background:var(--line); border-top:1px solid var(--line);
+        padding-bottom:env(safe-area-inset-bottom, 0px);
+      }
+      .thumb a { background:var(--bg); display:flex; align-items:center; justify-content:center; gap:9px;
+                 padding:15px 8px; font-size:14px; font-weight:700; }
+      .thumb a.primary { background:var(--red); color:#fff; }
+      .thumb svg { width:17px; height:17px; }
+      body { padding-bottom:64px; }
+    }
+
+    /* reveal-on-scroll, off entirely for reduced motion */
+    .rise { opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+    .rise.seen { opacity:1; transform:none; }
+    @media (prefers-reduced-motion:reduce) { .rise { opacity:1; transform:none; transition:none; } }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================ MASTHEAD ============================ -->
+  <header class="mast">
+    <div class="mast-in">
+      <a href="../index.html" class="mast-logo" aria-label="HTI India, home">
+        <img src="../images/brand/hti-logo-nav.webp" width="240" height="182" alt="HTI India" fetchpriority="high" />
+      </a>
+      <button class="mast-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mastnav"><span></span></button>
+      <nav class="mast-nav" id="mastnav" aria-label="Main">
+        <a href="#programmes">Programmes</a>
+        <a href="#method">Method</a>
+        <a href="#proof">Proof</a>
+        <a href="#app">The app</a>
+        <a href="#trainers">Trainers</a>
+        <a class="mast-tel" href="tel:+917738060902" data-icon="phone"><span>+91 77380 60902</span></a>
+        <a href="../contact.html" class="mast-cta">Book a call</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- chapter index, desktop only -->
+  <nav class="rail" id="rail" aria-label="Sections">
+    <a href="#programmes" data-r="programmes">01 Programmes</a>
+    <a href="#method"     data-r="method">02 Method</a>
+    <a href="#proof"      data-r="proof">03 Proof</a>
+    <a href="#app"        data-r="app">04 Tracking</a>
+    <a href="#trainers"   data-r="trainers">05 Trainers</a>
+    <a href="#reach"      data-r="reach">06 Reach</a>
+  </nav>
+
+  <main>
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero shell">
+      <p class="hero-eyebrow">Hospitality training since 2002 &middot; Navi Mumbai</p>
+      <h1 class="display">Train your staff in ways to
+        <span class="tail" id="tail"></span><span class="caret" aria-hidden="true"></span>
+      </h1>
+      <div class="hero-body">
+        <div>
+          <h2 class="hero-sub">Hospitality businesses use HTI to train, monitor progress and certify their front-end personnel.</h2>
+          <p class="hero-note">And oh &mdash; we have conducted trainings in <em>13 different languages.</em></p>
+        </div>
+        <div class="hero-actions">
+          <a href="../contact.html" class="btn btn-solid">Speak with our team</a>
+          <a href="../training-needs-survey.html" class="btn btn-line">Take the free survey</a>
+        </div>
+      </div>
+      <div class="ledger" id="ledger"></div>
+    </section>
+
+    <!-- ========================== 01 PROGRAMMES ========================== -->
+    <section class="sec shell" id="programmes">
+      <div class="sec-head">
+        <div class="sec-num">01</div>
+        <div>
+          <h2>Fifteen programmes, sorted by the room they are run in.</h2>
+          <p>Every one is delivered in person, at your property, by a trainer who speaks the language your team works in. Pick the room, then the role.</p>
+        </div>
+      </div>
+
+      <div class="tabs" role="tablist" aria-label="Choose a venue" id="tabs"></div>
+      <div id="proglist"></div>
+
+      <div class="prog-foot">
+        <a href="../training-by-role.html">Find training by role <span data-icon="arrow"></span></a>
+        <a href="../hospitality-training-programs.html">See every programme <span data-icon="arrow"></span></a>
+      </div>
+    </section>
+
+    <!-- ============================ 02 METHOD ============================ -->
+    <section class="dark" id="method">
+      <div class="shell">
+        <div class="sec-head">
+          <div class="sec-num">02</div>
+          <div>
+            <h2>We work closely with our partner brands to co-create training that perfects operations.</h2>
+            <p>Nothing here is a slide deck read aloud. Sessions are built from the situations your team hits on a Friday night.</p>
+          </div>
+        </div>
+
+        <div class="method">
+          <div class="method-media">
+            <video autoplay muted loop playsinline poster="../video/hero-poster.jpg"
+                   aria-label="HTI trainers running a session on site">
+              <source src="../video/hero.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div id="methodnotes"></div>
+        </div>
+
+        <div class="dark-rule">
+          <p class="wall-label">Leaders in hospitality and service who have trusted HTI</p>
+          <div class="wall" id="wall"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= 03 PROOF ============================= -->
+    <section class="sec shell" id="proof">
+      <div class="sec-head">
+        <div class="sec-num">03</div>
+        <div>
+          <h2>Here&rsquo;s what they said.</h2>
+          <p>Operators, principals and HR heads who brought HTI into their own buildings.</p>
+        </div>
+      </div>
+      <div id="leadquote"></div>
+      <div class="pulls" id="pulls"></div>
+    </section>
+
+    <!-- ============================== 04 APP ============================== -->
+    <section class="sec shell" id="app">
+      <div class="sec-head">
+        <div class="sec-num">04</div>
+        <div>
+          <h2>Track participant progress.</h2>
+          <p>We built an application that lets you track and monitor your staff through a programme, so training stops being a thing you hope worked.</p>
+        </div>
+      </div>
+      <div class="app-row">
+        <div id="appsteps"></div>
+        <div class="app-shot">
+          <img src="../images/app/star-mobile-view.png" width="1080" height="1920" loading="lazy" decoding="async"
+               alt="The Training Tsunami app showing a participant progress report" />
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================== 05 TRAINERS =========================== -->
+    <section class="sec shell" id="trainers">
+      <div class="sec-head">
+        <div class="sec-num">05</div>
+        <div>
+          <h2>The people who run the sessions.</h2>
+          <p>Not a roster of freelancers. These are the faces your team will see in the room.</p>
+        </div>
+      </div>
+      <div class="faces" id="faces"></div>
+      <div class="prog-foot">
+        <a href="../trainers.html">Meet all our trainers <span data-icon="arrow"></span></a>
+      </div>
+    </section>
+
+    <!-- ============================ 06 REACH ============================ -->
+    <section class="sec shell" id="reach">
+      <div class="sec-head">
+        <div class="sec-num">06</div>
+        <div>
+          <h2>Hospitality training, city by city.</h2>
+          <p id="cityintro"></p>
+        </div>
+      </div>
+      <div class="cities" id="cities"></div>
+
+      <div style="margin-top:clamp(44px,6vw,72px);padding-top:clamp(32px,4vw,44px);border-top:1px solid var(--line)">
+        <p class="wall-label" style="color:var(--ink-4)">Featured in</p>
+        <div class="press" id="press"></div>
+      </div>
+
+      <div style="margin-top:clamp(44px,6vw,72px);padding-top:clamp(32px,4vw,44px);border-top:1px solid var(--line)">
+        <p class="wall-label" style="color:var(--ink-4)">Also from HTI</p>
+        <div class="more-grid" id="more"></div>
+      </div>
+    </section>
+
+    <!-- ============================= CLOSING ============================= -->
+    <section class="close">
+      <div class="shell">
+        <h2>Let&rsquo;s find the right training plan for your team.</h2>
+        <p>Fifteen questions, three minutes &mdash; and we send back a plan built for your team, not a brochure.</p>
+        <div class="close-actions">
+          <a href="../contact.html" class="btn btn-solid">Let&rsquo;s chat</a>
+          <a href="../training-needs-survey.html" class="btn btn-invert">Take the training needs survey</a>
+        </div>
+        <div class="close-meta">
+          <a href="tel:+917738060902" data-icon="phone"><span>+91 77380 60902</span></a>
+          <a href="https://wa.me/917738060902" target="_blank" rel="noopener" data-icon="whatsapp"><span>WhatsApp us</span></a>
+          <a href="mailto:kaushal@hti-india.com"><span>kaushal@hti-india.com</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="foot">
+    <div class="shell">
+      <div class="foot-cols" id="footcols"></div>
+      <div class="foot-bar">
+        <p class="foot-addr" id="footaddr"></p>
+        <div class="foot-social" id="footsocial"></div>
+      </div>
+      <p class="foot-copy">&copy; Hospitality Training Institute India Private Limited. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- phone-only action bar -->
+  <div class="thumb">
+    <a href="https://wa.me/917738060902" target="_blank" rel="noopener" data-icon="whatsapp"><span>WhatsApp</span></a>
+    <a href="../contact.html" class="primary">Book a call</a>
+  </div>
+
+  <script src="hti-data.js"></script>
+  <script>
+  (function () {
+    const D = window.HTI;
+    const $  = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+    const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+    /* icons are declared with data-icon so the markup above stays readable */
+    $$('[data-icon]').forEach(el => {
+      const svg = D.icons[el.dataset.icon];
+      if (svg) el.insertAdjacentHTML('afterbegin', svg);
+    });
+
+    /* ---------- hero: the rotating tail of the H1 ----------------------
+       The static half of the H1 carries the keyword and is in the HTML, so
+       a crawler reading the document with no JS still gets a correct,
+       complete heading. Only the flourish is scripted. */
+    (function () {
+      const el = $('#tail'), words = D.hero.rotate;
+      if (!el) return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = words[0]; return; }
+      let w = 0, c = 0, del = false;
+      (function tick () {
+        const word = words[w];
+        if (!del) {
+          el.textContent = word.slice(0, ++c);
+          if (c === word.length) { del = true; return setTimeout(tick, 1600); }
+        } else {
+          el.textContent = word.slice(0, --c);
+          if (c === 0) { del = false; w = (w + 1) % words.length; return setTimeout(tick, 320); }
+        }
+        setTimeout(tick, del ? 40 : 75);
+      })();
+    })();
+
+    /* ---------- the numbers strip ---------- */
+    $('#ledger').innerHTML = D.stats
+      .map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join('');
+
+    /* ---------- programmes, tabbed by venue --------------------------
+       All fifteen rows are written into the DOM for every venue and the
+       inactive ones are hidden, rather than built on click: a crawler and a
+       reader with JS off then still see every programme link. */
+    (function () {
+      const tabs = $('#tabs'), list = $('#proglist');
+
+      tabs.innerHTML = D.venues.map((v, i) => `
+        <button role="tab" id="tab-${v.key}" aria-controls="panel-${v.key}"
+                aria-selected="${i === 0}" data-venue="${v.key}">
+          ${esc(v.label)}<span class="count">${D.programmes.filter(p => p.venue === v.key).length}</span>
+        </button>`).join('');
+
+      list.innerHTML = D.venues.map((v, i) => {
+        const mine = D.programmes.filter(p => p.venue === v.key);
+        const groups = [...new Set(mine.map(p => p.group))];
+        const rows = groups.map(g => `
+          <p class="prog-group">${esc(g)}</p>
+          ${mine.filter(p => p.group === g).map(p => `
+            <a class="prog-row" href="${p.href}">
+              <span class="prog-code">${esc(p.code)}</span>
+              <span class="prog-who">${esc(p.who)}</span>
+              <span class="prog-line">${esc(p.line)}</span>
+              <span class="prog-go" aria-hidden="true">${D.icons.arrow}</span>
+            </a>`).join('')}`).join('');
+        return `<div role="tabpanel" id="panel-${v.key}" aria-labelledby="tab-${v.key}"
+                     data-panel="${v.key}" ${i ? 'hidden' : ''}>
+                  ${rows}
+                  <!-- the label is used as written: lower-casing it turns
+                       "Restaurants & QSRs" into "restaurants & qsrs" -->
+                  <p class="prog-foot"><a href="${v.href}">Everything for ${esc(v.label)} ${D.icons.arrow}</a></p>
+                </div>`;
+      }).join('');
+
+      function select (key) {
+        $$('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.venue === key));
+        $$('#proglist [data-panel]').forEach(p => { p.hidden = p.dataset.panel !== key; });
+      }
+      tabs.addEventListener('click', e => {
+        const b = e.target.closest('button[data-venue]');
+        if (b) select(b.dataset.venue);
+      });
+      /* left/right arrows move between tabs, which is what a tablist owes a
+         keyboard user */
+      tabs.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        const btns = $$('#tabs button');
+        const i = btns.findIndex(b => b.getAttribute('aria-selected') === 'true');
+        const n = (i + (e.key === 'ArrowRight' ? 1 : -1) + btns.length) % btns.length;
+        e.preventDefault(); select(btns[n].dataset.venue); btns[n].focus();
+      });
+    })();
+
+    /* ---------- method notes ---------- */
+    $('#methodnotes').innerHTML = D.why.map(w => `
+      <div class="method-note">
+        <img src="${w.icon}" width="34" height="34" alt="" loading="lazy" decoding="async">
+        <div><h3>${esc(w.title)}</h3><p>${esc(w.text)}</p></div>
+      </div>`).join('');
+
+    /* ---------- white-on-black client wall ---------- */
+    $('#wall').innerHTML = D.clientsWhite.map(([src, name]) =>
+      `<div class="wall-cell"><img src="${src}" alt="${esc(name)}" loading="lazy" decoding="async"></div>`).join('');
+
+    /* ---------- proof ------------------------------------------------
+       The longest testimonial leads at display size; the remaining six run
+       as pulls, each able to open to the full text. Every word of every
+       review is in the DOM, so nothing that was on the live page is lost —
+       it is only folded. */
+    (function () {
+      const lead = D.testimonials[1];          // Rukshana — the fullest account
+      const rest = D.testimonials.filter(t => t !== lead);
+
+      $('#leadquote').innerHTML = `
+        <figure class="lead-quote">
+          <div class="mark" aria-hidden="true">&ldquo;</div>
+          <div>
+            <blockquote><p>${esc(lead.short)}</p></blockquote>
+            <figcaption class="quote-by">
+              <img src="${lead.img}" width="48" height="48" alt="" loading="lazy" decoding="async">
+              <div><b>${esc(lead.name)}</b><span>${esc(lead.role)}, ${esc(lead.org)}</span></div>
+              <a href="${D.brand.social[2][1]}" target="_blank" rel="noopener"
+                 aria-label="HTI India on LinkedIn">${D.icons.linkedin}</a>
+            </figcaption>
+            <details>
+              <summary class="expand">Read the full account ${D.icons.arrow}</summary>
+              <p class="full-text">${esc(lead.text)}</p>
+            </details>
+          </div>
+        </figure>`;
+
+      $('#pulls').innerHTML = rest.map(t => `
+        <figure class="pull">
+          <blockquote><p>${esc(t.short)}</p></blockquote>
+          <figcaption>
+            <img src="${t.img}" width="34" height="34" alt="" loading="lazy" decoding="async">
+            <div><b>${esc(t.name)}</b><span>${esc(t.role)}, ${esc(t.org)}</span></div>
+          </figcaption>
+          <details>
+            <summary class="expand">Full review ${D.icons.arrow}</summary>
+            <p class="full-text">${esc(t.text)}</p>
+          </details>
+        </figure>`).join('');
+    })();
+
+    /* ---------- app steps ---------- */
+    $('#appsteps').innerHTML = D.app.steps.map((s, i) => `
+      <div class="app-step">
+        <span class="n">0${i + 1}</span>
+        <div><h3>${esc(s.title)}</h3><p>${esc(s.text)}</p></div>
+      </div>`).join('');
+
+    /* ---------- trainers ---------- */
+    $('#faces').innerHTML = D.trainers.slice(0, 8).map(t => `
+      <a class="face" href="${t.href}">
+        <img src="${t.img}" width="300" height="300" loading="lazy" decoding="async"
+             alt="${esc(t.name)}, ${esc(t.role)}">
+        <h3>${esc(t.name)}</h3><p>${esc(t.role)}</p>
+      </a>`).join('');
+
+    /* ---------- cities, press, more ---------- */
+    $('#cityintro').textContent = D.cityIntro;
+    $('#cities').innerHTML = D.cities.map(([n, h]) =>
+      `<a href="${h}">Hospitality training in ${esc(n)}</a>`).join('');
+    $('#press').innerHTML = D.press.map(([src, name]) =>
+      `<img src="${src}" alt="${esc(name)}" loading="lazy" decoding="async">`).join('');
+    $('#more').innerHTML = D.more.map(m =>
+      `<a href="${m.href}"${m.external ? ' target="_blank" rel="noopener"' : ''}>
+         <b>${esc(m.label)}</b><span>${esc(m.line)}</span></a>`).join('') +
+      D.tools.map(m => `<a href="${m.href}"><b>${esc(m.label)}</b><span>${esc(m.line)}</span></a>`).join('');
+
+    /* ---------- footer ---------- */
+    $('#footcols').innerHTML = D.footer.map(c => `
+      <div class="foot-col"><h2>${esc(c.head)}</h2>
+        ${c.links.map(([l, h]) => `<a href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${esc(l)}</a>`).join('')}
+      </div>`).join('');
+    $('#footaddr').textContent = D.brand.address;
+    $('#footsocial').innerHTML = D.brand.social.map(([name, href]) =>
+      `<a href="${href}" target="_blank" rel="noopener" aria-label="${esc(name)}">${D.icons[name.toLowerCase()]}</a>`).join('');
+
+    /* ---------- burger ---------- */
+    $('#burger').addEventListener('click', function () {
+      const open = $('#mastnav').classList.toggle('open');
+      this.setAttribute('aria-expanded', open);
+    });
+    $$('#mastnav a').forEach(a => a.addEventListener('click', () => {
+      $('#mastnav').classList.remove('open');
+      $('#burger').setAttribute('aria-expanded', 'false');
+    }));
+
+    /* ---------- rail: which chapter am I in ---------- */
+    (function () {
+      const rail = $('#rail'), links = $$('#rail a');
+      if (!links.length) return;
+      const secs = links.map(a => document.getElementById(a.dataset.r)).filter(Boolean);
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          links.forEach(a => a.classList.toggle('on', a.dataset.r === en.target.id));
+          // the rail sits over a black band for chapter 02, so it inverts
+          rail.classList.toggle('on-dark', en.target.id === 'method');
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+      secs.forEach(s => io.observe(s));
+    })();
+
+    /* ---------- reveal ---------- */
+    (function () {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const targets = $$('.sec-head, .ledger, .method, .app-row, .faces, .lead-quote');
+      targets.forEach(t => t.classList.add('rise'));
+      const io = new IntersectionObserver((es, o) => es.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('seen'); o.unobserve(e.target); }
+      }), { rootMargin: '0px 0px -12% 0px' });
+      targets.forEach(t => io.observe(t));
+    })();
+  })();
+  </script>
+</body>
+
+</html>

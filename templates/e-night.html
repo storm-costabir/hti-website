@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Template E — Night Service | HTI India layout test</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="icon" href="../images/brand/hti-favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin />
+  <style>
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:300; font-display:swap;
+      src:local('Gilroy-Light'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Light.woff') format('woff'); }
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:500; font-display:swap;
+      src:local('Gilroy-Medium'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Medium.woff') format('woff'); }
+    @font-face { font-family:'Gilroy'; font-style:normal; font-weight:700; font-display:swap;
+      src:local('Gilroy-Bold'), url('https://fonts.cdnfonts.com/s/16219/Gilroy-Bold.woff') format('woff'); }
+  </style>
+
+  <style>
+    /* =====================================================================
+       TEMPLATE E — "NIGHT SERVICE"
+       ---------------------------------------------------------------------
+       WHY THIS ONE, IN PLAIN TERMS
+       Hospitality is bought on atmosphere, and a restaurant floor at service
+       is dark. On a dark ground there is far less competing for the eye, so
+       whatever is lit gets looked at — here that is the client logos, the
+       faces, and the red button. Attention concentrates instead of spreading.
+
+       The second colour is a warm amber, the colour of the light in a dining
+       room. It carries labels and structure so the red never has to do two
+       jobs: amber means "this is a heading", red means "you can click this".
+
+       Body text is set slightly larger and lighter-weight than on a light
+       page, because white-on-black gains apparent weight and a normal setting
+       reads as noisy.
+
+       STRUCTURE (new — not the editorial/bento/cinematic ones you saw)
+       A fixed left rail carries the navigation, the phone number and the
+       booking button for the whole page, so the way to get in touch never
+       scrolls away. Content runs in the column beside it. On a phone the rail
+       becomes a top bar plus a bottom action bar.
+       ===================================================================== */
+
+    :root {
+      /* ---- grounds ---- */
+      --bg:      #0A0A0B;   /* page */
+      --bg-2:    #0F0F11;   /* rail */
+      --surface: #16161A;   /* cards */
+      --surface-2:#1E1E23;  /* raised */
+
+      /* ---- type ---- */
+      --text:    #F2F2F0;
+      --text-2:  rgba(242,242,240,.68);
+      --text-3:  rgba(242,242,240,.46);
+
+      /* ---- brand ----
+         #E31E24 sits at about 4.1:1 on this ground, which is fine for large
+         type and fills but short for body-size text. The lifted red is used
+         wherever red has to be read small. */
+      --red:     #E31E24;
+      --red-up:  #FF4A4F;
+      --red-dim: rgba(227,30,36,.16);
+
+      /* ---- amber, the added colour ---- */
+      --amber:   #E8A33D;
+      --amber-dim: rgba(232,163,61,.14);
+
+      --line:    rgba(242,242,240,.12);
+      --line-2:  rgba(242,242,240,.22);
+
+      --rail: 268px;
+      --gut: clamp(20px, 4vw, 56px);
+      --col: 1120px;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:32px; }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+
+    body {
+      font-family:'Montserrat', system-ui, sans-serif;
+      background:var(--bg); color:var(--text-2);
+      -webkit-font-smoothing:antialiased; overflow-x:hidden;
+      font-size:16.5px; line-height:1.68; font-weight:400;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+    button, input { font:inherit; color:inherit; }
+    [hidden] { display:none !important; }
+    :focus-visible { outline:2px solid var(--amber); outline-offset:3px; border-radius:3px; }
+    .sr { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
+
+    h1, h2, h3 { color:var(--text); }
+    .display { font-family:'Gilroy','Montserrat',sans-serif; font-weight:700; letter-spacing:-.022em; line-height:1.05; }
+
+    .label { font-size:10.5px; font-weight:700; letter-spacing:.2em; text-transform:uppercase;
+             color:var(--amber); display:flex; align-items:center; gap:11px; }
+    .label::before { content:''; width:22px; height:1px; background:var(--amber); flex:none; opacity:.7; }
+
+    /* ------------------------------------------------------------- BUTTONS */
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px;
+           font-size:14.5px; font-weight:700; padding:15px 26px; border-radius:6px;
+           transition:background .2s ease, border-color .2s ease, color .2s ease; }
+    .btn svg { width:16px; height:16px; }
+    .btn-red { background:var(--red); color:#fff;
+               box-shadow:0 10px 30px -14px rgba(227,30,36,.9); }
+    .btn-red:hover { background:#F5343A; }
+    .btn-line { border:1px solid var(--line-2); color:var(--text); }
+    .btn-line:hover { border-color:var(--amber); color:var(--amber); }
+
+    /* ---------------------------------------------------------------- RAIL
+       Fixed for the life of the page. Booking is always one click away,
+       which is the whole reason the layout gives up 268px to it. */
+    .rail {
+      position:fixed; inset:0 auto 0 0; width:var(--rail); z-index:60;
+      background:var(--bg-2); border-right:1px solid var(--line);
+      display:flex; flex-direction:column; gap:26px;
+      padding:30px 26px calc(26px + env(safe-area-inset-bottom,0px));
+      padding-top:calc(30px + env(safe-area-inset-top,0px));
+      overflow-y:auto;
+    }
+    .rail-logo img { width:88px; height:auto; filter:brightness(0) invert(1); }
+    .rail nav { display:flex; flex-direction:column; gap:2px; }
+    .rail nav a {
+      font-size:14px; font-weight:500; color:var(--text-2);
+      padding:10px 12px; border-radius:6px; display:flex; align-items:center; gap:11px;
+      transition:background .18s ease, color .18s ease;
+    }
+    .rail nav a::before { content:''; width:5px; height:5px; border-radius:50%;
+                          background:var(--line-2); flex:none; transition:background .18s ease; }
+    .rail nav a:hover { background:var(--surface); color:var(--text); }
+    .rail nav a.on { background:var(--surface); color:var(--text); }
+    .rail nav a.on::before { background:var(--amber); }
+    .rail-foot { margin-top:auto; display:flex; flex-direction:column; gap:12px; }
+    .rail-tel { font-size:14px; font-weight:700; color:var(--text);
+                display:inline-flex; align-items:center; gap:9px; }
+    .rail-tel svg { width:15px; height:15px; color:var(--amber); }
+    .rail-wa { font-size:13px; color:var(--text-3); display:inline-flex; align-items:center; gap:9px; }
+    .rail-wa svg { width:14px; height:14px; }
+    .rail-wa:hover { color:var(--text-2); }
+
+    .page { margin-left:var(--rail); }
+    .shell { max-width:var(--col); margin:0 auto; padding-inline:var(--gut); }
+
+    /* phone: the rail becomes a top bar and the bottom action bar */
+    .topbar { display:none; }
+    @media (max-width:1080px) {
+      .rail { display:none; }
+      .page { margin-left:0; }
+      .topbar {
+        display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:70;
+        background:rgba(10,10,11,.92); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+        border-bottom:1px solid var(--line);
+        padding:0 var(--gut); height:64px; padding-top:env(safe-area-inset-top,0px);
+      }
+      .topbar img { width:76px; height:auto; filter:brightness(0) invert(1); }
+      .topbar .tb-menu { margin-left:auto; width:42px; height:42px; display:grid; place-items:center;
+                         background:none; border:0; cursor:pointer; }
+      .topbar .tb-menu span { display:block; width:19px; height:1.5px; background:var(--text); position:relative; }
+      .topbar .tb-menu span::before, .topbar .tb-menu span::after {
+        content:''; position:absolute; left:0; width:19px; height:1.5px; background:var(--text); }
+      .topbar .tb-menu span::before { top:-6px; } .topbar .tb-menu span::after { top:6px; }
+      .tb-nav { display:none; position:absolute; left:0; right:0; top:100%;
+                background:var(--bg-2); border-bottom:1px solid var(--line);
+                flex-direction:column; padding:8px var(--gut) 20px; }
+      .tb-nav.open { display:flex; }
+      .tb-nav a { padding:14px 0; border-bottom:1px solid var(--line); font-size:16px; color:var(--text-2); }
+      body { padding-bottom:78px; }
+    }
+
+    /* ---------------------------------------------------------------- HERO
+       The live homepage's hero, kept — headline and typing tail left, two
+       scrolling logo columns right, two CTAs. The logo plates are raised
+       surfaces here and the logos are the reversed-out cuts, so the brands
+       read white out of the dark. */
+    .hero { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+            gap:clamp(26px,4vw,56px); align-items:center;
+            padding-block:clamp(40px,6vw,78px) clamp(40px,5.5vw,70px); }
+    .hero h1 { font-size:clamp(32px,3.9vw,54px); margin:22px 0 0; max-width:15ch; }
+    .hero h1 .tail { color:var(--amber); }
+    .hero h1 .caret { display:inline-block; width:.05em; height:.78em; background:var(--red-up);
+                      vertical-align:-.05em; margin-left:.05em; animation:blink 1.05s steps(1) infinite; }
+    @keyframes blink { 50% { opacity:0; } }
+    .hero h2 { font-size:clamp(15.5px,1.4vw,18px); font-weight:400; color:var(--text-2);
+               margin-top:20px; max-width:46ch; }
+    .hero .lang { font-size:13.5px; color:var(--text-3); margin-top:11px; }
+    .hero .lang em { font-style:normal; color:var(--amber); font-weight:600; }
+    .hero .ctas { display:flex; flex-wrap:wrap; gap:11px; margin-top:28px; }
+
+    .walls { display:grid; grid-template-columns:1fr 1fr; gap:12px;
+             max-width:430px; margin-inline:auto;
+             height:clamp(380px,52vw,520px); overflow:hidden;
+             -webkit-mask-image:linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+                     mask-image:linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%); }
+    .wall { overflow:hidden; }
+    .wall-in { display:grid; gap:12px; animation:rollUp 46s linear infinite; }
+    .wall-in.down { animation-name:rollDown; }
+    @keyframes rollUp   { from { transform:translateY(0); }    to { transform:translateY(-50%); } }
+    @keyframes rollDown { from { transform:translateY(-50%); } to { transform:translateY(0); } }
+    .walls:hover .wall-in { animation-play-state:paused; }
+    @media (prefers-reduced-motion:reduce) { .wall-in { animation:none; } .hero h1 .caret { animation:none; } }
+    .wall-in > div { background:var(--surface); border:1px solid var(--line); border-radius:8px;
+                     aspect-ratio:136/64; display:grid; place-items:center; padding:15px; }
+    .wall-in img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; opacity:.8; }
+    @media (max-width:900px) { .hero { grid-template-columns:1fr; gap:32px; } .walls { height:290px; } }
+
+    /* --------------------------------------------------------------- STATS */
+    .stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1px;
+             background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+    @media (max-width:720px) { .stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+    .stats div { background:var(--bg-2); padding:22px 20px; }
+    .stats b { font-family:'Gilroy',sans-serif; font-weight:700; font-size:clamp(21px,2.3vw,30px);
+               letter-spacing:-.025em; line-height:1; display:block; color:var(--text); }
+    .stats span { display:block; margin-top:8px; font-size:10.5px; font-weight:600; letter-spacing:.1em;
+                  text-transform:uppercase; color:var(--text-3); line-height:1.4; }
+
+    /* ------------------------------------------------------------ SECTIONS */
+    .sec { padding-block:clamp(52px,7vw,96px); }
+    .sec-head { max-width:62ch; }
+    .sec-head h2 { font-family:'Gilroy',sans-serif; font-weight:700; letter-spacing:-.024em;
+                   font-size:clamp(26px,3.2vw,42px); line-height:1.08; margin-top:18px; }
+    .sec-head p { font-size:16px; color:var(--text-2); margin-top:15px; }
+    .sec-top { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:18px 30px; }
+    .sec-top .more { font-size:14px; font-weight:700; color:var(--red-up);
+                     display:inline-flex; align-items:center; gap:8px; white-space:nowrap; }
+    .sec-top .more svg { width:15px; height:15px; transition:transform .2s ease; }
+    .sec-top .more:hover svg { transform:translateX(4px); }
+
+    /* ---------------------------------------------------------- PROGRAMMES */
+    .pills { display:flex; flex-wrap:wrap; gap:8px; margin:clamp(24px,3vw,34px) 0 clamp(16px,2vw,22px); }
+    .pills button { background:var(--surface); border:1px solid var(--line); color:var(--text-2);
+                    border-radius:999px; padding:10px 20px; font-size:13.5px; font-weight:600; cursor:pointer;
+                    transition:background .18s, color .18s, border-color .18s; }
+    .pills button:hover { border-color:var(--line-2); color:var(--text); }
+    .pills button[aria-selected="true"] { background:var(--amber); border-color:var(--amber); color:#14100A; }
+    .pills .n { font-size:11px; opacity:.65; margin-left:6px; }
+
+    .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(268px,1fr)); gap:clamp(12px,1.5vw,16px); }
+    .card {
+      background:var(--surface); border:1px solid var(--line); border-radius:12px;
+      padding:24px; display:flex; flex-direction:column; gap:9px; min-height:196px;
+      transition:border-color .22s ease, background .22s ease, transform .22s ease;
+    }
+    .card:hover { border-color:rgba(232,163,61,.5); background:var(--surface-2); transform:translateY(-3px); }
+    @media (prefers-reduced-motion:reduce) { .card:hover { transform:none; } }
+    .card .grp { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--amber); }
+    .card .code { font-family:'Gilroy',sans-serif; font-weight:700; font-size:23px; letter-spacing:-.022em; color:var(--text); }
+    .card .who { font-size:13px; font-weight:600; color:var(--text-2); }
+    .card .line { font-size:13.5px; color:var(--text-3); line-height:1.6; }
+    .card .go { margin-top:auto; padding-top:13px; font-size:12.5px; font-weight:700; color:var(--red-up);
+                display:inline-flex; align-items:center; gap:7px; }
+    .card .go svg { width:14px; height:14px; transition:transform .2s ease; }
+    .card:hover .go svg { transform:translateX(4px); }
+
+    .card-all { background:var(--red-dim); border-color:rgba(227,30,36,.34); }
+    .card-all:hover { background:rgba(227,30,36,.24); border-color:var(--red-up); }
+    .card-all .code { color:var(--red-up); }
+
+    /* --------------------------------------------------------------- METHOD */
+    .method { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+              gap:clamp(22px,3vw,44px); align-items:center; margin-top:clamp(26px,3.4vw,42px); }
+    @media (max-width:860px) { .method { grid-template-columns:1fr; } }
+    .method-film { border-radius:14px; overflow:hidden; aspect-ratio:4/3; background:#000;
+                   border:1px solid var(--line); }
+    .method-film video { width:100%; height:100%; object-fit:cover; display:block; }
+    .note { display:grid; grid-template-columns:auto 1fr; gap:17px; padding:22px 0; border-top:1px solid var(--line); }
+    .note:first-child { border-top:0; padding-top:0; }
+    .note .ic { width:44px; height:44px; border-radius:10px; background:var(--amber-dim);
+                display:grid; place-items:center; flex:none; }
+    .note .ic img { width:24px; height:24px; filter:invert(72%) sepia(52%) saturate(680%) hue-rotate(348deg) brightness(95%); }
+    .note h3 { font-family:'Gilroy',sans-serif; font-weight:700; font-size:19px; letter-spacing:-.016em; margin-bottom:8px; }
+    .note p { font-size:14.5px; color:var(--text-3); line-height:1.65; }
+
+    /* ---------------------------------------------------------------- PROOF */
+    .quotes { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+              gap:clamp(12px,1.5vw,16px); margin-top:clamp(26px,3.4vw,40px); }
+    .quote { background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:26px;
+             display:flex; flex-direction:column; gap:15px; }
+    .quote .mk { font-family:'Gilroy',serif; font-size:40px; line-height:.55; color:var(--amber); }
+    .quote p { font-size:15.5px; line-height:1.62; color:var(--text); font-weight:500; }
+    .quote figcaption { display:flex; align-items:center; gap:12px; margin-top:auto; padding-top:16px;
+                        border-top:1px solid var(--line); }
+    .quote figcaption img { width:42px; height:42px; border-radius:50%; object-fit:cover; flex:none; }
+    .quote figcaption b { font-size:13.5px; font-weight:700; color:var(--text); display:block; }
+    .quote figcaption span { font-size:11.5px; color:var(--text-3); display:block; line-height:1.45; }
+    .quote details summary { list-style:none; cursor:pointer; font-size:11.5px; font-weight:700;
+                             letter-spacing:.08em; text-transform:uppercase; color:var(--amber);
+                             display:inline-flex; align-items:center; gap:7px; }
+    .quote details summary::-webkit-details-marker { display:none; }
+    .quote details summary svg { width:12px; height:12px; transition:transform .2s ease; }
+    .quote details[open] summary svg { transform:rotate(90deg); }
+    .quote .full { font-size:13.5px; line-height:1.7; color:var(--text-3); margin-top:12px; }
+
+    /* ------------------------------------------------------------- TRAINERS */
+    .faces { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:clamp(12px,1.6vw,18px);
+             margin-top:clamp(26px,3.4vw,40px); }
+    .face img { width:100%; aspect-ratio:1; object-fit:cover; border-radius:12px; background:var(--surface);
+                filter:grayscale(.7) contrast(1.05) brightness(.92); transition:filter .35s ease; }
+    .face:hover img { filter:none; }
+    .face b { display:block; font-size:14.5px; font-weight:700; color:var(--text); margin-top:13px; }
+    .face span { display:block; font-size:12px; color:var(--text-3); margin-top:3px; line-height:1.45; }
+
+    /* ------------------------------------------------------------------ APP */
+    .app { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr);
+           gap:clamp(24px,3.6vw,54px); align-items:center; margin-top:clamp(26px,3.4vw,40px);
+           background:var(--surface); border:1px solid var(--line); border-radius:16px;
+           padding:clamp(22px,3vw,40px); }
+    @media (max-width:820px) { .app { grid-template-columns:1fr; } .app .shot { max-width:210px; } }
+    .app .shot img { width:100%; border-radius:14px; }
+    .app-step { padding:20px 0; border-top:1px solid var(--line); }
+    .app-step:first-child { border-top:0; padding-top:0; }
+    .app-step .n { font-family:'Gilroy',sans-serif; font-weight:700; font-size:12.5px;
+                   color:var(--amber); letter-spacing:.08em; }
+    .app-step h3 { font-family:'Gilroy',sans-serif; font-weight:700; font-size:18px;
+                   letter-spacing:-.016em; margin:9px 0 8px; }
+    .app-step p { font-size:14px; color:var(--text-3); line-height:1.65; }
+
+    /* -------------------------------------------------------- CLIENTS/PRESS */
+    .wall-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(124px,1fr)); gap:10px;
+                 margin-top:clamp(26px,3.4vw,40px); }
+    .wall-grid div { background:var(--bg-2); border:1px solid var(--line); border-radius:9px;
+                     aspect-ratio:136/64; display:grid; place-items:center; padding:13px;
+                     transition:border-color .2s ease, background .2s ease; }
+    .wall-grid div:hover { border-color:var(--line-2); background:var(--surface); }
+    .wall-grid img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain;
+                     opacity:.62; transition:opacity .22s ease; }
+    .wall-grid div:hover img { opacity:1; }
+    .pressrow { display:flex; flex-wrap:wrap; align-items:center; gap:clamp(20px,3vw,42px); margin-top:20px; }
+    .pressrow img { height:23px; width:auto; object-fit:contain; opacity:.45; filter:grayscale(1) invert(1);
+                    transition:opacity .2s; }
+    .pressrow img:hover { opacity:.9; }
+
+    /* --------------------------------------------------------------- CITIES */
+    .cities { display:flex; flex-wrap:wrap; gap:8px; margin-top:22px; }
+    .cities a { background:var(--surface); border:1px solid var(--line); border-radius:999px;
+                padding:10px 18px; font-size:13.5px; font-weight:600; color:var(--text-2);
+                transition:border-color .2s, color .2s; }
+    .cities a:hover { border-color:var(--amber); color:var(--amber); }
+
+    .also-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(216px,1fr)); gap:9px; margin-top:20px; }
+    .also-grid a { background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:14px 16px;
+                   transition:border-color .2s; }
+    .also-grid a:hover { border-color:var(--line-2); }
+    .also-grid b { display:block; font-size:13.5px; font-weight:700; color:var(--text); }
+    .also-grid span { display:block; font-size:12px; color:var(--text-3); margin-top:3px; }
+
+    /* -------------------------------------------------------------- CLOSING
+       The only place the red fills a whole block. After a page of dark
+       surfaces it is impossible to miss, which is the point. */
+    .close { background:var(--red); color:#fff; border-radius:18px;
+             padding:clamp(36px,5vw,70px); text-align:center; margin-bottom:clamp(44px,6vw,80px); }
+    .close h2 { font-family:'Gilroy',sans-serif; font-weight:700; letter-spacing:-.026em;
+                font-size:clamp(27px,4vw,50px); line-height:1.06; max-width:17ch; margin:0 auto; color:#fff; }
+    .close p { font-size:15.5px; color:rgba(255,255,255,.86); margin:18px auto 0; max-width:50ch; }
+    .close .ctas { display:flex; flex-wrap:wrap; gap:11px; justify-content:center; margin-top:28px; }
+    .btn-dark { background:#0A0A0B; color:#fff; }
+    .btn-dark:hover { background:#1E1E23; }
+    .btn-onred { border:1px solid rgba(255,255,255,.55); color:#fff; }
+    .btn-onred:hover { background:#fff; color:var(--red); border-color:#fff; }
+    .close .reach { margin-top:34px; padding-top:24px; border-top:1px solid rgba(255,255,255,.3);
+                    display:flex; flex-wrap:wrap; gap:12px 32px; justify-content:center; font-size:14px; }
+    .close .reach a { display:inline-flex; align-items:center; gap:9px; color:rgba(255,255,255,.9); font-weight:600; }
+    .close .reach a:hover { color:#fff; }
+    .close .reach svg { width:16px; height:16px; }
+
+    /* ----------------------------------------------------------------- FOOT */
+    .foot { border-top:1px solid var(--line); padding-block:clamp(40px,5vw,64px) 0; }
+    .foot-cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(166px,1fr)); gap:30px 24px; }
+    .foot-col h2 { font-size:10.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+                   color:var(--text-3); margin-bottom:14px; }
+    .foot-col a { display:block; font-size:13.5px; color:var(--text-2); padding:5px 0; transition:color .18s; }
+    .foot-col a:hover { color:var(--amber); }
+    .foot-bar { margin-top:clamp(34px,4vw,54px); border-top:1px solid var(--line); padding-block:22px;
+                display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; justify-content:space-between; }
+    .foot-addr { font-size:12.5px; color:var(--text-3); max-width:44ch; }
+    .foot-social { display:flex; gap:14px; }
+    .foot-social a { color:var(--text-3); transition:color .2s; }
+    .foot-social a:hover { color:var(--amber); }
+    .foot-social svg { width:19px; height:19px; }
+    .foot-copy { font-size:11.5px; color:var(--text-3); opacity:.7;
+                 padding-bottom:calc(24px + env(safe-area-inset-bottom,0px)); }
+
+    /* ------------------------------------------------------------ THUMB BAR */
+    .thumb { display:none; }
+    @media (max-width:1080px) {
+      .thumb { display:grid; grid-template-columns:auto 1fr; gap:9px; align-items:center;
+               position:fixed; left:12px; right:12px; bottom:calc(12px + env(safe-area-inset-bottom,0px));
+               z-index:80; background:rgba(22,22,26,.96); backdrop-filter:blur(14px);
+               border:1px solid var(--line); border-radius:999px; padding:7px 7px 7px 18px;
+               box-shadow:0 18px 40px -16px #000; }
+      .thumb .wa { color:var(--text); display:inline-flex; align-items:center; gap:8px;
+                   font-size:13.5px; font-weight:700; }
+      .thumb .wa svg { width:17px; height:17px; }
+      .thumb .bk { background:var(--red); color:#fff; border-radius:999px; padding:13px 20px;
+                   font-size:14px; font-weight:700; text-align:center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================================ RAIL ================================ -->
+  <aside class="rail">
+    <a href="../index.html" class="rail-logo" aria-label="HTI India, home">
+      <img src="../images/brand/hti-logo-nav.webp" width="240" height="182" alt="HTI India" fetchpriority="high" />
+    </a>
+    <nav aria-label="Main">
+      <a href="#programmes" data-r="programmes">Programmes</a>
+      <a href="#method" data-r="method">How a session runs</a>
+      <a href="#proof" data-r="proof">Proof</a>
+      <a href="#people" data-r="people">Trainers</a>
+      <a href="#app" data-r="app">The app</a>
+      <a href="#clients" data-r="clients">Clients</a>
+      <a href="#reach" data-r="reach">Where we train</a>
+    </nav>
+    <div class="rail-foot">
+      <a href="../contact.html" class="btn btn-red">Book a call</a>
+      <a class="rail-tel" href="tel:+917738060902" data-icon="phone"><span>+91 77380 60902</span></a>
+      <a class="rail-wa" href="https://wa.me/917738060902" target="_blank" rel="noopener" data-icon="whatsapp"><span>WhatsApp us</span></a>
+    </div>
+  </aside>
+
+  <!-- phone top bar -->
+  <header class="topbar">
+    <a href="../index.html" aria-label="HTI India, home">
+      <img src="../images/brand/hti-logo-nav.webp" width="240" height="182" alt="HTI India" />
+    </a>
+    <button class="tb-menu" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="tbnav"><span></span></button>
+    <nav class="tb-nav" id="tbnav" aria-label="Main">
+      <a href="#programmes">Programmes</a>
+      <a href="#method">How a session runs</a>
+      <a href="#proof">Proof</a>
+      <a href="#people">Trainers</a>
+      <a href="#app">The app</a>
+      <a href="#reach">Where we train</a>
+    </nav>
+  </header>
+
+  <div class="page">
+    <main>
+
+      <!-- =============================== HERO =============================== -->
+      <section class="hero shell">
+        <div>
+          <p class="label">Hospitality training since 2002</p>
+          <h1 class="display">Train your staff in ways to
+            <span class="tail" id="tail"></span><span class="caret" aria-hidden="true"></span>
+          </h1>
+          <h2>Hospitality businesses use HTI to train, monitor progress and certify their front-end personnel.</h2>
+          <p class="lang">And oh &mdash; we have conducted trainings in <em>13 different languages.</em></p>
+          <div class="ctas">
+            <a href="../contact.html" class="btn btn-red">Speak with our team</a>
+            <a href="../training-needs-survey.html" class="btn btn-line">Take the free survey</a>
+          </div>
+        </div>
+        <div class="walls" aria-label="Brands HTI has trained">
+          <div class="wall"><div class="wall-in" id="heroA"></div></div>
+          <div class="wall"><div class="wall-in down" id="heroB"></div></div>
+        </div>
+      </section>
+
+      <!-- =============================== STATS =============================== -->
+      <section class="shell" aria-label="HTI in numbers">
+        <div class="stats" id="stats"></div>
+      </section>
+
+      <!-- ============================ PROGRAMMES ============================ -->
+      <section class="sec shell" id="programmes">
+        <div class="sec-top">
+          <div class="sec-head">
+            <p class="label">Fifteen programmes</p>
+            <h2>Start with the room you run.</h2>
+            <p>Every programme is delivered in person, at your own property, by a trainer who speaks the language your team works in.</p>
+          </div>
+          <a class="more" href="../training-by-role.html">Find training by role <span data-icon="arrow"></span></a>
+        </div>
+        <div class="pills" role="tablist" aria-label="Choose a venue" id="venuePick"></div>
+        <div id="progWrap"></div>
+      </section>
+
+      <!-- ============================== METHOD ============================== -->
+      <section class="sec shell" id="method">
+        <div class="sec-head">
+          <p class="label">How a session runs</p>
+          <h2>We co-create the training with the brands we work for.</h2>
+          <p>Nothing here is a slide deck read aloud. Sessions are built from the situations your team hits on a Friday night.</p>
+        </div>
+        <div class="method">
+          <div class="method-film">
+            <video autoplay muted loop playsinline poster="../video/hero-poster.jpg"
+                   aria-label="HTI trainers running a session on site">
+              <source src="../video/hero.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div id="notes"></div>
+        </div>
+      </section>
+
+      <!-- =============================== PROOF =============================== -->
+      <section class="sec shell" id="proof">
+        <div class="sec-head">
+          <p class="label">Here&rsquo;s what they said</p>
+          <h2>Operators who brought HTI into their own buildings.</h2>
+          <p>Every review is the one published on the site, in full &mdash; open any of them to read the whole thing.</p>
+        </div>
+        <div class="quotes" id="quotes"></div>
+      </section>
+
+      <!-- ============================== TRAINERS ============================== -->
+      <section class="sec shell" id="people">
+        <div class="sec-top">
+          <div class="sec-head">
+            <p class="label">In the room with your team</p>
+            <h2>The people who run the sessions.</h2>
+            <p>Not a roster of freelancers. These are the faces your team will see.</p>
+          </div>
+          <a class="more" href="../trainers.html">Meet all our trainers <span data-icon="arrow"></span></a>
+        </div>
+        <div class="faces" id="faces"></div>
+      </section>
+
+      <!-- ================================ APP ================================ -->
+      <section class="sec shell" id="app">
+        <div class="sec-head">
+          <p class="label">Training you can read back</p>
+          <h2>Track participant progress.</h2>
+          <p>We built an application that tracks and monitors your staff through a programme, so training stops being a thing you hope worked.</p>
+        </div>
+        <div class="app">
+          <div class="shot">
+            <img src="../images/app/star-mobile-view.png" width="1080" height="1920" loading="lazy" decoding="async"
+                 alt="The Training Tsunami app showing a participant progress report" />
+          </div>
+          <div id="appSteps"></div>
+        </div>
+      </section>
+
+      <!-- ============================== CLIENTS ============================== -->
+      <section class="sec shell" id="clients">
+        <div class="sec-head">
+          <p class="label">Sixty-plus brands</p>
+          <h2>Leaders who have trusted HTI.</h2>
+        </div>
+        <div class="wall-grid" id="logos"></div>
+        <p class="label" style="margin-top:clamp(34px,4vw,52px)">Featured in</p>
+        <div class="pressrow" id="press"></div>
+      </section>
+
+      <!-- =============================== REACH =============================== -->
+      <section class="sec shell" id="reach">
+        <div class="sec-head">
+          <p class="label">Where we train</p>
+          <h2>Hospitality training, city by city.</h2>
+          <p id="cityIntro"></p>
+        </div>
+        <div class="cities" id="cities"></div>
+        <p class="label" style="margin-top:clamp(34px,4vw,52px)">Also from HTI</p>
+        <div class="also-grid" id="also"></div>
+      </section>
+
+      <!-- ============================== CLOSING ============================== -->
+      <section class="shell">
+        <div class="close">
+          <h2>Let&rsquo;s find the right training plan for your team.</h2>
+          <p>Fifteen questions, three minutes &mdash; and we send back a plan built for your team, not a brochure.</p>
+          <div class="ctas">
+            <a href="../contact.html" class="btn btn-dark">Let&rsquo;s chat</a>
+            <a href="../training-needs-survey.html" class="btn btn-onred">Take the training needs survey</a>
+          </div>
+          <div class="reach">
+            <a href="tel:+917738060902" data-icon="phone"><span>+91 77380 60902</span></a>
+            <a href="https://wa.me/917738060902" target="_blank" rel="noopener" data-icon="whatsapp"><span>WhatsApp us</span></a>
+            <a href="mailto:kaushal@hti-india.com"><span>kaushal@hti-india.com</span></a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =============================== FOOTER =============================== -->
+    <footer class="foot shell">
+      <div class="foot-cols" id="footCols"></div>
+      <div class="foot-bar">
+        <p class="foot-addr" id="footAddr"></p>
+        <div class="foot-social" id="footSocial"></div>
+      </div>
+      <p class="foot-copy">&copy; Hospitality Training Institute India Private Limited. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <div class="thumb">
+    <a class="wa" href="https://wa.me/917738060902" target="_blank" rel="noopener" data-icon="whatsapp"><span>WhatsApp</span></a>
+    <a class="bk" href="../contact.html">Book a call</a>
+  </div>
+
+  <script src="hti-data.js"></script>
+  <script src="hti-build.js"></script>
+  <script>
+  (function () {
+    const D = window.HTI, B = window.HTIBuild;
+    const { $, $$, esc } = B;
+
+    B.icons();
+    B.typeTail('#tail');
+    B.heroColumns('#heroA', '#heroB', 'white');   // reversed-out cuts, for the dark ground
+    B.burger('#burger', '#tbnav');
+
+    /* ---- stats ---- */
+    $('#stats').innerHTML = D.stats
+      .map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join('');
+
+    /* ---- programmes ---- */
+    B.venueTabs({
+      tabs: '#venuePick', wrap: '#progWrap',
+      tabHTML: (v, n) => `${esc(v.label)}<span class="n">${n}</span>`,
+      panelHTML: (list, v) => `<div class="cards">${list.map(p => `
+        <a class="card" href="${p.href}">
+          <span class="grp">${esc(p.group)}</span>
+          <span class="code">${esc(p.code)}</span>
+          <span class="who">${esc(p.who)}</span>
+          <span class="line">${esc(p.line)}</span>
+          <span class="go">Programme details ${D.icons.arrow}</span>
+        </a>`).join('')}
+        <a class="card card-all" href="${v.href}">
+          <span class="grp">The full list</span>
+          <span class="code">All ${esc(v.label)}</span>
+          <span class="line">Everything we run for this kind of property, and what each session covers.</span>
+          <span class="go">See them all ${D.icons.arrow}</span>
+        </a></div>`
+    });
+
+    /* ---- method ---- */
+    $('#notes').innerHTML = D.why.map(w => `
+      <div class="note">
+        <span class="ic"><img src="${w.icon}" width="24" height="24" alt="" loading="lazy" decoding="async"></span>
+        <div><h3>${esc(w.title)}</h3><p>${esc(w.text)}</p></div>
+      </div>`).join('');
+
+    /* ---- proof ---- */
+    $('#quotes').innerHTML = D.testimonials.map(t => `
+      <figure class="quote">
+        <span class="mk" aria-hidden="true">&ldquo;</span>
+        <blockquote><p>${esc(t.short)}</p></blockquote>
+        <details>
+          <summary>Read the full review ${D.icons.arrow}</summary>
+          <p class="full">${esc(t.text)}</p>
+        </details>
+        <figcaption>
+          <img src="${t.img}" width="42" height="42" alt="" loading="lazy" decoding="async">
+          <span><b>${esc(t.name)}</b><span>${esc(t.role)}, ${esc(t.org)}</span></span>
+        </figcaption>
+      </figure>`).join('');
+
+    /* ---- trainers ---- */
+    $('#faces').innerHTML = D.trainers.map(t => `
+      <a class="face" href="${t.href}">
+        <img src="${t.img}" width="300" height="300" loading="lazy" decoding="async"
+             alt="${esc(t.name)}, ${esc(t.role)}">
+        <b>${esc(t.name)}</b><span>${esc(t.role)}</span>
+      </a>`).join('');
+
+    /* ---- app ---- */
+    $('#appSteps').innerHTML = D.app.steps.map((s, i) => `
+      <div class="app-step">
+        <span class="n">0${i + 1}</span>
+        <h3>${esc(s.title)}</h3>
+        <p>${esc(s.text)}</p>
+      </div>`).join('');
+
+    /* ---- clients, press, cities, also, footer ---- */
+    $('#logos').innerHTML = B.logosHTML('white', (src, name) =>
+      `<div><img src="${src}" alt="${name}" loading="lazy" decoding="async"></div>`);
+    $('#press').innerHTML = B.pressHTML();
+    $('#cityIntro').textContent = D.cityIntro;
+    $('#cities').innerHTML = B.citiesHTML();
+    $('#also').innerHTML = D.more.concat(D.tools).map(m =>
+      `<a href="${m.href}"${m.external ? ' target="_blank" rel="noopener"' : ''}>
+         <b>${esc(m.label)}</b><span>${esc(m.line)}</span></a>`).join('');
+    B.footer('#footCols', '#footAddr', '#footSocial');
+
+    /* ---- rail: mark the section you are in ---- */
+    (function () {
+      const links = $$('.rail nav a[data-r]');
+      if (!links.length) return;
+      const secs = links.map(a => document.getElementById(a.dataset.r)).filter(Boolean);
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          links.forEach(a => a.classList.toggle('on', a.dataset.r === en.target.id));
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+      secs.forEach(s => io.observe(s));
+    })();
+  })();
+  </script>
+</body>
+
+</html>
