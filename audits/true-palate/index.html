@@ -299,6 +299,108 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
 .peek-actions{display:flex;gap:10px}
 .peek-actions .t3-btn{flex:1;justify-content:center}
 
+/* ---------- top bar actions (quiet, like the section links) ---------- */
+.nav-acts{display:flex;align-items:center;gap:2px}
+.nav-sep{width:1px;height:22px;background:var(--t3-line);margin:0 8px}
+.nav-act{font-family:inherit;font-size:14px;font-weight:600;color:var(--t3-ink-2);background:none;border:none;padding:8px 12px;border-radius:10px;
+  cursor:pointer;display:inline-flex;align-items:center;gap:7px;white-space:nowrap;transition:background 200ms ease,color 200ms ease}
+.nav-act:hover{background:var(--t3-wash);color:var(--t3-ink)}
+.nav-act svg{transition:transform 250ms ease}
+.nav-act.dl-btn:hover svg{transform:translateY(2px)}
+#guide-open:hover svg{transform:rotate(-12deg) scale(1.08)}
+.nav-act:disabled{opacity:.4;cursor:not-allowed}
+.nav-act .short{display:none}
+
+/* ---------- making clickable things look clickable ---------- */
+.arr{display:inline-flex;align-items:center;justify-content:flex-end;gap:4px;color:var(--t3-navy)!important;font-size:12.5px;font-weight:600;white-space:nowrap}
+.arr svg{flex:none;transition:transform 200ms ease}
+.arr-t{max-width:0;overflow:hidden;opacity:0;transition:max-width 250ms ease,opacity 200ms ease}
+a:hover > .arr .arr-t,a:focus-visible > .arr .arr-t{max-width:60px;opacity:1}
+a:hover > .arr svg{transform:translateX(3px)}
+.score{grid-template-columns:minmax(0,1fr) 140px 48px 58px}
+.miss a{grid-template-columns:170px minmax(0,1fr) 28px 58px}
+.attn-group li a{grid-template-columns:auto minmax(0,1fr) 58px}
+.stat .cta{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-style:normal;font-size:12.5px;font-weight:600;color:var(--t3-navy)}
+.stat .cta svg{transition:transform 200ms ease}
+.stat:hover .cta svg{transform:translateX(3px)}
+.hint{display:flex;align-items:center;justify-content:center;gap:8px;margin:6px 0 0;font-size:13px;color:var(--t3-ink-2)}
+.hand{display:inline-block;animation:tap 1.6s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes tap{0%,60%,100%{transform:translateY(0) scale(1)}30%{transform:translateY(-5px) scale(1.05)}45%{transform:translateY(1px) scale(.92)}}
+.hl-legend{align-items:center;gap:6px;margin-top:12px}
+.hl-label{font-size:13px;color:var(--t3-ink-3);margin-right:2px}
+.hl-legend #grid-legend{margin:0;gap:6px}
+.hl-legend button{border:1px solid var(--t3-line);border-radius:20px;padding:5px 11px;font-size:13px}
+.hl-legend button[aria-pressed="true"]{background:var(--t3-black);border-color:var(--t3-black);color:#fff}
+
+/* ---------- welcome guide ---------- */
+.guide{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:16px;perspective:1200px}
+.guide[hidden]{display:none}
+.guide-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.55);animation:fade-in 300ms ease both}
+@keyframes fade-in{from{opacity:0}to{opacity:1}}
+.guide-card{position:relative;width:min(520px,100%);background:var(--t3-surface);border-radius:24px;overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.35);animation:card-in 650ms cubic-bezier(.2,.9,.25,1.1) both;transform-style:preserve-3d}
+@keyframes card-in{from{opacity:0;transform:translateY(40px) rotateX(18deg) scale(.92)}to{opacity:1;transform:none}}
+.guide.closing .guide-card{animation:card-out 280ms ease both}
+.guide.closing .guide-backdrop{animation:fade-in 280ms ease reverse both}
+@keyframes card-out{to{opacity:0;transform:translateY(24px) rotateX(-10deg) scale(.95)}}
+.guide-x{position:absolute;top:14px;right:14px;z-index:3;width:38px;height:38px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--t3-ink);cursor:pointer;display:grid;place-items:center;transition:background 200ms ease,transform 200ms ease}
+.guide-x:hover{background:var(--t3-wash);transform:rotate(90deg)}
+.guide-stage{position:relative;height:430px;perspective:1000px}
+.gstep{position:absolute;inset:0;display:flex;flex-direction:column;transition:transform 650ms cubic-bezier(.2,.8,.2,1),opacity 450ms ease;backface-visibility:hidden}
+.gstep.right{transform:translateX(40%) rotateY(-55deg);opacity:0;pointer-events:none}
+.gstep.left{transform:translateX(-40%) rotateY(55deg);opacity:0;pointer-events:none}
+.gart{height:250px;background:var(--t3-wash);display:grid;place-items:center;perspective:700px;overflow:hidden;position:relative}
+.gtext{padding:22px 28px 0}
+.gtext .eyebrow{margin-bottom:6px}
+.gtext h2{font-size:21px;margin:0 0 8px}
+.gtext p{margin:0;font-size:14.5px;color:var(--t3-ink-2);line-height:1.55}
+.guide-foot{display:flex;align-items:center;gap:14px;padding:16px 22px 20px;flex-wrap:wrap}
+.gdots{display:flex;gap:6px}
+.gdots i{width:8px;height:8px;border-radius:8px;background:var(--t3-line);transition:width 300ms ease,background 300ms ease}
+.gdots i.on{width:22px;background:var(--t3-black)}
+.gnever{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--t3-ink-2);cursor:pointer}
+.gnever input{accent-color:var(--t3-black);width:16px;height:16px}
+.gbtns{display:flex;gap:8px;margin-left:auto}
+.gbtns .t3-btn{padding:11px 20px}
+
+/* guide art: 1 welcome card */
+.g-hero{width:230px;height:150px;border-radius:20px;background:var(--t3-black);color:#fff;display:grid;place-items:center;transform-style:preserve-3d;
+  animation:float3d 5s ease-in-out infinite;box-shadow:0 30px 50px rgba(0,0,0,.25)}
+.g-hero b{font-size:56px;font-weight:700;line-height:1;transform:translateZ(40px)}
+.g-hero small{display:block;font-size:11px;letter-spacing:.12em;color:#9a9a9a;text-align:center;margin-top:6px}
+@keyframes float3d{0%,100%{transform:rotateX(14deg) rotateY(-18deg) translateY(0)}50%{transform:rotateX(-6deg) rotateY(18deg) translateY(-10px)}}
+.g-orb{position:absolute;width:16px;height:16px;border-radius:50%;animation:orbit 6s linear infinite}
+.g-orb.o2{animation-delay:-2s}.g-orb.o3{animation-delay:-4s}
+@keyframes orbit{from{transform:rotate(0) translateX(150px) rotate(0) scale(1)}50%{transform:rotate(180deg) translateX(150px) rotate(-180deg) scale(.6)}to{transform:rotate(360deg) translateX(150px) rotate(-360deg) scale(1)}}
+/* 2 tilted wheel with a tapping hand */
+.g-wheel{width:210px;height:210px;transform:rotateX(52deg) rotateZ(0);animation:wheel3d 6s cubic-bezier(.4,0,.2,1) infinite;filter:drop-shadow(0 22px 18px rgba(0,0,0,.25))}
+@keyframes wheel3d{0%{transform:rotateX(55deg) rotateZ(-40deg)}35%,80%{transform:rotateX(0) rotateZ(0)}100%{transform:rotateX(55deg) rotateZ(-40deg)}}
+.g-wheel .gw{transform-box:fill-box;transform-origin:center;animation:gw-pop 6s ease infinite}
+@keyframes gw-pop{0%,48%{transform:none}55%,70%{transform:scale(1.18)}78%,100%{transform:none}}
+.g-hand{position:absolute;font-size:38px;left:56%;top:56%;animation:hand-tap 6s ease infinite}
+@keyframes hand-tap{0%,30%{opacity:0;transform:translate(60px,60px)}42%{opacity:1;transform:translate(0,0)}50%{transform:translate(0,0) scale(.85)}56%{transform:translate(0,0) scale(1)}78%{opacity:1}90%,100%{opacity:0;transform:translate(30px,40px)}}
+/* 3 flipping check squares */
+.g-grid{display:grid;grid-template-columns:repeat(6,34px);gap:7px;transform:rotateX(28deg) rotateZ(-8deg);transform-style:preserve-3d}
+.g-grid i{width:34px;height:34px;border-radius:7px;background:var(--t3-success);animation:flip 4s ease-in-out infinite;animation-delay:calc(var(--n) * 90ms);transform-style:preserve-3d}
+.g-grid i.N{background:var(--t3-black)}.g-grid i.NA{background:var(--na)}
+@keyframes flip{0%,30%{transform:rotateY(0)}45%{transform:rotateY(180deg) translateZ(6px)}60%,100%{transform:rotateY(360deg)}}
+.g-bubble{position:absolute;right:26px;top:26px;background:var(--t3-black);color:#fff;font-size:12px;line-height:1.4;padding:9px 12px;border-radius:12px;max-width:170px;
+  animation:bubble 4s ease infinite;transform-origin:20% 100%}
+.g-bubble b{display:block}
+@keyframes bubble{0%,40%{opacity:0;transform:scale(.6) translateY(10px)}52%,88%{opacity:1;transform:none}100%{opacity:0}}
+/* 4 cards fanning out */
+.g-cards{position:relative;width:250px;height:170px;transform-style:preserve-3d;transform:rotateX(22deg)}
+.g-cards div{position:absolute;inset:0;background:var(--t3-surface);border-radius:14px;box-shadow:0 14px 30px rgba(0,0,0,.14);padding:16px 18px;display:grid;gap:9px;align-content:start;
+  animation:fan 5s cubic-bezier(.3,.8,.3,1) infinite}
+.g-cards div:nth-child(1){--r:-10deg;--x:-46px;--z:-60px}
+.g-cards div:nth-child(2){--r:0deg;--x:0px;--z:-30px}
+.g-cards div:nth-child(3){--r:10deg;--x:46px;--z:0px}
+@keyframes fan{0%,15%{transform:none}45%,85%{transform:translateX(var(--x)) translateZ(var(--z)) rotateZ(var(--r))}100%{transform:none}}
+.g-cards b{font-size:13px}
+.g-cards s{display:block;height:8px;border-radius:8px;background:var(--t3-wash);text-decoration:none}
+.g-cards s.dk{background:var(--t3-black);width:60%}
+.g-cards em{position:absolute;right:14px;bottom:12px;font-style:normal;font-size:12px;font-weight:700;color:var(--t3-navy)}
+
 /* ---------- responsive ---------- */
 @media (max-width:900px){
   .nav-links{display:none}
@@ -310,7 +412,8 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
   .tabs::-webkit-scrollbar{display:none}
   .tabs a{flex:none;font-size:13px;font-weight:600;color:var(--t3-ink-2);padding:7px 13px;border-radius:20px;transition:background 200ms ease,color 200ms ease}
   .tabs a.active{background:var(--t3-black);color:#fff}
-  .nav-in .t3-btn{margin-left:auto}
+  .nav-acts{margin-left:auto}
+  .nav-sep{display:none}
   .hero,.results{grid-template-columns:1fr}
   .attn{grid-template-columns:1fr}
   h1{font-size:36px}
@@ -318,10 +421,22 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
 @media (max-width:700px){
   .sheet{padding:26px 18px 30px;gap:52px;border-radius:14px}
   .scores{grid-template-columns:1fr}
-  .score{grid-template-columns:minmax(0,1fr) 90px 44px 12px}
-  .miss a{grid-template-columns:130px minmax(0,1fr) 24px 12px}
   .nav-brand small{display:none}
-  .nav-in .t3-btn{padding:10px 16px}
+  .nav-act{padding:8px 9px;font-size:13.5px}
+  .nav-act .long{display:none}
+  .nav-act .short{display:inline}
+  .score{grid-template-columns:minmax(0,1fr) 80px 40px 22px}
+  .miss a{grid-template-columns:120px minmax(0,1fr) 22px 22px}
+  .attn-group li a{grid-template-columns:auto minmax(0,1fr) 22px}
+  .arr-t{display:none}
+  .guide{place-items:end center;padding:0}
+  .guide-card{width:100%;border-radius:24px 24px 0 0;padding-bottom:env(safe-area-inset-bottom,0px)}
+  @keyframes card-in{from{opacity:0;transform:translateY(100%) rotateX(10deg)}to{opacity:1;transform:none}}
+  .guide-stage{height:400px}
+  .gart{height:220px}
+  .gtext{padding:18px 20px 0}
+  .guide-foot{padding:14px 18px 18px}
+  .gnever{order:3;width:100%}
   .quote{padding:20px}
   .quote p{font-size:16px}
   .na-note{margin-top:-40px}
@@ -377,6 +492,12 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
   *,*::before,*::after{animation:none!important;transition:none!important}
 }
 
+/* fixes: tile action on its own line; guide bubble clear of the close button; larger hint hand */
+.stat > span{display:block}
+.g-grid{margin-bottom:64px}
+.g-bubble{top:auto;right:auto;left:50%;bottom:16px;transform-origin:50% 100%;translate:-50% 0;max-width:260px}
+.hand svg{width:18px;height:18px;display:block}
+
 </style>
 
 <nav class="nav" aria-label="Report sections">
@@ -392,10 +513,11 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
       <a href="#attention" data-spy="attention">Needs attention</a>
       <a href="#checklist" data-spy="checklist">Checklist</a>
     </div>
-    <button class="t3-btn t3-btn--primary dl-btn" type="button">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Download PDF
-    </button>
+    <div class="nav-acts">
+      <span class="nav-sep" aria-hidden="true"></span>
+      <button class="nav-act" type="button" id="guide-open"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg><span>Guide</span></button>
+      <button class="nav-act dl-btn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="long">Download PDF</span><span class="short">PDF</span></button>
+    </div>
   </div>
   <div class="tabs" aria-label="Sections">
     <a href="#overview" data-spy="overview">Overview</a>
@@ -411,7 +533,7 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
   <main class="sheet">
 
     <section class="hero" id="overview" aria-label="Overall result">
-      <div class="wheel-box"><svg id="wheel" viewBox="-80 -10 560 420" role="img" aria-label="Score by area. Select an area to see its checklist."></svg><div class="wheel-list" id="wheel-list"></div></div>
+      <div class="wheel-box"><svg id="wheel" viewBox="-80 -10 560 420" role="img" aria-label="Score by area. Select an area to see its checklist."></svg><p class="hint"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a slice to open that area</span></p><div class="wheel-list" id="wheel-list"></div></div>
       <div>
         <div class="eyebrow rise">Mystery audit · Overall result</div>
         <h1 class="rise" style="--d:80ms">True Palate</h1>
@@ -427,10 +549,11 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
         <div class="sub-head"><h2>Every check</h2><span>100 squares, one per check</span></div>
         <p class="how">Each square is one check, in the order of the sheet. Point at or tap a square to read it, then open it in the checklist.</p>
         <div class="grid100" id="grid100"></div>
-        <div class="legend" id="grid-legend"></div>
+        <div class="legend hl-legend"><span class="hl-label">Highlight:</span><span id="grid-legend" class="legend"></span></div>
       </div>
       <div>
         <div class="sub-head"><h2>Where checks were missed</h2><span id="miss-note"></span></div>
+        <p class="how">Select an area to see the checks that were missed.</p>
         <div class="miss" id="miss"></div>
       </div>
     </section>
@@ -459,7 +582,7 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
     <footer class="foot">
       <div class="who"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAF8CAMAAAAO67kNAAABa1BMVEVMaXHjISnjICjjISnjICjkISnkISnkICjkISnjISnjICjkISjkICnjICjjISjjISnjICjjICjkICnkISnjICjkICnkICnkISnkISnkISnjICjjISjjISjjICjjISjkICjkICjiICjjISnkICjjICjkICjkISnkICjjICjjICnjISnkISnkISnkISnkICjkICjjHyfjICjjICjjICjjICjjICjkICjjICjkICjjICjiHyfjICjjICjjICjjICjjHyjjICjkICjjICjjICjjICjjICjjICjjICjjICjjICjjICjjICjjICjjHyfjICjjICjkICjjICjjICjjICjjICjjICjjICjjICjjICjjICjjICjkICjjICjjICjjICjjICjjICjjICjjICjjICjkICjjICjjICjkICjjICjjICjjICjjICjkICjjICjkICjcGyPjICjjICjkISnjISnkICjjISjjICjkICnkISjKF296AAAAcnRSTlMAA+FX/QP+Afv+EPz+A/78+/7usAL8jgIEW5RltY78+60G1v79+/0OPJhjquP8+YwEyBsUK0Vf7JY4CcRB5NsRqQMmkR8v6t6y6HbywAudcvVr8D5+aM9UGNLLoXqImm69S6SDUDVhr+4WuQXVMloBrCO4kNCKAAAACXBIWXMAAC4jAAAuIwF4pT92AAARxElEQVR4nO2d6XvT1hLGR6CVWo50r1qbkCqAnycp9MZJIAkkJKxh30ICZd+hbIW2I/vYf/595CzEdojk2Ikkn/f3oV8AS+7rd2bO6GgOEcgYE4tJ3wHYc07cIG/vrwoSxKOVySSvDxLApkPiHBlJXBokhUYvqvNkJ3Z9kAiTfJcuJHNpkAgGnVjmw1RI5uogETyaFnz2SDIXB8lQpPvC9KewaJMJg65xufoNlZxUzO3jcjBIWtL3AfYMj76q7PCZvbsiSByF/gyGVf74Ce0ZedDoGDvuiJhHJScTT9h3Byo3qJj0jYC9bM2oNYd/R3tGqtbMmJtX+exE0rcC9ooLYWvG0l120J6RhgJdY6fErin2oz0jCQbdvsoqMzt8Ce0ZSfBoSrCrs+vzGSzUJcGmP4XpMrPKV9CekQSNBtkRzFwaEStoz8jCE/Z1ZrbC9gyeucjTmimF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" alt="HTI"><span>Hospitality Training Institute India Pvt Ltd · www.hti-india.com</span></div>
       <div style="display:grid;justify-items:end;gap:6px">
-        <button class="t3-btn t3-btn--primary dl-btn" type="button">
+        <button class="t3-btn dl-btn" type="button">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Download PDF
         </button>
@@ -470,6 +593,21 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
 </div>
 
 <div class="tip" id="tip" role="tooltip"></div>
+<div class="guide" id="guide" hidden>
+  <div class="guide-backdrop" data-close></div>
+  <div class="guide-card" role="dialog" aria-modal="true" aria-labelledby="guide-title-0">
+    <button class="guide-x" type="button" data-close aria-label="Close the guide"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <div class="guide-stage" id="guide-stage"></div>
+    <div class="guide-foot">
+      <div class="gdots" id="gdots" aria-hidden="true"></div>
+      <label class="gnever"><input type="checkbox" id="guide-never"> Don't show again</label>
+      <div class="gbtns">
+        <button class="t3-btn" type="button" id="guide-back">Skip</button>
+        <button class="t3-btn t3-btn--primary" type="button" id="guide-next">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="peek" id="peek" role="dialog" aria-label="Check details" hidden>
   <div class="peek-body" id="peek-body"></div>
   <div class="peek-actions">
@@ -843,15 +981,18 @@ const $ = id => document.getElementById(id);
 const COL = { lo: "#B0200C", mid: "#FAB515", hi: "#17DB4E" };
 const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
 const rowId = (area, i) => `c-${slug(area)}-${i + 1}`;
-const ARROW = `<span class="arr" aria-hidden="true">→</span>`;
+const CHEV = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+const arrow = label => `<span class="arr" aria-hidden="true"><span class="arr-t">${label}</span>${CHEV}</span>`;
+const ARROW = arrow("View");
 const checkTip = (area, i, [q, s, c]) =>
   `<b>${esc(area)} · check ${i + 1}</b>${esc(q)}<span class="k"><i class="dot ${s}"></i>${LABEL[s]}</span>${c ? `<span class="h">${esc(c)}</span>` : ""}`;
 
 // hero
 $("summary").textContent = SUMMARY;
+const STAT_CTA = ["See all areas", "See all areas", "See these checks", "See what was missed"];
 const STAT_LINKS = [["#scores", ""], ["#scores", ""], ["#checklist", "Y"], ["#attention", ""]];
 $("stats").innerHTML = STATS.map(([b, l], i) =>
-  `<a class="stat rise" style="--d:${280 + i * 70}ms" href="${STAT_LINKS[i][0]}"${STAT_LINKS[i][1] ? ` data-filter="${STAT_LINKS[i][1]}"` : ""}><b>${b}</b><span>${l}</span><i class="go" aria-hidden="true">→</i></a>`).join("");
+  `<a class="stat rise" style="--d:${280 + i * 70}ms" href="${STAT_LINKS[i][0]}"${STAT_LINKS[i][1] ? ` data-filter="${STAT_LINKS[i][1]}"` : ""}><b>${b}</b><span>${l}</span><em class="cta">${STAT_CTA[i]} ${CHEV}</em></a>`).join("");
 
 (() => {
   const cx = 200, cy = 200, R0 = 52, R1 = 140, n = scored.length, g = [];
@@ -908,7 +1049,7 @@ $("attn").innerHTML = misses.map(([area, items]) => {
   const all_ = AREAS.find(a => a[0] === area)[1];
   return `<div class="attn-group" id="attn-${slug(area)}"><h3>${esc(area)} <span>${items.length} not met</span></h3><ul>${items.map(it => {
     const i = all_.indexOf(it);
-    return `<li><a href="#${rowId(area, i)}"><i class="dot N"></i><div><div class="q">${esc(it[0])}</div>${it[2] ? `<div class="c">${esc(it[2])}</div>` : ""}</div>${ARROW}</a></li>`;
+    return `<li><a href="#${rowId(area, i)}"><i class="dot N"></i><div><div class="q">${esc(it[0])}</div>${it[2] ? `<div class="c">${esc(it[2])}</div>` : ""}</div>${arrow("Open")}</a></li>`;
   }).join("")}</ul></div>`;
 }).join("");
 
@@ -1117,6 +1258,78 @@ if (!reduceMotion && "IntersectionObserver" in window) {
 }
 // a jump link straight to something still hidden shows it at once
 const revealNow = el => { for (let n = el; n; n = n.parentElement) if (n.classList && n.classList.contains("pre")) n.classList.remove("pre"); };
+
+// ---------- welcome guide ----------
+const GUIDE_NEVER = "hti-audit-guide-never", GUIDE_SEEN = "hti-audit-guide-seen";
+const store = (s, k, v) => { try { return v === undefined ? s.getItem(k) : s.setItem(k, v); } catch (e) { return null; } };
+const miniWheel = () => {
+  const cx = 100, cy = 100, R0 = 26, R1 = 92, n = scored.length;
+  const pt = (r, t) => [cx + r * Math.cos(t), cy + r * Math.sin(t)];
+  return `<svg class="g-wheel" viewBox="0 0 200 200">${scored.map((a, i) => {
+    const a0 = -Math.PI / 2 + i * 2 * Math.PI / n + 0.03, a1 = -Math.PI / 2 + (i + 1) * 2 * Math.PI / n - 0.03, r = R0 + (R1 - R0) * a.p / 100;
+    const [x0, y0] = pt(R0, a0), [x1, y1] = pt(r, a0), [x2, y2] = pt(r, a1), [x3, y3] = pt(R0, a1);
+    return `<path class="${i === 8 ? "gw" : ""}" d="M${x0},${y0} L${x1},${y1} A${r},${r} 0 0 1 ${x2},${y2} L${x3},${y3} A${R0},${R0} 0 0 0 ${x0},${y0}Z" fill="${COL[band(a.p)]}"/>`;
+  }).join("")}<circle cx="100" cy="100" r="22" fill="#000"/><text x="100" y="105" text-anchor="middle" font-family="Poppins,sans-serif" font-weight="700" font-size="14" fill="#fff">${overall}%</text></svg>`;
+};
+const sample = all.slice(0, 18);
+const GUIDE = [
+  { eyebrow: "Welcome", title: `${esc(REPORT.venue)}'s mystery audit`, text: `This report shows how the visit scored, area by area, with the auditor's notes. Here's how to find your way around. It takes a few seconds.`,
+    art: `<div class="g-hero"><div><b>${overall}%</b><small>OVERALL SCORE</small></div></div><i class="g-orb" style="background:var(--t3-success)"></i><i class="g-orb o2" style="background:var(--t3-alert)"></i><i class="g-orb o3" style="background:var(--t3-danger)"></i>` },
+  { eyebrow: "Step 1", title: "Start with the score wheel", text: "Each slice is one area of the visit. The longer the slice, the higher the score; the colour shows its band. Tap or click a slice to open that area.",
+    art: miniWheel() + `<span class="g-hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>` },
+  { eyebrow: "Step 2", title: "Every check is a square", text: "Green was met, black was not, grey didn't apply. Point at or tap any square to read the check and the auditor's comment.",
+    art: `<div class="g-grid">${sample.map((c, i) => `<i class="${c[1]}" style="--n:${i}"></i>`).join("")}</div><div class="g-bubble"><b>${esc(AREAS[0][0])} · check 1</b>${esc(AREAS[0][1][0][2] || AREAS[0][1][0][0])}</div>` },
+  { eyebrow: "Step 3", title: "See what to fix", text: "'Needs attention' lists every missed check with its comment. Select any item to jump straight to it in the full checklist. You can also download a PDF from the top bar.",
+    art: `<div class="g-cards"><div><b>Server</b><s class="dk"></s><s></s><s></s></div><div><b>Guest Interaction</b><s class="dk"></s><s></s><s></s></div><div><b>Needs attention</b><s class="dk"></s><s></s><s></s><em>Open ›</em></div></div>` }
+];
+const guide = $("guide"), gStage = $("guide-stage"), gDots = $("gdots"), gNext = $("guide-next"), gBack = $("guide-back");
+gStage.innerHTML = GUIDE.map((g, i) => `<section class="gstep ${i ? "right" : ""}" aria-hidden="${i ? "true" : "false"}">
+  <div class="gart">${g.art}</div>
+  <div class="gtext"><div class="eyebrow">${g.eyebrow}</div><h2 id="guide-title-${i}">${g.title}</h2><p>${g.text}</p></div></section>`).join("");
+gDots.innerHTML = GUIDE.map(() => "<i></i>").join("");
+let gIdx = 0, gReturn = null;
+function gShow(i) {
+  gIdx = Math.max(0, Math.min(GUIDE.length - 1, i));
+  gStage.querySelectorAll(".gstep").forEach((s, j) => { s.classList.toggle("left", j < gIdx); s.classList.toggle("right", j > gIdx); s.setAttribute("aria-hidden", String(j !== gIdx)); });
+  gDots.querySelectorAll("i").forEach((d, j) => d.classList.toggle("on", j === gIdx));
+  guide.querySelector(".guide-card").setAttribute("aria-labelledby", "guide-title-" + gIdx);
+  gNext.textContent = gIdx === GUIDE.length - 1 ? "Start exploring" : "Next";
+  gBack.textContent = gIdx === 0 ? "Skip" : "Back";
+}
+function openGuide() {
+  gReturn = document.activeElement; gShow(0);
+  guide.hidden = false; guide.classList.remove("closing");
+  document.documentElement.style.overflow = "hidden";
+  setTimeout(() => gNext.focus(), 50);
+}
+function closeGuide() {
+  if (guide.hidden) return;
+  store(sessionStorage, GUIDE_SEEN, "1");
+  if ($("guide-never").checked) store(localStorage, GUIDE_NEVER, "1");
+  const done = () => { guide.hidden = true; guide.classList.remove("closing"); document.documentElement.style.overflow = ""; if (gReturn && gReturn.focus) gReturn.focus(); };
+  if (reduceMotion) done(); else { guide.classList.add("closing"); setTimeout(done, 280); }
+}
+gNext.addEventListener("click", () => gIdx === GUIDE.length - 1 ? closeGuide() : gShow(gIdx + 1));
+gBack.addEventListener("click", () => gIdx === 0 ? closeGuide() : gShow(gIdx - 1));
+guide.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", closeGuide));
+$("guide-open").addEventListener("click", openGuide);
+document.addEventListener("keydown", e => {
+  if (guide.hidden) return;
+  if (e.key === "Escape") closeGuide();
+  else if (e.key === "ArrowRight") gShow(gIdx + 1);
+  else if (e.key === "ArrowLeft") gShow(gIdx - 1);
+  else if (e.key === "Tab") { // keep focus inside the guide
+    const f = [...guide.querySelectorAll("button, input")].filter(el => el.offsetParent);
+    if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+  }
+});
+// swipe between steps on touch screens
+let gx = null;
+gStage.addEventListener("touchstart", e => { gx = e.touches[0].clientX; }, { passive: true });
+gStage.addEventListener("touchend", e => { if (gx === null) return; const dx = e.changedTouches[0].clientX - gx; if (Math.abs(dx) > 45) gShow(gIdx + (dx < 0 ? 1 : -1)); gx = null; });
+// greet each new visit, unless they opted out or arrived on a link to a specific result
+if (store(localStorage, GUIDE_NEVER) !== "1" && store(sessionStorage, GUIDE_SEEN) !== "1" && location.hash.length < 2) setTimeout(openGuide, 900);
 
 </script>
 
