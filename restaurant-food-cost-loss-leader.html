@@ -998,6 +998,369 @@
     @media(max-width:520px) {
       .cn-inner h2 { font-size: 24px; }
     }
+
+    /* ---- Hero price tags: two prices from the article hung on the
+         illustration. They swing in after load and sway when hovered. ---- */
+    .hero-art {
+      position: relative;
+    }
+
+    .hero-art img {
+      transition: transform .5s cubic-bezier(.16, .84, .34, 1), box-shadow .5s;
+    }
+
+    .hero-art:hover img {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .12);
+    }
+
+    .ptag {
+      position: absolute;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 14px 8px 22px;
+      background: #E32129;
+      color: #fff;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.05;
+      border-radius: 6px 12px 12px 6px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, .22);
+      transform-origin: 0 50%;
+      animation: ptag-in .7s cubic-bezier(.34, 1.56, .64, 1) both, ptag-sway 4s ease-in-out 1.4s infinite;
+      pointer-events: auto;
+    }
+
+    .ptag small {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .85;
+      margin-bottom: 2px;
+    }
+
+    /* the punched hole the string would go through */
+    .ptag::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      width: 7px;
+      height: 7px;
+      margin-top: -3.5px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .ptag-biryani {
+      left: 7%;
+      top: 36%;
+      animation-delay: .5s, 1.4s;
+    }
+
+    .ptag-raita {
+      left: 66%;
+      top: 18%;
+      background: #111;
+      font-size: 20px;
+      animation-delay: .9s, 2.1s;
+    }
+
+    .ptag:hover {
+      animation-play-state: paused;
+      transform: rotate(-8deg) scale(1.08);
+      transition: transform .2s;
+    }
+
+    @keyframes ptag-in {
+      from { opacity: 0; transform: rotate(-35deg) scale(.4); }
+      to { opacity: 1; transform: rotate(0) scale(1); }
+    }
+
+    @keyframes ptag-sway {
+      0%, 100% { transform: rotate(0); }
+      50% { transform: rotate(-4deg); }
+    }
+
+    @media(max-width:520px) {
+      .ptag { font-size: 19px; padding: 6px 10px 6px 19px; }
+      .ptag-raita { font-size: 16px; }
+      .ptag small { font-size: 8px; }
+    }
+
+    .tl-pill { scroll-margin-top: 110px; }
+
+    /* ---- Intro + plate ledger ---- */
+    .intro-note {
+      padding-top: 24px;
+    }
+
+    .in-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .in-grid .in-inner {
+      max-width: none;
+      margin: 0;
+    }
+
+    /* while the ledger is scroll-driven, the paragraph being read is lit
+       and the rest step back */
+    .in-grid.scrolly .in-inner p {
+      opacity: .45;
+      transition: opacity .4s;
+    }
+
+    .in-grid.scrolly .in-inner p.on {
+      opacity: 1;
+    }
+
+    .ledger {
+      position: sticky;
+      top: 110px;
+      margin: 0;
+      background: #fff;
+      border-radius: 16px;
+      padding: 22px 22px 18px;
+      box-shadow: 0 1px 0 rgba(0, 0, 0, .04), 0 18px 40px rgba(0, 0, 0, .08);
+      border-top: 4px solid #E32129;
+    }
+
+    .ld-head {
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .ld-kicker {
+      display: block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #E32129;
+    }
+
+    .ld-title {
+      display: block;
+      font-size: 20px;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .ld-price {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .ld-price b {
+      font-size: 28px;
+      color: #111;
+    }
+
+    /* scale: the track is ₹230 wide, so ₹85 = 36.96%, ₹125 = 54.35%,
+       the ₹199 price line sits at 86.52% */
+    .ld-track {
+      position: relative;
+      height: 26px;
+      background: #F3F2EF;
+      border-radius: 6px;
+      margin: 26px 0 18px;
+    }
+
+    .ld-bar {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      transform-origin: 0 50%;
+      transition: transform .9s cubic-bezier(.16, .84, .34, 1);
+    }
+
+    .ld-ing {
+      left: 0;
+      width: 36.96%;
+      background: #F2A33A;
+      border-radius: 6px 0 0 6px;
+    }
+
+    .ld-ovh {
+      left: 36.96%;
+      width: 54.35%;
+      background: #E32129;
+      border-radius: 0 6px 6px 0;
+      transition-delay: .5s;
+    }
+
+    .ld-line {
+      position: absolute;
+      left: 86.52%;
+      top: -8px;
+      bottom: -8px;
+      border-left: 2px dashed #111;
+    }
+
+    .ld-line span {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      font-weight: 800;
+      color: #111;
+      white-space: nowrap;
+    }
+
+    .ld-rows {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .ld-r {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      transition: opacity .5s, transform .5s;
+    }
+
+    .ld-r span {
+      flex: 1;
+    }
+
+    .ld-r b {
+      font-weight: 800;
+      color: #111;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .sw {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      flex: none;
+    }
+
+    .sw-ing { background: #F2A33A; }
+    .sw-ovh { background: #E32129; }
+
+    .ld-total {
+      border-bottom: 0;
+      font-weight: 800;
+      color: #111;
+    }
+
+    .ld-total b {
+      font-size: 22px;
+    }
+
+    .ld-result {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .ld-loss {
+      display: block;
+      background: #FDECEC;
+      color: #C41A1F;
+      font-weight: 800;
+      font-size: 16px;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      transition: opacity .4s, transform .4s;
+    }
+
+    .ld-fine {
+      text-align: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: #E32129;
+      padding: 4px;
+      transition: opacity .4s, transform .4s;
+    }
+
+    .ld-fine:hover {
+      text-decoration: underline;
+    }
+
+    .ld-replay {
+      display: block;
+      margin: 8px auto 0;
+      background: none;
+      border: 0;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #777;
+      cursor: pointer;
+      padding: 6px 10px;
+    }
+
+    .ld-replay:hover {
+      color: #E32129;
+    }
+
+    /* JS-driven states. .js lands only when the script runs, so without it
+       the ledger shows its finished picture. s3..s6 are cumulative. */
+    .ledger.js .ld-bar { transform: scaleX(0); }
+    .ledger.js.s4 .ld-bar { transform: scaleX(1); }
+    .ledger.js .ld-r { opacity: 0; transform: translateY(6px); }
+    .ledger.js.s3 .ld-r1,
+    .ledger.js.s3 .ld-r2 { opacity: .35; transform: none; }
+    .ledger.js.s4 .ld-r { opacity: 1; transform: none; }
+    .ledger.js.s4 .ld-r2 { transition-delay: .5s; }
+    .ledger.js.s4 .ld-total { transition-delay: .9s; }
+    .ledger.js .ld-loss,
+    .ledger.js .ld-fine { opacity: 0; transform: translateY(6px); }
+    .ledger.js.s5 .ld-loss { opacity: 1; transform: none; animation: ld-shake .5s .3s; }
+    .ledger.js.s6 .ld-fine { opacity: 1; transform: none; }
+    .ledger.js.s3 .ld-kicker { animation: ld-pulse 1s; }
+
+    @keyframes ld-shake {
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+
+    @keyframes ld-pulse {
+      50% { color: #111; }
+    }
+
+    @media(max-width:900px) {
+      .in-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+        max-width: 760px;
+      }
+
+      .ledger {
+        position: relative;
+        top: 0;
+        margin-bottom: 40px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ptag { animation: none; }
+      .ld-bar, .ld-r, .ld-loss, .ld-fine { transition: none !important; }
+      .ledger.js .ld-loss, .ledger.js .ld-kicker { animation: none !important; }
+    }
   </style>
   <!-- Google tag (gtag.js) -->
   <script async fetchpriority="low" src="https://www.googletagmanager.com/gtag/js?id=G-SBKJQQRP0N"></script>
@@ -1135,7 +1498,10 @@
           </div>
         </div>
       </div>
-      <div class="hero-right">
+      <div class="hero-right hero-art">
+        <!-- price tags: decoration only, the prices are in the copy below -->
+        <span class="ptag ptag-biryani" aria-hidden="true"><small>Hero dish</small>₹199</span>
+        <span class="ptag ptag-raita" aria-hidden="true"><small>Extra raita</small>+₹30</span>
         <img fetchpriority="high" decoding="async" width="1160" height="928"
           src="images/blog/restaurant-food-cost-loss-leader/biryani-raita-restaurant-food-cost.webp"
           alt="Illustration of a copper handi of chicken biryani with a bowl of raita, a plate of chicken tikka and a Diet Coke on a wooden restaurant table" />
@@ -1147,7 +1513,8 @@
   </section>
 
   <!-- ============ INTRO ============ -->
-  <section class="intro-note">
+  <section class="intro-note" data-motion="off">
+    <div class="in-grid">
     <div class="in-inner">
       <p>It’s Friday night. Your restaurant is packed, and table after table is ordering the same thing: Your ₹199 biryani.</p>
       <p>The kitchen is flat out, the reviews are glowing, and people keep telling their friends you’re “so value for money.”</p>
@@ -1155,6 +1522,34 @@
       <p>The ingredients might cost ₹85 a plate. Great. But add your share of rent, electricity, gas, staff salaries, packaging and the dishwasher running until 2 a.m., and that biryani could actually be costing you ₹210.</p>
       <p>Your bestseller is losing money.</p>
       <p>And honestly? That might be fine.</p>
+    </div>
+
+    <!-- The intro's own numbers drawn as one plate's ledger. Without JS it
+         renders complete; with JS it fills in step by step as the reader
+         reaches each paragraph (desktop) or plays once in view (phone).
+         Only opacity and transform animate, so nothing around it moves. -->
+    <figure class="ledger" id="ledger" aria-label="One ₹199 biryani opened up: ₹85 ingredients plus ₹125 of overheads is a true cost of ₹210, a loss of ₹11 on every plate">
+      <figcaption class="ld-head">
+        <span class="ld-kicker">Open the books</span>
+        <span class="ld-title">One plate of biryani</span>
+      </figcaption>
+      <div class="ld-price"><span>Menu price</span><b>₹199</b></div>
+      <div class="ld-track" aria-hidden="true">
+        <div class="ld-bar ld-ing"></div>
+        <div class="ld-bar ld-ovh"></div>
+        <div class="ld-line"><span>₹199</span></div>
+      </div>
+      <ul class="ld-rows">
+        <li class="ld-r ld-r1"><i class="sw sw-ing"></i><span>Ingredients</span><b>₹85</b></li>
+        <li class="ld-r ld-r2"><i class="sw sw-ovh"></i><span>Rent, power, gas, staff, packaging</span><b>₹125</b></li>
+        <li class="ld-r ld-total"><span>True cost</span><b class="ld-count">₹210</b></li>
+      </ul>
+      <div class="ld-result">
+        <span class="ld-loss">−₹11 on every plate</span>
+        <a class="ld-fine" href="#meet-the-loss-leader">…and that might be fine &darr;</a>
+      </div>
+      <button class="ld-replay" type="button" hidden>&#8635; Replay</button>
+    </figure>
     </div>
   </section>
 
@@ -1531,6 +1926,74 @@
       }
       window.addEventListener('load', update);
       update();
+    })();
+  </script>
+  <script>
+    /* Plate ledger. Desktop: the paragraph crossing mid-screen sets the
+       step, so the numbers build as they are read. Phone: plays once when
+       the ledger is in view. Replay works on both. */
+    (function () {
+      var led = document.getElementById('ledger');
+      if (!led || !('IntersectionObserver' in window)) return;
+      var grid = led.parentNode;
+      var ps = [].slice.call(grid.querySelectorAll('.in-inner p'));
+      var replay = led.querySelector('.ld-replay');
+      var count = led.querySelector('.ld-count');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cur = 0, timer, raf;
+
+      function countUp() {
+        cancelAnimationFrame(raf);
+        if (reduce) { count.textContent = '₹210'; return; }
+        var t0 = null;
+        (function f(t) {
+          if (t0 === null) t0 = t;
+          var k = Math.min(1, (t - t0) / 1400);
+          count.textContent = '₹' + Math.round(210 * (1 - Math.pow(1 - k, 3)));
+          if (k < 1) raf = requestAnimationFrame(f);
+        })(performance.now());
+      }
+
+      function set(n) {
+        n = Math.max(1, Math.min(6, n));
+        if (n === cur) return;
+        for (var i = 1; i <= 6; i++) led.classList.toggle('s' + i, i <= n);
+        if (n >= 4 && cur < 4) countUp();
+        cur = n;
+        ps.forEach(function (p, i) { p.classList.toggle('on', i === n - 1); });
+      }
+
+      function play() {
+        clearTimeout(timer);
+        cur = 0;
+        for (var i = 1; i <= 6; i++) led.classList.remove('s' + i);
+        var n = 1;
+        (function step() {
+          set(n);
+          var wait = n === 4 ? 1700 : 750;
+          if (n++ < 6) timer = setTimeout(step, reduce ? 0 : wait);
+        })();
+      }
+
+      led.classList.add('js');
+      replay.hidden = false;
+      replay.addEventListener('click', play);
+
+      if (window.matchMedia('(min-width: 901px)').matches) {
+        grid.classList.add('scrolly');
+        var io = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting) { clearTimeout(timer); set(ps.indexOf(e.target) + 1); }
+          });
+        }, { rootMargin: '-35% 0px -45% 0px' });
+        ps.forEach(function (p) { io.observe(p); });
+        set(1);
+      } else {
+        var once = new IntersectionObserver(function (es) {
+          if (es[0].isIntersecting) { once.disconnect(); play(); }
+        }, { threshold: 0.6 });
+        once.observe(led);
+      }
     })();
   </script>
   <!-- sticky contact bar: below 860px the header Contact button is hidden
