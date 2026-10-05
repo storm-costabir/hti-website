@@ -1091,7 +1091,9 @@
       .ptag small { font-size: 8px; }
     }
 
-    .tl-pill { scroll-margin-top: 110px; }
+    /* the ledger link lands on the whole chapter, artwork first, clear of
+       the sticky navbar */
+    #loss-leader { scroll-margin-top: 64px; }
 
     /* ---- Intro + plate ledger ---- */
     .intro-note {
@@ -1546,7 +1548,7 @@
       </ul>
       <div class="ld-result">
         <span class="ld-loss">−₹11 on every plate</span>
-        <a class="ld-fine" href="#meet-the-loss-leader">…and that might be fine &darr;</a>
+        <a class="ld-fine" href="#loss-leader">…and that might be fine &darr;</a>
       </div>
       <button class="ld-replay" type="button" hidden>&#8635; Replay</button>
     </figure>
@@ -1561,7 +1563,7 @@
       </div>
 
       <!-- Chapter 1 -->
-      <div class="tl-chapter">
+      <div class="tl-chapter" id="loss-leader">
         <div class="tl-img-half">
           <img loading="lazy" decoding="async" width="900" height="720"
             src="images/blog/restaurant-food-cost-loss-leader/loss-leader-examples-printer-ink-popcorn-biryani.webp"
@@ -1963,37 +1965,34 @@
         ps.forEach(function (p, i) { p.classList.toggle('on', i === n - 1); });
       }
 
+      /* Plays the whole sequence on its own once started - the reader
+         should not have to keep scrolling to finish it. Beside the text
+         (desktop) it lights each paragraph as its step plays, then hands
+         every paragraph back at full strength. */
       function play() {
         clearTimeout(timer);
         cur = 0;
         for (var i = 1; i <= 6; i++) led.classList.remove('s' + i);
+        if (wide && !reduce) grid.classList.add('scrolly');
         var n = 1;
         (function step() {
           set(n);
-          var wait = n === 4 ? 1700 : 750;
-          if (n++ < 6) timer = setTimeout(step, reduce ? 0 : wait);
+          if (n === 6) { timer = setTimeout(function () { grid.classList.remove('scrolly'); }, 1200); return; }
+          var wait = n === 4 ? 1600 : 600;
+          n++;
+          timer = setTimeout(step, reduce ? 0 : wait);
         })();
       }
 
+      var wide = window.matchMedia('(min-width: 901px)').matches;
       led.classList.add('js');
       replay.hidden = false;
       replay.addEventListener('click', play);
 
-      if (window.matchMedia('(min-width: 901px)').matches) {
-        grid.classList.add('scrolly');
-        var io = new IntersectionObserver(function (es) {
-          es.forEach(function (e) {
-            if (e.isIntersecting) { clearTimeout(timer); set(ps.indexOf(e.target) + 1); }
-          });
-        }, { rootMargin: '-35% 0px -45% 0px' });
-        ps.forEach(function (p) { io.observe(p); });
-        set(1);
-      } else {
-        var once = new IntersectionObserver(function (es) {
-          if (es[0].isIntersecting) { once.disconnect(); play(); }
-        }, { threshold: 0.6 });
-        once.observe(led);
-      }
+      var once = new IntersectionObserver(function (es) {
+        if (es[0].isIntersecting) { once.disconnect(); play(); }
+      }, { threshold: 0.5 });
+      once.observe(led);
     })();
   </script>
   <!-- sticky contact bar: below 860px the header Contact button is hidden
