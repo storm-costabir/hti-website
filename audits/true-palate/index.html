@@ -498,6 +498,15 @@ a:hover > .arr svg{transform:translateX(3px)}
 .g-bubble{top:auto;right:auto;left:50%;bottom:16px;transform-origin:50% 100%;translate:-50% 0;max-width:260px}
 .hand svg{width:18px;height:18px;display:block}
 
+/* hand hints under every interactive section */
+.hint.left{justify-content:flex-start;margin:0 0 14px}
+.hl-legend + .hint.left,.stats + .hint.left{margin:12px 0 0}
+.grid100{margin-top:6px}
+.hint.left .hand{flex:none}
+#scores .hint.left{margin-top:-8px}
+#attention .hint.left{margin-top:-8px}
+#checklist .hint.left{margin:-8px 0 10px}
+
 </style>
 
 <nav class="nav" aria-label="Report sections">
@@ -540,6 +549,7 @@ a:hover > .arr svg{transform:translateX(3px)}
         <p class="summary rise" style="--d:160ms" id="summary"></p>
         <div class="meta-line rise" style="--d:220ms">Revised audit sheet 3.2 · Ref. 2609 · Prepared by HTI</div>
         <div class="stats" id="stats"></div>
+        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a box to jump to it</span></p>
         <div class="legend"><span><i class="dot band lo"></i>75% and below</span><span><i class="dot band mid"></i>76–94%</span><span><i class="dot band hi"></i>95% and above</span></div>
       </div>
     </section>
@@ -547,13 +557,15 @@ a:hover > .arr svg{transform:translateX(3px)}
     <section class="results" id="results">
       <div>
         <div class="sub-head"><h2>Every check</h2><span>100 squares, one per check</span></div>
-        <p class="how">Each square is one check, in the order of the sheet. Point at or tap a square to read it, then open it in the checklist.</p>
+        <p class="how">Each square is one check, in the order of the sheet.</p>
+        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a square to read the check</span></p>
         <div class="grid100" id="grid100"></div>
         <div class="legend hl-legend"><span class="hl-label">Highlight:</span><span id="grid-legend" class="legend"></span></div>
+        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap Yes, No or NA to highlight those squares</span></p>
       </div>
       <div>
         <div class="sub-head"><h2>Where checks were missed</h2><span id="miss-note"></span></div>
-        <p class="how">Select an area to see the checks that were missed.</p>
+        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click an area to see what was missed</span></p>
         <div class="miss" id="miss"></div>
       </div>
     </section>
@@ -562,18 +574,21 @@ a:hover > .arr svg{transform:translateX(3px)}
     <p class="na-note">Each area's score is the share of its checks that were met. Checks marked NA count as met, as on the original sheet.</p>
 
     <section id="scores">
-      <div class="sec-head"><h2>Scores by area</h2><span class="note">Select an area to see its checklist</span>
+      <div class="sec-head"><h2>Scores by area</h2>
         <span class="legend"><span><i class="dot band lo"></i>75% and below</span><span><i class="dot band mid"></i>76% to 94%</span><span><i class="dot band hi"></i>95% and above</span></span></div>
+      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click an area to see its checklist</span></p>
       <div class="scores" id="score-list"></div>
     </section>
 
     <section id="attention">
       <div class="sec-head"><h2>Needs attention</h2><span class="note" id="attn-note"></span></div>
+      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click any item to open it in the checklist</span></p>
       <div class="attn" id="attn"></div>
     </section>
 
     <section id="checklist">
       <div class="sec-head"><h2>Full checklist</h2><span class="note">Every check, with the auditor's comments</span></div>
+      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a filter to show only those checks</span></p>
       <div class="filters" role="group" aria-label="Show checks" id="filters"></div>
       <div id="areas"></div>
       <p class="empty" id="empty" hidden>No checks match this filter.</p>
@@ -1044,7 +1059,7 @@ $("score-list").innerHTML = scored.map((a, i) =>
   `<a class="score" href="#${slug(a.n)}"><span>${esc(a.n)}</span><span class="track"><span class="fill ${band(a.p)}" style="width:${a.p}%;animation-delay:${i * 40}ms"></span></span><span class="pct">${a.p}%</span>${ARROW}</a>`).join("");
 
 // needs attention
-$("attn-note").textContent = `${count("N")} checks were not met, across ${misses.length} areas. Select one to see it in the checklist.`;
+$("attn-note").textContent = `${count("N")} checks were not met, across ${misses.length} areas`;
 $("attn").innerHTML = misses.map(([area, items]) => {
   const all_ = AREAS.find(a => a[0] === area)[1];
   return `<div class="attn-group" id="attn-${slug(area)}"><h3>${esc(area)} <span>${items.length} not met</span></h3><ul>${items.map(it => {
