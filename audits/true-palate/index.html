@@ -307,7 +307,6 @@ td.n{width:44px;color:var(--t3-ink-3);font-variant-numeric:tabular-nums}
 .nav-act:hover{background:var(--t3-wash);color:var(--t3-ink)}
 .nav-act svg{transition:transform 250ms ease}
 .nav-act.dl-btn:hover svg{transform:translateY(2px)}
-#guide-open:hover svg{transform:rotate(-12deg) scale(1.08)}
 .nav-act:disabled{opacity:.4;cursor:not-allowed}
 .nav-act .short{display:none}
 
@@ -421,7 +420,6 @@ a:hover > .arr svg{transform:translateX(3px)}
 @media (max-width:700px){
   .sheet{padding:26px 18px 30px;gap:52px;border-radius:14px}
   .scores{grid-template-columns:1fr}
-  .nav-brand small{display:none}
   .nav-act{padding:8px 9px;font-size:13.5px}
   .nav-act .long{display:none}
   .nav-act .short{display:inline}
@@ -442,8 +440,6 @@ a:hover > .arr svg{transform:translateX(3px)}
   .na-note{margin-top:-40px}
   :root{--nav-h:60px}
   .nav-in{padding-inline:14px;gap:12px}
-  .nav-brand img{height:26px}
-  .nav-brand span{font-size:12.5px}
   h1{font-size:32px}
   .hero p.summary{font-size:15px}
   .stat b{font-size:24px}
@@ -507,6 +503,14 @@ a:hover > .arr svg{transform:translateX(3px)}
 #attention .hint.left{margin-top:-8px}
 #checklist .hint.left{margin:-8px 0 10px}
 
+/* hints sit below what they describe */
+.sheet .hint{margin:12px 0 0}
+.sheet .hint.left{justify-content:flex-start}
+.wheel-box > .hint{justify-content:center}
+.filters{margin-bottom:0}
+#checklist .filters + .hint{margin-bottom:22px}
+.grid100 + .hint{margin-bottom:4px}
+
 </style>
 
 <nav class="nav" aria-label="Report sections">
@@ -524,7 +528,6 @@ a:hover > .arr svg{transform:translateX(3px)}
     </div>
     <div class="nav-acts">
       <span class="nav-sep" aria-hidden="true"></span>
-      <button class="nav-act" type="button" id="guide-open"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1.1" fill="currentColor"/></svg><span>Guide</span></button>
       <button class="nav-act dl-btn" type="button"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19.5h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="long">Download PDF</span><span class="short">PDF</span></button>
     </div>
   </div>
@@ -542,14 +545,15 @@ a:hover > .arr svg{transform:translateX(3px)}
   <main class="sheet">
 
     <section class="hero" id="overview" aria-label="Overall result">
-      <div class="wheel-box"><svg id="wheel" viewBox="-80 -10 560 420" role="img" aria-label="Score by area. Select an area to see its checklist."></svg><p class="hint"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a slice to open that area</span></p><div class="wheel-list" id="wheel-list"></div></div>
+      <div class="wheel-box"><svg id="wheel" viewBox="-80 -10 560 420" role="img" aria-label="Score by area. Select an area to see its checklist."></svg><div class="wheel-list" id="wheel-list"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a slice to open that area</span></p></div>
       <div>
         <div class="eyebrow rise">Mystery audit · Overall result</div>
         <h1 class="rise" style="--d:80ms">True Palate</h1>
         <p class="summary rise" style="--d:160ms" id="summary"></p>
         <div class="meta-line rise" style="--d:220ms">Revised audit sheet 3.2 · Ref. 2609 · Prepared by HTI</div>
         <div class="stats" id="stats"></div>
-        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a box to jump to it</span></p>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a box to jump to it</span></p>
         <div class="legend"><span><i class="dot band lo"></i>75% and below</span><span><i class="dot band mid"></i>76–94%</span><span><i class="dot band hi"></i>95% and above</span></div>
       </div>
     </section>
@@ -558,15 +562,15 @@ a:hover > .arr svg{transform:translateX(3px)}
       <div>
         <div class="sub-head"><h2>Every check</h2><span>100 squares, one per check</span></div>
         <p class="how">Each square is one check, in the order of the sheet.</p>
-        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click a square to read the check</span></p>
         <div class="grid100" id="grid100"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a square to read the check</span></p>
         <div class="legend hl-legend"><span class="hl-label">Highlight:</span><span id="grid-legend" class="legend"></span></div>
         <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap Yes, No or NA to highlight those squares</span></p>
       </div>
       <div>
         <div class="sub-head"><h2>Where checks were missed</h2><span id="miss-note"></span></div>
-        <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click an area to see what was missed</span></p>
         <div class="miss" id="miss"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap an area to see what was missed</span></p>
       </div>
     </section>
 
@@ -576,20 +580,20 @@ a:hover > .arr svg{transform:translateX(3px)}
     <section id="scores">
       <div class="sec-head"><h2>Scores by area</h2>
         <span class="legend"><span><i class="dot band lo"></i>75% and below</span><span><i class="dot band mid"></i>76% to 94%</span><span><i class="dot band hi"></i>95% and above</span></span></div>
-      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click an area to see its checklist</span></p>
       <div class="scores" id="score-list"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap an area to see its checklist</span></p>
     </section>
 
     <section id="attention">
       <div class="sec-head"><h2>Needs attention</h2><span class="note" id="attn-note"></span></div>
-      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap or click any item to open it in the checklist</span></p>
       <div class="attn" id="attn"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap any item to open it in the checklist</span></p>
     </section>
 
     <section id="checklist">
       <div class="sec-head"><h2>Full checklist</h2><span class="note">Every check, with the auditor's comments</span></div>
-      <p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a filter to show only those checks</span></p>
       <div class="filters" role="group" aria-label="Show checks" id="filters"></div>
+<p class="hint left"><span class="hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Tap a filter to show only those checks</span></p>
       <div id="areas"></div>
       <p class="empty" id="empty" hidden>No checks match this filter.</p>
     </section>
@@ -1018,7 +1022,7 @@ $("stats").innerHTML = STATS.map(([b, l], i) =>
       return `M${x0},${y0} L${x1},${y1} A${r},${r} 0 0 1 ${x2},${y2} L${x3},${y3} A${R0},${R0} 0 0 0 ${x0},${y0}Z`; };
     const mid = (a0 + a1) / 2, [lx, ly] = pt(R1 + 14, mid), anchor = Math.cos(mid) > 0.2 ? "start" : Math.cos(mid) < -0.2 ? "end" : "middle";
     const met = a.it.length - a.miss.length;
-    const tip = `<b>${esc(a.n)} · ${a.p}%</b>${met} of ${a.it.length} checks met<span class="h">Select to see this area's checklist</span>`;
+    const tip = `<b>${esc(a.n)} · ${a.p}%</b>${met} of ${a.it.length} checks met<span class="h">Tap to see this area's checks</span>`;
     g.push(`<a class="wedge" href="#${slug(a.n)}" data-area="${slug(a.n)}" data-tip="${esc(tip)}" aria-label="${esc(a.n)} ${a.p}%">
       <path d="${wedge(R1)}" fill="#F1F1F1"/>
       <path class="bar-w" d="${wedge(R0 + (R1 - R0) * a.p / 100)}" fill="${COL[band(a.p)]}" style="animation-delay:${i * 45}ms"/>
@@ -1275,7 +1279,7 @@ if (!reduceMotion && "IntersectionObserver" in window) {
 const revealNow = el => { for (let n = el; n; n = n.parentElement) if (n.classList && n.classList.contains("pre")) n.classList.remove("pre"); };
 
 // ---------- welcome guide ----------
-const GUIDE_NEVER = "hti-audit-guide-never", GUIDE_SEEN = "hti-audit-guide-seen";
+const GUIDE_NEVER = "hti-audit-guide-never";
 const store = (s, k, v) => { try { return v === undefined ? s.getItem(k) : s.setItem(k, v); } catch (e) { return null; } };
 const miniWheel = () => {
   const cx = 100, cy = 100, R0 = 26, R1 = 92, n = scored.length;
@@ -1288,13 +1292,13 @@ const miniWheel = () => {
 };
 const sample = all.slice(0, 18);
 const GUIDE = [
-  { eyebrow: "Welcome", title: `${esc(REPORT.venue)}'s mystery audit`, text: `This report shows how the visit scored, area by area, with the auditor's notes. Here's how to find your way around. It takes a few seconds.`,
+  { eyebrow: "Welcome", title: "Your mystery audit report", text: `A secret guest visited ${esc(REPORT.venue)} and checked ${all.length} things. This page shows how it went. Here is how to use it.`,
     art: `<div class="g-hero"><div><b>${overall}%</b><small>OVERALL SCORE</small></div></div><i class="g-orb" style="background:var(--t3-success)"></i><i class="g-orb o2" style="background:var(--t3-alert)"></i><i class="g-orb o3" style="background:var(--t3-danger)"></i>` },
-  { eyebrow: "Step 1", title: "Start with the score wheel", text: "Each slice is one area of the visit. The longer the slice, the higher the score; the colour shows its band. Tap or click a slice to open that area.",
+  { eyebrow: "Step 1", title: "The score wheel", text: "Each slice is one part of the visit. A longer slice means a better score. Green is good, orange is okay and red needs work. Tap a slice to see more.",
     art: miniWheel() + `<span class="g-hand" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V8a1.5 1.5 0 0 1 3 0v2m0-.5a1.5 1.5 0 0 1 3 0V14a6 6 0 0 1-6 6h-.8a6 6 0 0 1-4.6-2.2L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="#fff" stroke="#000" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>` },
-  { eyebrow: "Step 2", title: "Every check is a square", text: "Green was met, black was not, grey didn't apply. Point at or tap any square to read the check and the auditor's comment.",
+  { eyebrow: "Step 2", title: "Every check is a square", text: "Green means it was done right. Black means it was missed. Grey means it did not apply. Tap a square to read it.",
     art: `<div class="g-grid">${sample.map((c, i) => `<i class="${c[1]}" style="--n:${i}"></i>`).join("")}</div><div class="g-bubble"><b>${esc(AREAS[0][0])} · check 1</b>${esc(AREAS[0][1][0][2] || AREAS[0][1][0][0])}</div>` },
-  { eyebrow: "Step 3", title: "See what to fix", text: "'Needs attention' lists every missed check with its comment. Select any item to jump straight to it in the full checklist. You can also download a PDF from the top bar.",
+  { eyebrow: "Step 3", title: "What to fix", text: "'Needs attention' shows every check that was missed. Tap one to see it in the full list. You can also save a PDF from the top bar.",
     art: `<div class="g-cards"><div><b>Server</b><s class="dk"></s><s></s><s></s></div><div><b>Guest Interaction</b><s class="dk"></s><s></s><s></s></div><div><b>Needs attention</b><s class="dk"></s><s></s><s></s><em>Open ›</em></div></div>` }
 ];
 const guide = $("guide"), gStage = $("guide-stage"), gDots = $("gdots"), gNext = $("guide-next"), gBack = $("guide-back");
@@ -1308,7 +1312,7 @@ function gShow(i) {
   gStage.querySelectorAll(".gstep").forEach((s, j) => { s.classList.toggle("left", j < gIdx); s.classList.toggle("right", j > gIdx); s.setAttribute("aria-hidden", String(j !== gIdx)); });
   gDots.querySelectorAll("i").forEach((d, j) => d.classList.toggle("on", j === gIdx));
   guide.querySelector(".guide-card").setAttribute("aria-labelledby", "guide-title-" + gIdx);
-  gNext.textContent = gIdx === GUIDE.length - 1 ? "Start exploring" : "Next";
+  gNext.textContent = gIdx === GUIDE.length - 1 ? "Let's go" : "Next";
   gBack.textContent = gIdx === 0 ? "Skip" : "Back";
 }
 function openGuide() {
@@ -1319,7 +1323,6 @@ function openGuide() {
 }
 function closeGuide() {
   if (guide.hidden) return;
-  store(sessionStorage, GUIDE_SEEN, "1");
   if ($("guide-never").checked) store(localStorage, GUIDE_NEVER, "1");
   const done = () => { guide.hidden = true; guide.classList.remove("closing"); document.documentElement.style.overflow = ""; if (gReturn && gReturn.focus) gReturn.focus(); };
   if (reduceMotion) done(); else { guide.classList.add("closing"); setTimeout(done, 280); }
@@ -1327,7 +1330,6 @@ function closeGuide() {
 gNext.addEventListener("click", () => gIdx === GUIDE.length - 1 ? closeGuide() : gShow(gIdx + 1));
 gBack.addEventListener("click", () => gIdx === 0 ? closeGuide() : gShow(gIdx - 1));
 guide.querySelectorAll("[data-close]").forEach(el => el.addEventListener("click", closeGuide));
-$("guide-open").addEventListener("click", openGuide);
 document.addEventListener("keydown", e => {
   if (guide.hidden) return;
   if (e.key === "Escape") closeGuide();
@@ -1344,7 +1346,8 @@ let gx = null;
 gStage.addEventListener("touchstart", e => { gx = e.touches[0].clientX; }, { passive: true });
 gStage.addEventListener("touchend", e => { if (gx === null) return; const dx = e.changedTouches[0].clientX - gx; if (Math.abs(dx) > 45) gShow(gIdx + (dx < 0 ? 1 : -1)); gx = null; });
 // greet each new visit, unless they opted out or arrived on a link to a specific result
-if (store(localStorage, GUIDE_NEVER) !== "1" && store(sessionStorage, GUIDE_SEEN) !== "1" && location.hash.length < 2) setTimeout(openGuide, 900);
+// show on every page load, unless they chose "Don't show again" or arrived on a link to a specific result
+if (store(localStorage, GUIDE_NEVER) !== "1" && location.hash.length < 2) setTimeout(openGuide, 900);
 
 </script>
 
