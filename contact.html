@@ -1338,6 +1338,18 @@
               placeholder="10-digit mobile number" />
             <span class="ef-err">Please enter a valid phone number.</span>
           </div>
+
+          <!-- There is no city column on contact_enquiries and the schema is
+               out of reach from here, so collect() writes this as the first
+               line of the message - which is also what the enquiry email
+               shows. Keep it a plain text box: the training happens on the
+               client's premises, and "Lonavala" is as valid as "Mumbai". -->
+          <div class="ef-field" data-required data-label="City">
+            <label for="ef-city">City <span class="ef-req">*</span></label>
+            <input class="ef-input" type="text" id="ef-city" name="city" autocomplete="address-level2"
+              placeholder="Where the training would happen" />
+            <span class="ef-err">Please tell us your city.</span>
+          </div>
         </div>
 
         <div class="ef-field ef-fieldset" role="group" aria-labelledby="ef-staff-legend" data-required
@@ -1384,7 +1396,7 @@
         <div class="ef-field ef-fieldset">
           <label for="ef-message">Notes <span class="ef-opt">(optional)</span></label>
           <textarea class="ef-textarea" id="ef-message" name="message"
-            placeholder="Team size, city, timelines - anything that helps us prepare."></textarea>
+            placeholder="Team size, timelines - anything that helps us prepare."></textarea>
         </div>
 
         <!-- honeypot: hidden from people, catches bots -->
@@ -1828,6 +1840,12 @@
         const group = form.querySelector('.ef-field[data-group="training_needed"]');
         if (group) group.removeAttribute('data-required');
 
+        /* a city page has already said which city; put it in the box, where
+           they can still change it to "Thane" or "Navi Mumbai" */
+        if (slug.indexOf('city-') === 0 && form.elements.city && !form.elements.city.value) {
+          form.elements.city.value = hit[0].replace(/^Training in /, '');
+        }
+
         return hit[0];
       })();
 
@@ -1869,7 +1887,9 @@
              about, the ticks are the general areas */
           training_needed: (programme ? [programme + ' (programme page)'] : [])
             .concat(pickedAll('training_needed')).join(', '),
-          message: val('message')
+          /* no city column, so it opens the message: the first thing the
+             office reads in the alert email is where the lead is */
+          message: ['City: ' + val('city'), val('message')].filter(Boolean).join('\n\n')
         };
       }
 
