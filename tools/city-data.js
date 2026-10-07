@@ -52,14 +52,14 @@ const PROGRAMMES = {
   'cup':            ['CUP', 'Caretakers of villas, homestays and guesthouses', '07-hti-apht-all-purpose-hospitality-training.jpg'],
   'super':          ['SUPER', 'Waiters, stewards, captains and hostesses', '03-hti-restaurant-team-training.jpg'],
   'support':        ['SUPPORT', 'The same roles, for a restaurant that has not opened yet', '03-hti-restaurant-team-training.jpg'],
-  'icedt':          ['ICEDT', 'Counter executives, sales staff and quick-service servers', '08-hti-classroom-training-session.jpg'],
+  'icedt':          ['ICEDT', 'Counter executives, sales staff and quick-service servers', '09-hti-service-training-roleplay-session.webp'],
   'icare':          ['iCARE', 'Customer service executives and their supervisors', '05-hti-guest-experience-training.jpg'],
   'vow':            ['Vow to Wow', 'Frontline representatives and team leaders', '05-hti-guest-experience-training.jpg'],
   'ramp':           ['RAMP', 'Restaurant managers and shift supervisors', '06-hti-leadership-development-program.jpg'],
   'mdp':            ['MDP', 'Newly promoted and mid-level managers', '06-hti-leadership-development-program.jpg'],
   'class':          ['CLASS', 'Guest-facing and corporate professionals', '02-hti-training-session-hospitality-team.jpg'],
-  'post':           ['POST', 'Corporate pantry staff and attendants', '08-hti-classroom-training-session.jpg'],
-  'top':            ['TOP', 'Peons, office boys and support staff', '08-hti-classroom-training-session.jpg'],
+  'post':           ['POST', 'Corporate pantry staff and attendants', '11-hti-trainer-led-table-session.webp'],
+  'top':            ['TOP', 'Peons, office boys and support staff', '12-hti-trainer-addressing-staff-session.webp'],
   'posh-training':  ['POSH Training', 'One day on the POSH Act, 2013 &mdash; staff, managers and ICC members', '02-hti-training-session-hospitality-team.jpg'],
   'fssai-training': ['FSSAI Training', 'Food handlers and Food Safety Supervisors', '07-hti-apht-all-purpose-hospitality-training.jpg']
 };
@@ -220,14 +220,18 @@ const CITIES = [
    a skyline says nothing about training.
 
    Only the six large originals are used here. 01 and 06 are 455x320, which is
-   fine for a 250px card and visibly soft blown up to a 560px hero. */
+   fine for a 250px card and visibly soft blown up to a 560px hero.
+
+   08 (students at exam desks) is retired site-wide: it read as an exam hall,
+   not a training session. 09-12 replace it - live sessions with a trainer
+   on the floor. 09 is 1200 wide; 10-12 are 842, enough for a 560px hero. */
 const HERO_PHOTOS = {
   'mumbai': '02-hti-training-session-hospitality-team.jpg',
   'delhi-ncr': '04-hti-hotel-operations-training.jpg',
-  'pune': '08-hti-classroom-training-session.jpg',
+  'pune': '09-hti-service-training-roleplay-session.webp',
   'bengaluru': '03-hti-restaurant-team-training.jpg',
   'hyderabad': '05-hti-guest-experience-training.jpg',
-  'chennai': '08-hti-classroom-training-session.jpg',
+  'chennai': '10-hti-hands-on-training-demonstration.webp',
   'kolkata': '02-hti-training-session-hospitality-team.jpg',
   'goa': '07-hti-apht-all-purpose-hospitality-training.jpg',
   'jaipur': '04-hti-hotel-operations-training.jpg',

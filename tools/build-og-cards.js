@@ -143,7 +143,7 @@ const CARDS = [
   },
   {
     slug: 'posh-training',
-    bg: 'images/blog/hti-training-programs/08-hti-classroom-training-session.jpg',
+    bg: 'images/blog/hti-training-programs/12-hti-trainer-addressing-staff-session.webp',
     head: 'Workplace Training',
     acronym: 'POSH',
     sub: 'The 2013 Act, for staff, managers and Internal Committee members',
@@ -167,7 +167,7 @@ const CARDS = [
   },
   {
     slug: 'training-needs-survey',
-    bg: 'images/blog/hti-training-programs/08-hti-classroom-training-session.jpg',
+    bg: 'images/blog/hti-training-programs/11-hti-trainer-led-table-session.webp',
     head: 'Free Training Needs Survey',
     sub: '15 questions, three minutes, and a training plan built for your team',
     alt: 'Free training needs survey for hotels, restaurants and QSRs - HTI India'
@@ -322,7 +322,7 @@ const CARDS = [
   },
   {
     slug: 'hospitality-training-pune',
-    bg: 'images/blog/hti-training-programs/08-hti-classroom-training-session.jpg',
+    bg: 'images/blog/hti-training-programs/09-hti-service-training-roleplay-session.webp',
     head: 'Hospitality Training in Pune',
     sub: 'Cafes, business hotels and IT campus teams &mdash; taught on site',
     alt: 'Hospitality training in Pune by HTI India, delivered on your own property'

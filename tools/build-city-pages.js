@@ -112,6 +112,18 @@ const json = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
    Shift, and the one Core Web Vital a hero image is most likely to wreck. */
 function jpegSize(file) {
   const b = fs.readFileSync(file);
+  /* WebP: the newer session photos ship as WebP. Size lives in the first
+     chunk - VP8X (extended), VP8 (lossy) or VP8L (lossless). */
+  if (b.toString('ascii', 0, 4) === 'RIFF' && b.toString('ascii', 8, 12) === 'WEBP') {
+    const chunk = b.toString('ascii', 12, 16);
+    if (chunk === 'VP8X') return { w: 1 + b.readUIntLE(24, 3), h: 1 + b.readUIntLE(27, 3) };
+    if (chunk === 'VP8 ') return { w: b.readUInt16LE(26) & 0x3FFF, h: b.readUInt16LE(28) & 0x3FFF };
+    if (chunk === 'VP8L') {
+      const v = b.readUInt32LE(21);
+      return { w: (v & 0x3FFF) + 1, h: ((v >> 14) & 0x3FFF) + 1 };
+    }
+    throw new Error(`unknown WebP layout in ${file}`);
+  }
   let i = 2;
   while (i < b.length - 9) {
     if (b[i] !== 0xFF) { i++; continue; }
