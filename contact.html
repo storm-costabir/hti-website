@@ -1339,11 +1339,11 @@
             <span class="ef-err">Please enter a valid phone number.</span>
           </div>
 
-          <!-- There is no city column on contact_enquiries and the schema is
-               out of reach from here, so collect() writes this as the first
-               line of the message - which is also what the enquiry email
-               shows. Keep it a plain text box: the training happens on the
-               client's premises, and "Lonavala" is as valid as "Mumbai". -->
+          <!-- Goes to the city column on contact_enquiries; if that column is
+               not there yet the script folds it into the message instead
+               (see withoutCityColumn). Keep it a plain text box: the training
+               happens on the client's premises, and "Lonavala" is as valid
+               as "Mumbai". -->
           <div class="ef-field" data-required data-label="City">
             <label for="ef-city">City <span class="ef-req">*</span></label>
             <input class="ef-input" type="text" id="ef-city" name="city" autocomplete="address-level2"
@@ -1887,10 +1887,33 @@
              about, the ticks are the general areas */
           training_needed: (programme ? [programme + ' (programme page)'] : [])
             .concat(pickedAll('training_needed')).join(', '),
-          /* no city column, so it opens the message: the first thing the
-             office reads in the alert email is where the lead is */
-          message: ['City: ' + val('city'), val('message')].filter(Boolean).join('\n\n')
+          city: val('city'),
+          message: val('message')
         };
+      }
+
+      /* The city column is added from the Supabase dashboard, not from this
+         repo, so the form cannot assume it exists. When PostgREST answers
+         PGRST204 (unknown column) the city goes back to being the first line
+         of the message, and nobody's enquiry is lost over a missing column. */
+      function withoutCityColumn(row) {
+        const r = Object.assign({}, row);
+        delete r.city;
+        r.message = ['City: ' + row.city, row.message].filter(Boolean).join('\n\n');
+        return r;
+      }
+
+      function save(row) {
+        return fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
+          method: 'POST',
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: JSON.stringify(row)
+        });
       }
 
       /* ---------- submit ---------- */
@@ -1933,16 +1956,11 @@
         btn.textContent = 'Sending...';
 
         try {
-          const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE}`, {
-            method: 'POST',
-            headers: {
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-              'Content-Type': 'application/json',
-              'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify(answers)
-          });
+          let res = await save(answers);
+          if (res.status === 400) {
+            const err = await res.json().catch(() => null);
+            if (err && err.code === 'PGRST204') res = await save(withoutCityColumn(answers));
+          }
           if (!res.ok) throw new Error('HTTP ' + res.status);
 
           if (typeof gtag === 'function') {
