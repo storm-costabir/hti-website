@@ -613,6 +613,50 @@
     }
   
 
+    /* ---- Show More: six cards at a time. Every card stays in the HTML so
+         crawlers still see every article link; only the display changes.
+         Before the script runs, html.mo (set in the head) hides all but the
+         first six, so the full list never flashes up; without JavaScript at
+         all, every card shows and there is no button. ---- */
+    html.mo .blog-grid:not(.paged) > .blog-card:nth-child(n+7),
+    .blog-grid.paged > .blog-card.is-more {
+      display: none;
+    }
+
+    .blog-more-wrap {
+      text-align: center;
+      margin-top: 36px;
+    }
+
+    .blog-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #E32129;
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 14px 30px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+
+    .blog-more:hover {
+      background: #c41a1f;
+    }
+
+    .blog-more:focus-visible {
+      outline: 3px solid #000;
+      outline-offset: 3px;
+    }
+
+    .blog-more[hidden] {
+      display: none;
+    }
+
   </style>
   <!-- Google tag (gtag.js) -->
   <script async fetchpriority="low" src="https://www.googletagmanager.com/gtag/js?id=G-SBKJQQRP0N"></script>
@@ -1089,6 +1133,9 @@
       </a>
     <!-- BLOG-INDEX:END -->
     </div>
+    <div class="blog-more-wrap">
+      <button type="button" class="blog-more" id="blogMore" aria-controls="blogGrid" hidden>Show More <span aria-hidden="true">&darr;</span></button>
+    </div>
   </section>
 
   <!-- ============ FOOTER ============ -->
@@ -1249,6 +1296,29 @@
        Because the baked markup is the floor, every failure path here leaves it
        alone rather than blanking the page: a Supabase outage now costs the
        reader nothing. */
+    /* ---------- Show More: six cards at a time ----------
+       `shown` survives the Supabase refresh below, which rebuilds the grid,
+       so a reader who has already opened more does not get folded back to
+       six. Focus moves to the first newly shown card so keyboard and
+       screen-reader users land on what they asked for. */
+    const BLOG_PAGE = 6;
+    let blogShown = BLOG_PAGE;
+    function pageBlogs(focusFrom) {
+      const gridEl = document.getElementById('blogGrid');
+      const moreEl = document.getElementById('blogMore');
+      const cards = gridEl.querySelectorAll('.blog-card');
+      cards.forEach((c, i) => c.classList.toggle('is-more', i >= blogShown));
+      gridEl.classList.add('paged');
+      moreEl.hidden = blogShown >= cards.length;
+      if (focusFrom != null && cards[focusFrom]) cards[focusFrom].focus();
+    }
+    document.getElementById('blogMore').addEventListener('click', () => {
+      const from = blogShown;
+      blogShown += BLOG_PAGE;
+      pageBlogs(from);
+    });
+    pageBlogs();
+
     async function loadBlogs() {
       const statusEl = document.getElementById('blogStatus');
       const gridEl = document.getElementById('blogGrid');
@@ -1337,6 +1407,7 @@
             </div>
           </a>`;
         }).join('');
+        pageBlogs();
       } catch (err) {
         console.error(err);
         if (hasBakedCards) return;   // the baked list is still on screen; say nothing
