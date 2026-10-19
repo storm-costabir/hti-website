@@ -1617,6 +1617,7 @@
 .mfh-readmore{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:#fff;background:#e31e24;padding:8px 16px;border-radius:6px;text-decoration:none;transition:background 0.2s ease;width:fit-content;}
 .mfh-readmore:hover{background:#c41a1f;}
 </style>
+<script src="assets/blog-routes.js"></script>
 <script>
 (function(){
   var section=document.querySelector('.mfh-section');
@@ -1624,7 +1625,7 @@
   var currentId=parseInt(section.getAttribute('data-current-id'))||0;
   var SUPABASE_URL='https://ytthcgdsbfagvwcopoaj.supabase.co';
   var ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl0dGhjZ2RzYmZhZ3Z3Y29wb2FqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMzMjk5MTMsImV4cCI6MjA5ODkwNTkxM30.JIDahcRTu3VbFpZ55Ti5hHg_JrHobk0zh8PSaj9lWLc';
-  fetch(SUPABASE_URL+'/rest/v1/blogs?select=id,title,cover_image,category,created_at&limit=20',{
+  fetch(SUPABASE_URL+'/rest/v1/blogs?select=id,title,cover_image,category,created_at,layout,redirect_url&is_published=eq.true&limit=20',{
     headers:{'apikey':ANON_KEY,'Authorization':'Bearer '+ANON_KEY}
   })
   .then(function(r){return r.json();})
@@ -1638,7 +1639,16 @@
       var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
       var dateStr=d.getDate()+' '+months[d.getMonth()]+' '+d.getFullYear();
       var card=document.createElement('a');
-      card.href='blog-post.html?id='+b.id;
+      /* the article's own address, not a blog-post.html?id= hop: the hop
+         redirects in the browser and leaves search engines a duplicate URL */
+      card.href=(function(){
+        if(b.redirect_url) return b.redirect_url;
+        var twin=window.HTIBlogRoutes&&window.HTIBlogRoutes.staticPageFor(b.id);
+        if(twin) return twin;
+        if(b.layout==='magazine') return 'magazine-blog.html?id='+b.id;
+        if(b.layout==='immersive') return 'immersive-blog.html?id='+b.id;
+        return 'blog-post.html?id='+b.id;
+      })();
       card.className='mfh-card';
       card.innerHTML='<img class="mfh-card-img" src="'+b.cover_image+'" alt="'+b.title+'" loading="lazy"><div class="mfh-card-body"><div class="mfh-cat">'+(b.category||'General')+'</div><div class="mfh-title">'+b.title+'</div><div class="mfh-date">'+dateStr+'</div><span class="mfh-readmore">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>';
       grid.appendChild(card);
