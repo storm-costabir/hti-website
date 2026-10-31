@@ -2199,28 +2199,28 @@
 
     /* ---------- CTA participant brand cards ---------- */
     (function () {
+      /* Each photo is shown with the brand that person works for. Pairings are
+         copied from the original Webflow build; do not cycle logos against photos. */
+      const PRASAD = ["images/clients/63.svg", "Prasad Food Divine"];
+      const MIRAJ = ["images/clients/62.svg", "Miraj Cinemas"];
+      const BHAGAT = ["images/clients/b-bhagat-tarachand-logo.png", "Bhagat Tarachand"];
+      const BHAGAT_K = ["images/clients/6.svg", "Bhagat Tarachand"];
+      const HAKKASAN = ["images/clients/9-638f2c.svg", "Hakkasan"];
+      const CINCIN = ["images/clients/26.svg", "CinCin"];
       const people = [
-        "images/participants/1.webp", "images/participants/2.webp", "images/participants/3.webp",
-        "images/participants/4.webp", "images/participants/5.webp", "images/participants/6.webp",
-        "images/participants/7.webp", "images/participants/8.webp", "images/participants/9.webp",
-        "images/participants/10.webp", "images/participants/11.webp", "images/participants/12.webp",
-        "images/participants/13.webp", "images/participants/14.webp", "images/participants/15.webp",
-        "images/participants/16.webp", "images/participants/17.webp", "images/participants/18.webp"
-      ];
-      const logos = [
-        "images/clients/64-hilton.svg", "images/clients/63.png", "images/clients/26.png",
-        "images/clients/66-pugdundee-safaris.webp", "images/clients/b-bhagat-tarachand-logo.png",
-        "images/clients/27.png", "images/clients/15.png", "images/clients/23.png",
-        "images/clients/65-sbi.svg", "images/clients/67-singinawa.webp",
-        "images/clients/29.png", "images/clients/62.png"
+        [1, PRASAD], [6, MIRAJ], [13, BHAGAT_K], [15, MIRAJ], [2, PRASAD],
+        [16, MIRAJ], [3, PRASAD], [20, CINCIN], [5, PRASAD], [17, MIRAJ],
+        [21, HAKKASAN], [22, CINCIN], [23, HAKKASAN], [7, MIRAJ], [9, BHAGAT],
+        [14, MIRAJ], [10, BHAGAT], [8, MIRAJ], [11, BHAGAT], [4, PRASAD],
+        [18, MIRAJ], [12, BHAGAT], [24, CINCIN], [25, HAKKASAN], [26, CINCIN]
       ];
       const track = document.getElementById('ctaTrack');
-      const html = people.map((p, i) => `
-    <div class="brand-card">
-      <img class="person" src="${CDN}${p}" alt="" loading="lazy">
-      <div class="logo-bar"><img src="${CDN}${logos[i % logos.length]}" alt="" loading="lazy"></div>
+      const cards = isDupe => people.map(([n, [logo, brand]]) => `
+    <div class="brand-card"${isDupe ? ' aria-hidden="true"' : ''}>
+      <img class="person" src="${CDN}images/participants/${n}.webp" alt="" loading="lazy" width="100" height="100">
+      <div class="logo-bar"><img src="${CDN}${logo}" alt="${isDupe ? '' : brand}" loading="lazy"></div>
     </div>`).join('');
-      track.innerHTML = html + html;
+      track.innerHTML = cards(false) + cards(true);
     })();
 
     /* ---------- Testimonials ---------- */
