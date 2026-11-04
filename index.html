@@ -1113,6 +1113,168 @@
     }
 
     /* ============ TRACK PROGRESS (light) ============ */
+    /* ============ FREE FOOD COST CALCULATOR ============ */
+    .fcc-promo {
+      background: radial-gradient(ellipse at 15% 0%, rgba(227, 33, 41, .32), transparent 55%), #111;
+      color: #fff;
+      padding: 80px 0;
+    }
+
+    .fcc-promo-row {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .fcc-promo-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #ff6b70;
+      border: 1px solid rgba(227, 33, 41, .55);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 20px;
+    }
+
+    .fcc-promo h2 {
+      font-size: 44px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      margin-bottom: 16px;
+    }
+
+    .fcc-promo h2 span {
+      color: var(--hti-red);
+    }
+
+    .fcc-promo-text p {
+      font-size: 19px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, .78);
+      max-width: 480px;
+      margin-bottom: 30px;
+    }
+
+    .fcc-promo .btn-red {
+      padding: 16px 30px;
+    }
+
+    .fcc-promo .btn-red:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .fcc-card {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
+    }
+
+    .fcc-card-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .6);
+      text-align: center;
+    }
+
+    .fcc-card-num {
+      font-size: 64px;
+      font-weight: 800;
+      color: #2ecc71;
+      text-align: center;
+      line-height: 1.1;
+      margin: 8px 0 4px;
+    }
+
+    .fcc-card-num small {
+      font-size: 26px;
+    }
+
+    .fcc-card-verdict {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2ecc71;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .fcc-card-bar {
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--hti-red) 0 30%, #27ae60 30% 100%);
+      margin-bottom: 22px;
+    }
+
+    .fcc-card-rows {
+      list-style: none;
+      border-top: 1px solid #333;
+      padding-top: 16px;
+    }
+
+    .fcc-card-rows li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      color: rgba(255, 255, 255, .7);
+      padding: 5px 0;
+    }
+
+    .fcc-card-rows b {
+      color: #fff;
+    }
+
+    @media(max-width:960px) {
+      .fcc-promo-row {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .fcc-promo-text {
+        text-align: center;
+      }
+
+      .fcc-promo-text p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .fcc-card {
+        max-width: 420px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    @media(max-width:600px) {
+      .fcc-promo {
+        padding: 60px 0;
+      }
+
+      .fcc-promo h2 {
+        font-size: 32px;
+      }
+
+      .fcc-promo-text p {
+        font-size: 17px;
+      }
+
+      .fcc-promo .btn-red {
+        width: 100%;
+      }
+
+      .fcc-card-num {
+        font-size: 52px;
+      }
+    }
+
     .track {
       padding: 80px 0;
     }
@@ -1975,6 +2137,32 @@
     </div>
     <div class="sec-cta">
       <a href="contact.html" class="sec-cta-btn">Book Now <span aria-hidden="true">&rarr;</span></a>
+    </div>
+  </section>
+
+  <!-- ============ FREE FOOD COST CALCULATOR ============ -->
+  <section class="fcc-promo" aria-labelledby="fcc-promo-heading">
+    <div class="wrap fcc-promo-row">
+      <div class="fcc-promo-text">
+        <span class="fcc-promo-tag">Free tool from HTI</span>
+        <h2 id="fcc-promo-heading">Free Food Cost <span>Calculator</span></h2>
+        <p>Find your food cost % and the right menu price in 30 seconds. No sign up.</p>
+        <a href="food-cost-calculator.html" class="btn-red">Try it free <span aria-hidden="true">&nbsp;&rarr;</span></a>
+      </div>
+      <!-- A still of the calculator's own result card, with its default dish
+           (120 of ingredients on a 400 menu price), so people see what they get. -->
+      <div class="fcc-card" role="img"
+        aria-label="Example result: ingredients 120 rupees, menu price 400 rupees, food cost 30 percent, healthy">
+        <div class="fcc-card-label">Your food cost</div>
+        <div class="fcc-card-num">30.0<small>%</small></div>
+        <div class="fcc-card-verdict">Healthy. This is the normal range.</div>
+        <div class="fcc-card-bar"></div>
+        <ul class="fcc-card-rows">
+          <li><span>Ingredients</span><b>&#8377;120</b></li>
+          <li><span>Menu price</span><b>&#8377;400</b></li>
+          <li><span>Profit per portion</span><b>&#8377;280</b></li>
+        </ul>
+      </div>
     </div>
   </section>
 
