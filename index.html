@@ -1275,6 +1275,148 @@
       }
     }
 
+    /* ============ FREE FOOD COST CALCULATOR — CORNER NOTICE ============ */
+    .fcc-toast {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      z-index: 998;
+      width: 360px;
+      background: #fff;
+      color: #111;
+      border: 1px solid #e6e6e6;
+      border-top: 4px solid var(--hti-red);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .35s ease, transform .35s cubic-bezier(.16, .84, .34, 1);
+    }
+
+    .fcc-toast[hidden] {
+      display: none;
+    }
+
+    .fcc-toast.is-in {
+      opacity: 1;
+      transform: none;
+    }
+
+    .fcc-toast-icon {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--hti-red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fcc-toast-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .fcc-toast-body {
+      flex: 1;
+      min-width: 0;
+      padding-right: 18px;
+    }
+
+    .fcc-toast-title {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .fcc-toast-text {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #555;
+      margin-bottom: 14px;
+    }
+
+    .fcc-toast .btn-red {
+      font-size: 15px;
+      padding: 11px 20px;
+    }
+
+    .fcc-toast-close {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: #777;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .fcc-toast-close:hover {
+      background: #f1f1f1;
+      color: #111;
+    }
+
+    .fcc-toast-close:focus-visible,
+    .fcc-toast .btn-red:focus-visible {
+      outline: 3px solid #111;
+      outline-offset: 2px;
+    }
+
+    /* below 860px the WhatsApp and Call buttons sit bottom-right (enquiry.css),
+       so the notice keeps to the left of them */
+    @media(max-width:860px) {
+      .fcc-toast {
+        left: 12px;
+        right: 82px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        width: auto;
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .fcc-toast-icon {
+        width: 36px;
+        height: 36px;
+      }
+
+      .fcc-toast-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .fcc-toast-title {
+        font-size: 15px;
+      }
+
+      .fcc-toast-text {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .fcc-toast .btn-red {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fcc-toast {
+        transition: none;
+        transform: none;
+      }
+    }
+
     .track {
       padding: 80px 0;
     }
@@ -2667,6 +2809,83 @@
       }
       window.addEventListener('load', update);
       update();
+    })();
+  </script>
+  <!-- Corner notice for the free calculator. Most visitors never scroll as far
+       as the section above, so this brings it to them: it slides in after a
+       few seconds or a little scrolling, stays out of the way of the WhatsApp
+       and Call buttons, goes away once the section itself is on screen, and
+       once closed stays closed for a week. -->
+  <aside class="fcc-toast" id="fccToast" aria-label="Free Food Cost Calculator" hidden>
+    <span class="fcc-toast-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M8 6h8M8 11h.01M12 11h.01M16 11h.01M8 15h.01M12 15h.01M16 15h.01M8 19h8"/></svg></span>
+    <div class="fcc-toast-body">
+      <p class="fcc-toast-title">Free Food Cost Calculator</p>
+      <p class="fcc-toast-text">Find your food cost % and the right menu price in 30 seconds. No sign up.</p>
+      <a href="food-cost-calculator.html" class="btn-red" id="fccToastGo">Try it free <span aria-hidden="true">&nbsp;&rarr;</span></a>
+    </div>
+    <button type="button" class="fcc-toast-close" id="fccToastClose" aria-label="Close">&times;</button>
+  </aside>
+  <script>
+    (function () {
+      var toast = document.getElementById('fccToast');
+      var KEY = 'hti-fcc-toast-closed';
+      var WEEK = 7 * 24 * 60 * 60 * 1000;
+      var done = false;
+      try {
+        if (Date.now() - Number(localStorage.getItem(KEY) || 0) < WEEK) return;
+      } catch (e) {}
+
+      function remember() {
+        try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+      }
+      function show() {
+        if (done) return;
+        done = true;
+        toast.hidden = false;
+        requestAnimationFrame(function () { requestAnimationFrame(function () { toast.classList.add('is-in'); }); });
+      }
+      function hide() {
+        done = true;
+        toast.classList.remove('is-in');
+        setTimeout(function () { toast.hidden = true; }, 350);
+      }
+
+      /* after 6 seconds, or sooner once the visitor scrolls past the first screen */
+      var timer = setTimeout(show, 6000);
+      window.addEventListener('scroll', function onScroll() {
+        if (window.scrollY > window.innerHeight * 0.6) {
+          clearTimeout(timer);
+          window.removeEventListener('scroll', onScroll);
+          show();
+        }
+      }, { passive: true });
+
+      /* the section itself is on screen: the notice would only repeat it */
+      var section = document.querySelector('.fcc-promo');
+      if (section && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries, io) {
+          if (entries[0].isIntersecting) {
+            clearTimeout(timer);
+            if (!toast.hidden) hide(); else done = true;
+            io.disconnect();
+          }
+        }, { threshold: 0.4 }).observe(section);
+      }
+
+      document.getElementById('fccToastClose').addEventListener('click', function () {
+        remember();
+        hide();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !toast.hidden && toast.contains(document.activeElement)) {
+          remember();
+          hide();
+        }
+      });
+      document.getElementById('fccToastGo').addEventListener('click', function () {
+        remember();
+        if (typeof window.gtag === 'function') window.gtag('event', 'fcc_toast_click');
+      });
     })();
   </script>
   <!-- sticky contact bar: below 860px the header Contact button is hidden
