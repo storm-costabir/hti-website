@@ -1,11 +1,11 @@
 /* ============================================================================
-   fcc-toast.css - the free food cost calculator notice
+   offer-toast.css - the corner notice for a free HTI tool
    ----------------------------------------------------------------------------
-   Shown on the homepage and on the food cost blog posts (fcc-toast.js adds the
-   markup). A white card in the bottom-right corner on a computer, a red bar
+   offer-toast.js adds the markup and picks the offer: the training needs
+   survey on the homepage, the food cost calculator on the food cost posts. A white card in the bottom-right corner on a computer, a red bar
    on a phone that stays clear of the WhatsApp and Call buttons.
    ========================================================================== */
-.fcc-toast {
+.offer-toast {
   position: fixed;
   right: 24px;
   bottom: 24px;
@@ -26,28 +26,28 @@
   transition: opacity .35s ease, transform .35s cubic-bezier(.16, .84, .34, 1);
 }
 
-.fcc-toast[hidden] {
+.offer-toast[hidden] {
   display: none;
 }
 
-.fcc-toast.is-in {
+.offer-toast.is-in {
   opacity: 1;
   transform: none;
-  animation: fcc-pop .7s cubic-bezier(.2, .9, .3, 1.25) both;
+  animation: offer-pop .7s cubic-bezier(.2, .9, .3, 1.25) both;
 }
 
-@keyframes fcc-pop {
+@keyframes offer-pop {
   0% { opacity: 0; transform: translateY(110%) scale(.92); }
   60% { opacity: 1; transform: translateY(-6px) scale(1.02); }
   100% { opacity: 1; transform: none; }
 }
 
 /* the icon gives a short wiggle soon after the notice lands, then every few seconds */
-.fcc-toast.is-in .fcc-toast-icon {
-  animation: fcc-wiggle 4.5s ease-in-out .8s infinite;
+.offer-toast.is-in .offer-toast-icon {
+  animation: offer-wiggle 4.5s ease-in-out .8s infinite;
 }
 
-@keyframes fcc-wiggle {
+@keyframes offer-wiggle {
   0%, 14%, 100% { transform: rotate(0); }
   3% { transform: rotate(-14deg); }
   6% { transform: rotate(12deg); }
@@ -55,11 +55,11 @@
   12% { transform: rotate(4deg); }
 }
 
-.fcc-toast-eyebrow {
+.offer-toast-eyebrow {
   display: none;
 }
 
-.fcc-toast-icon {
+.offer-toast-icon {
   flex: none;
   width: 44px;
   height: 44px;
@@ -70,18 +70,18 @@
   justify-content: center;
 }
 
-.fcc-toast-icon svg {
+.offer-toast-icon svg {
   width: 24px;
   height: 24px;
 }
 
-.fcc-toast-body {
+.offer-toast-body {
   flex: 1;
   min-width: 0;
   padding-right: 18px;
 }
 
-.fcc-toast-btn {
+.offer-toast-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -94,28 +94,28 @@
   transition: transform .15s ease, background .15s ease;
 }
 
-.fcc-toast-btn:hover {
+.offer-toast-btn:hover {
   background: #d40f0f;
   transform: translateY(-2px);
 }
 
-:where(.fcc-toast) p {
+:where(.offer-toast) p {
   margin: 0;
 }
 
-.fcc-toast,
-.fcc-toast * {
+.offer-toast,
+.offer-toast * {
   box-sizing: border-box;
 }
 
-.fcc-toast-title {
+.offer-toast-title {
   font-size: 17px;
   font-weight: 800;
   line-height: 1.25;
   margin-bottom: 6px;
 }
 
-.fcc-toast-text {
+.offer-toast-text {
   font-size: 14px;
   line-height: 1.5;
   color: #555;
@@ -123,17 +123,17 @@
 }
 
 /* a muted red, not the button's bright one */
-.fcc-toast-nosign {
+.offer-toast-nosign {
   color: #b3262c;
   font-weight: 700;
 }
 
-.fcc-toast .fcc-toast-btn {
+.offer-toast .offer-toast-btn {
   font-size: 15px;
   padding: 11px 20px;
 }
 
-.fcc-toast-close {
+.offer-toast-close {
   position: absolute;
   top: 6px;
   right: 6px;
@@ -148,13 +148,13 @@
   cursor: pointer;
 }
 
-.fcc-toast-close:hover {
+.offer-toast-close:hover {
   background: #f1f1f1;
   color: #111;
 }
 
-.fcc-toast-close:focus-visible,
-.fcc-toast .fcc-toast-btn:focus-visible {
+.offer-toast-close:focus-visible,
+.offer-toast .offer-toast-btn:focus-visible {
   outline: 3px solid #111;
   outline-offset: 2px;
 }
@@ -164,7 +164,7 @@
    the whole bar is the link, the title fits on one line, and a shine and a
    nudging arrow catch the eye without covering anything. */
 @media(max-width:860px) {
-  .fcc-toast {
+  .offer-toast {
     left: 12px;
     right: 80px;
     bottom: calc(16px + env(safe-area-inset-bottom, 0px));
@@ -180,7 +180,7 @@
     overflow: hidden;
   }
 
-  .fcc-toast::before {
+  .offer-toast::before {
     content: "";
     position: absolute;
     top: 0;
@@ -192,37 +192,37 @@
     pointer-events: none;
   }
 
-  .fcc-toast.is-in::before {
-    animation: fcc-shine 3.6s ease-in-out 1s infinite;
+  .offer-toast.is-in::before {
+    animation: offer-shine 3.6s ease-in-out 1s infinite;
   }
 
-  @keyframes fcc-shine {
+  @keyframes offer-shine {
     0% { left: -60%; }
     30%, 100% { left: 130%; }
   }
 
-  .fcc-toast-icon {
+  .offer-toast-icon {
     width: 38px;
     height: 38px;
     border-radius: 10px;
     background: rgba(255, 255, 255, .2);
   }
 
-  .fcc-toast-icon svg {
+  .offer-toast-icon svg {
     width: 21px;
     height: 21px;
   }
 
-  .fcc-toast-text,
-  .fcc-toast-free {
+  .offer-toast-text,
+  .offer-toast-free {
     display: none;
   }
 
-  .fcc-toast-body {
+  .offer-toast-body {
     padding-right: 0;
   }
 
-  .fcc-toast-eyebrow {
+  .offer-toast-eyebrow {
     display: block;
     font-size: 10px;
     font-weight: 700;
@@ -232,30 +232,30 @@
     margin-bottom: 2px;
   }
 
-  .fcc-toast-title {
+  .offer-toast-title {
     font-size: 14px;
     line-height: 1.2;
     margin: 0;
     white-space: nowrap;
   }
 
-  .fcc-toast-title::after {
+  .offer-toast-title::after {
     content: "\2192";
     display: inline-block;
     margin-left: 6px;
   }
 
-  .fcc-toast.is-in .fcc-toast-title::after {
-    animation: fcc-nudge 1.2s ease-in-out infinite;
+  .offer-toast.is-in .offer-toast-title::after {
+    animation: offer-nudge 1.2s ease-in-out infinite;
   }
 
-  @keyframes fcc-nudge {
+  @keyframes offer-nudge {
     0%, 100% { transform: translateX(0); }
     50% { transform: translateX(5px); }
   }
 
   /* the link covers the whole bar; its words stay for screen readers */
-  .fcc-toast .fcc-toast-btn {
+  .offer-toast .offer-toast-btn {
     position: absolute;
     inset: 0;
     z-index: 1;
@@ -266,12 +266,12 @@
     transform: none;
   }
 
-  .fcc-toast .fcc-toast-btn:focus-visible {
+  .offer-toast .offer-toast-btn:focus-visible {
     outline: 3px solid #fff;
     outline-offset: -4px;
   }
 
-  .fcc-toast-close {
+  .offer-toast-close {
     z-index: 2;
     top: 50%;
     right: 2px;
@@ -282,7 +282,7 @@
     color: rgba(255, 255, 255, .9);
   }
 
-  .fcc-toast-close:hover {
+  .offer-toast-close:hover {
     background: rgba(255, 255, 255, .15);
     color: #fff;
   }
@@ -290,17 +290,17 @@
 
 /* the smallest phones need the icon's width for the title */
 @media(max-width:380px) {
-  .fcc-toast-icon {
+  .offer-toast-icon {
     display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fcc-toast,
-  .fcc-toast.is-in,
-  .fcc-toast.is-in .fcc-toast-icon,
-  .fcc-toast.is-in::before,
-  .fcc-toast.is-in .fcc-toast-title::after {
+  .offer-toast,
+  .offer-toast.is-in,
+  .offer-toast.is-in .offer-toast-icon,
+  .offer-toast.is-in::before,
+  .offer-toast.is-in .offer-toast-title::after {
     transition: none;
     transform: none;
     animation: none;

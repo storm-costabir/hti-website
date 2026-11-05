@@ -5,12 +5,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Free Training Needs Survey for Hotels, Restaurants &amp; QSRs | HTI India</title>
-  <meta name="description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and get a training plan built for your team." />
+  <meta name="description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
   <link rel="canonical" href="https://www.hti-india.com/training-needs-survey.html" />
   <script>(function(l){var p=l.pathname;if(p!=="/"&&!/\.html$/.test(p)&&!/\/$/.test(p))l.replace(p+".html"+l.search+l.hash)})(location)</script>
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Free Training Needs Survey for Hotels, Restaurants & QSRs | HTI India" />
-  <meta property="og:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and get a training plan built for your team." />
+  <meta property="og:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
   <meta property="og:url" content="https://www.hti-india.com/training-needs-survey.html" />
   <meta property="og:image" content="https://www.hti-india.com/images/og/training-needs-survey.jpg" />
   <meta property="og:image:width" content="1200" />
@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="HTI India" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Free Training Needs Survey for Hotels, Restaurants & QSRs | HTI India" />
-  <meta name="twitter:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and get a training plan built for your team." />
+  <meta name="twitter:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
   <meta name="twitter:image" content="https://www.hti-india.com/images/og/training-needs-survey.jpg" />
   <link rel="icon" href="images/brand/hti-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1093,6 +1093,171 @@
     }
   
 
+    /* ============ LIVE MATCH + TRAINING ANALYSIS ============ */
+    #start {
+      scroll-margin-top: 80px;
+    }
+
+    .fit-live {
+      margin: 8px 0 0;
+      font-size: 13px;
+      color: #666;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .fit-live b {
+      color: #111;
+    }
+
+    .tna {
+      text-align: left;
+      margin: 8px 0 30px;
+    }
+
+    .tna-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 26px;
+    }
+
+    .tna-stat {
+      background: #f7f4f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+
+    .tna-stat span {
+      display: block;
+      font-size: 11.5px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .tna-stat b {
+      display: block;
+      font-size: 15px;
+      line-height: 1.35;
+      color: #111;
+    }
+
+    .tna-stat b.big {
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .tna-stat em {
+      display: block;
+      font-style: normal;
+      font-size: 13px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    .tna-h {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 12px;
+    }
+
+    .tna-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .tna-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 14px;
+      padding: 18px;
+      color: #111;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+    }
+
+    .tna-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--hti-red);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, .08);
+    }
+
+    .tna-card.best {
+      border: 2px solid var(--hti-red);
+    }
+
+    .tna-badge {
+      align-self: flex-start;
+      background: var(--hti-red);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      border-radius: 999px;
+      padding: 4px 10px;
+      margin-bottom: 10px;
+    }
+
+    .tna-card h4 {
+      font-size: 19px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+
+    .tna-card p {
+      font-size: 13.5px;
+      color: #555;
+      line-height: 1.5;
+      margin: 0 0 12px;
+      max-width: none;
+    }
+
+    .tna-card ul {
+      list-style: none;
+      margin: 0 0 14px;
+      padding: 0;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .tna-card li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 4px;
+    }
+
+    .tna-card li::before {
+      content: "\2713";
+      position: absolute;
+      left: 0;
+      color: #17a04a;
+      font-weight: 800;
+    }
+
+    .tna-more {
+      margin-top: auto;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--hti-red);
+    }
+
+    @media(max-width:760px) {
+
+      .tna-summary,
+      .tna-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -1112,7 +1277,7 @@
         "name": "What do I get after submitting the survey?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "An HTI training consultant reviews your answers and comes back within one working day with the programs that match your team, an outline of session content and an indicative schedule."
+          "text": "As soon as you submit, the page shows your training analysis: the HTI programs that best fit your team and why. An HTI training consultant then comes back within one working day with an outline of session content and an indicative schedule."
         }
       },
       {
@@ -1230,9 +1395,10 @@
   <!-- ============ HERO ============ -->
   <section class="survey-hero">
     <span class="survey-eyebrow">Free &middot; 3 minutes &middot; No obligation</span>
-    <h1>Training Needs Survey</h1>
-    <p>Tell us how your team works today and where guests notice the gaps. We'll come back with the HTI programs that
-      fit &mdash; the right modules, the right languages, and a schedule that works around your shifts.</p>
+    <h1>Free Training Needs Survey</h1>
+    <p>Tell us how your team works today and where guests notice the gaps. The moment you send it, you'll see which HTI
+      programs fit your team best &mdash; then a consultant sends the full plan, in the right languages and around your
+      shifts.</p>
 
     <div class="hero-points">
       <div class="hero-point">
@@ -1240,27 +1406,28 @@
         <p>About your outlets, your team size and the skills that need work. Most people finish in three minutes.</p>
       </div>
       <div class="hero-point">
-        <h3>2. We map it to our programs</h3>
-        <p>A training consultant matches your answers to the modules that solve those specific gaps.</p>
+        <h3>2. See your best-fit programs</h3>
+        <p>Your answers are matched to our programs straight away, with the reason each one fits.</p>
       </div>
       <div class="hero-point">
-        <h3>3. You get a plan in 1 working day</h3>
-        <p>Recommended programs, session outline and an indicative schedule. No cost, no commitment.</p>
+        <h3>3. Get the full plan in 1 working day</h3>
+        <p>A training consultant sends the session outline and an indicative schedule. No cost, no commitment.</p>
       </div>
     </div>
     <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Book Now <span aria-hidden="true">&rarr;</span></a>
+      <a href="#start" class="sec-cta-btn">Start the free survey <span aria-hidden="true">&darr;</span></a>
     </div>
   </section>
 
   <!-- ============ SURVEY FORM ============ -->
-  <div class="survey-wrap">
+  <div class="survey-wrap" id="start">
 
     <div class="progress-shell" id="progressShell">
       <div class="progress-label"><span>Your progress</span><b id="progressPct">0%</b></div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
+      <p class="fit-live" id="fitLive" aria-live="polite" hidden><span>Best fit so far:</span> <b id="fitLiveList"></b></p>
     </div>
 
     <form id="surveyForm" novalidate>
@@ -1342,10 +1509,7 @@
                 class="box"></span>Other</label>
           </div>
         </div>
-        <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Let's talk <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+      </section>
 
       <!-- ---------- STEP 2 ---------- -->
       <section class="card">
@@ -1434,10 +1598,7 @@
           <textarea id="measure" name="measure"
             placeholder="e.g. guest feedback scores, mystery audits, average bill value, attrition - or 'we don't measure it yet'"></textarea>
         </div>
-        <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Book Now <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+      </section>
 
       <!-- ---------- STEP 3 ---------- -->
       <section class="card">
@@ -1482,10 +1643,7 @@
           <textarea id="notes" name="notes"
             placeholder="Shift timings, a past training that didn't land, a specific outlet that needs help first..."></textarea>
         </div>
-        <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Let's talk <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+      </section>
 
       <!-- ---------- STEP 4 ---------- -->
       <section class="card">
@@ -1539,10 +1697,7 @@
           <label for="website">Leave this field empty</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Book Now <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+      </section>
 
       <!-- ---------- SUBMIT ---------- -->
       <section class="card submit-card">
@@ -1550,10 +1705,7 @@
         <p class="submit-note">We reply within one working day, Monday to Saturday.<br />Your answers are used only to
           build your training recommendation.</p>
         <div class="form-msg warn" id="formMsg"></div>
-        <div class="sec-cta">
-      <a href="contact.html" class="sec-cta-btn">Let's talk <span aria-hidden="true">&rarr;</span></a>
-    </div>
-  </section>
+      </section>
     </form>
 
     <!-- ---------- THANK YOU ---------- -->
@@ -1564,9 +1716,11 @@
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
       </div>
-      <h2>Thank you &mdash; that's everything we needed.</h2>
-      <p>A training consultant is reading your answers now. You'll hear from us within one working day with the programs
-        that fit your team. In a hurry? Message us on WhatsApp and we'll pull your survey up straight away.</p>
+      <h2>Thank you. Here's your training analysis.</h2>
+      <p>Based on your answers, these are the HTI programs that fit your team best. A training consultant will send the
+        full plan, with a session outline and schedule, within one working day. In a hurry? Message us on WhatsApp and
+        we'll pull your survey up straight away.</p>
+      <div class="tna" id="tnaResult"></div>
       <div class="thanks-btns">
         <a href="contact.html" class="btn-wa">Chat on WhatsApp</a>
         <a href="hospitality-training-programs.html" class="btn-ghost">Browse our programs</a>
@@ -1625,9 +1779,9 @@
     </div>
     <div class="faq-item">
       <h3>What do I get back?</h3>
-      <p>An HTI training consultant reads your answers and comes back within one working day with the programs that
-        match your team, an outline of what each session covers, and an indicative schedule built around your shifts.
-      </p>
+      <p>As soon as you send it, you see your training analysis: the HTI programs that best fit your team, and why each
+        one fits. A training consultant then comes back within one working day with an outline of what each session
+        covers and an indicative schedule built around your shifts.</p>
     </div>
     <div class="faq-item">
       <h3>Is it free? Am I committing to anything?</h3>
@@ -1849,12 +2003,121 @@
         return true;
       }
 
+      /* ---------- matching answers to programs ----------
+         Each area ticked in step 2 points at one program for that kind of
+         business; the single biggest problem counts for more. The top three
+         are shown live while the visitor answers, and in full on the
+         thank-you screen. */
+      const PROGRAMS = {
+        'hotel-shot': ['Hotel SHOT', 'Guest service and day-to-day operations skills for hotel staff.'],
+        'fort': ['FORT', 'Front office training: check-in, guest handling and the front desk.'],
+        'hotcar': ['HOT-CAR', 'Housekeeping training: room standards, cleanliness and guest satisfaction.'],
+        'kmt': ['KMT', 'Kitchen training: food safety, kitchen operations and culinary management.'],
+        'class': ['CLASS', 'Grooming, etiquette, communication and professional presentation.'],
+        'icare': ['iCARE', 'Guest service and empathy for restaurant teams.'],
+        'icedt': ['ICEDT', 'For counter and sales executives: order-taking, suggestive selling and speed.'],
+        'super': ['SUPER', 'A 12-week skill upgrade for restaurant staff: soft skills, job skills and service.'],
+        'support': ['SUPPORT', 'Pre-opening training that gets a new restaurant team ready for day one.'],
+        'ramp': ['RAMP', 'For restaurant managers: operations, team management and running a profitable outlet.'],
+        'mdp': ['MDP', 'Management development: decision-making and team leadership for hospitality supervisors.'],
+        'vow': ['Vow to Wow', 'Customer experience training: going beyond expectations to win loyal guests.'],
+        'top': ['TOP', 'For office support staff: grooming, service and professional workplace skills.'],
+        'post': ['POST', 'Pantry and cafeteria training: food service, hygiene and operations.'],
+        'lead': ['Lead by HTI', 'Train the Trainer, so your own people can keep training every new joiner.'],
+        'leadership-development': ['Leadership Development', 'For senior managers and future leaders: communication and management frameworks.'],
+        'fssai-training': ['FSSAI &amp; FoSTaC Training', 'Certified food safety training for food handlers and supervisors.'],
+        'dox': ['Dox by HTI', 'SOPs, how-to videos and checklists, so your standards are written down and repeatable.'],
+        'professional-etiquette': ['Professional Etiquette', 'Soft skills and etiquette for customer-facing teams.']
+      };
+      /* h hotel, r restaurant / QSR / cloud kitchen, o office, x retail, d anything else */
+      const FOCUS_MAP = {
+        'Guest service & soft skills': { h: 'hotel-shot', r: 'icare', o: 'top', x: 'professional-etiquette', d: 'vow' },
+        'Front office / reception': { o: 'professional-etiquette', d: 'fort' },
+        'Housekeeping': { d: 'hotcar' },
+        'F&B service / stewarding': { h: 'hotel-shot', o: 'post', d: 'super' },
+        'Kitchen & food production': { d: 'kmt' },
+        'Food safety & hygiene (FOSTAC)': { d: 'fssai-training' },
+        'Grooming & communication': { o: 'top', d: 'class' },
+        'Sales & upselling': { h: 'vow', x: 'vow', d: 'icedt' },
+        'Supervisory & leadership skills': { r: 'ramp', o: 'leadership-development', d: 'mdp' },
+        'SOPs & how-to documentation': { d: 'dox' }
+      };
+      const CHALLENGE_MAP = {
+        'Inconsistent service across shifts or outlets': { d: 'dox' },
+        'High attrition / constant new joiners': { d: 'lead' },
+        'Falling guest ratings and online reviews': { d: 'vow' },
+        'Opening a new outlet or property': { h: 'hotel-shot', d: 'support' },
+        'Low average bill / weak upselling': { h: 'vow', x: 'vow', d: 'icedt' },
+        'Supervisors not managing their teams well': { r: 'ramp', o: 'leadership-development', d: 'mdp' }
+      };
+      const segment = b => ({
+        'Hotel / Resort': 'h', 'Restaurant / Cafe': 'r', 'QSR chain': 'r', 'Cloud kitchen': 'r',
+        'Corporate office / Facility': 'o', 'Retail': 'x'
+      })[b] || 'd';
+      const pick = (map, seg) => map[seg] || map.d;
+      const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+
+      function recommend(a) {
+        const seg = segment(a.business_type);
+        const score = {}, why = {}, order = [];
+        const add = (id, pts, reason) => {
+          if (!(id in score)) { score[id] = 0; why[id] = []; order.push(id); }
+          score[id] += pts;
+          why[id].push(reason);
+        };
+        if (a.challenge && CHALLENGE_MAP[a.challenge]) {
+          add(pick(CHALLENGE_MAP[a.challenge], seg), 5, 'Tackles your biggest problem: ' + a.challenge.toLowerCase());
+        }
+        a.focus_areas.forEach(area => {
+          if (FOCUS_MAP[area]) add(pick(FOCUS_MAP[area], seg), 3, 'Covers ' + area.toLowerCase());
+        });
+        return order
+          .sort((x, y) => score[y] - score[x] || order.indexOf(x) - order.indexOf(y))
+          .slice(0, 3)
+          .map(id => ({ id, name: PROGRAMS[id][0], blurb: PROGRAMS[id][1], why: why[id] }));
+      }
+
+      const fitLive = document.getElementById('fitLive');
+      const fitLiveList = document.getElementById('fitLiveList');
+      function updateFitLive() {
+        const recs = recommend({
+          business_type: picked('business_type'),
+          focus_areas: pickedAll('focus_areas'),
+          challenge: picked('challenge')
+        });
+        fitLive.hidden = !recs.length;
+        fitLiveList.innerHTML = recs.map(r => r.name).join(' &middot; ');
+      }
+
+      function renderAnalysis(a, recs) {
+        const r = a.service_rating;
+        const verdict = r <= 4 ? ['Needs a reset', '#d0342c'] : r <= 7 ? ['Room to grow', '#c77700'] : ['Strong &mdash; keep it sharp', '#17a04a'];
+        const plan = [a.team_size + ' people', a.format, a.languages.join(', ')].filter(Boolean).map(esc).join(' &middot; ');
+        document.getElementById('tnaResult').innerHTML =
+          '<div class="tna-summary">' +
+          `<div class="tna-stat"><span>Service standard today</span><b class="big">${r}/10</b><em style="color:${verdict[1]}">${verdict[0]}</em></div>` +
+          `<div class="tna-stat"><span>Biggest problem</span><b>${esc(a.challenge)}</b></div>` +
+          `<div class="tna-stat"><span>Your training</span><b>${plan}</b></div>` +
+          '</div>' +
+          '<h3 class="tna-h">Programs that fit your team best</h3>' +
+          '<div class="tna-grid">' +
+          recs.map((p, i) =>
+            `<a class="tna-card${i === 0 ? ' best' : ''}" href="${p.id}.html">` +
+            (i === 0 ? '<span class="tna-badge">Best match</span>' : '') +
+            `<h4>${p.name}</h4><p>${p.blurb}</p>` +
+            '<ul>' + p.why.map(w => `<li>${esc(w)}</li>`).join('') + '</ul>' +
+            '<span class="tna-more">See the program &rarr;</span></a>'
+          ).join('') +
+          '</div>';
+      }
+
       /* ---------- progress ---------- */
       function updateProgress() {
         const done = required.filter(isFilled).length;
         const p = Math.round(done / required.length * 100);
         fill.style.width = p + '%';
         pct.textContent = p + '%';
+        updateFitLive();
       }
 
       form.addEventListener('input', e => {
@@ -1918,6 +2181,7 @@
           '',
           `Format: ${a.format}`,
           `Timeline: ${a.timeline}`,
+          `Matched programs: ${recommend(a).map(p => p.name.replace('&amp;', '&')).join(', ')}`,
           a.notes ? `Notes: ${a.notes}` : ''
         ].filter(l => l !== '');
         return `https://wa.me/${WHATSAPP}?text=` + encodeURIComponent(lines.join('\n'));
@@ -1979,6 +2243,12 @@
               event_category: 'survey',
               event_label: 'training_needs_survey'
             });
+          }
+
+          const recs = recommend(answers);
+          renderAnalysis(answers, recs);
+          if (typeof gtag === 'function') {
+            gtag('event', 'survey_analysis_shown', { programs: recs.map(p => p.id).join(',') });
           }
 
           form.style.display = 'none';
