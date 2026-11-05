@@ -2089,6 +2089,11 @@
         fitLiveList.innerHTML = recs.map(r => r.name).join(' &middot; ');
       }
 
+      /* htmlpreview.github.io (the team's preview) only rewrites links that
+         are on the page when it loads */
+      const link = h => location.hostname === 'htmlpreview.github.io'
+        ? location.origin + '/?' + new URL(h, document.baseURI).href : h;
+
       function renderAnalysis(a, recs) {
         const r = a.service_rating;
         const verdict = r <= 4 ? ['Needs a reset', '#d0342c'] : r <= 7 ? ['Room to grow', '#c77700'] : ['Strong &mdash; keep it sharp', '#17a04a'];
@@ -2102,7 +2107,7 @@
           '<h3 class="tna-h">Programs that fit your team best</h3>' +
           '<div class="tna-grid">' +
           recs.map((p, i) =>
-            `<a class="tna-card${i === 0 ? ' best' : ''}" href="${p.id}.html">` +
+            `<a class="tna-card${i === 0 ? ' best' : ''}" href="${link(p.id + '.html')}">` +
             (i === 0 ? '<span class="tna-badge">Best match</span>' : '') +
             `<h4>${p.name}</h4><p>${p.blurb}</p>` +
             '<ul>' + p.why.map(w => `<li>${esc(w)}</li>`).join('') + '</ul>' +

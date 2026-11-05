@@ -59,6 +59,14 @@
     if (!force && Date.now() - Number(localStorage.getItem(offer.key) || 0) < WEEK) return;
   } catch (e) {}
 
+  /* htmlpreview.github.io rewrites the links a page starts with, not ones
+     added later like this one; do the same here, or the team's preview
+     opens the raw file */
+  var href = offer.href;
+  if (location.hostname === 'htmlpreview.github.io') {
+    href = location.origin + '/?' + new URL(href, document.baseURI).href;
+  }
+
   var holder = document.createElement('div');
   holder.innerHTML =
     '<aside class="offer-toast" id="offerToast" aria-label="' + offer.label + '" hidden>' +
@@ -67,7 +75,7 @@
     '<span class="offer-toast-eyebrow">' + offer.eyebrow + '</span>' +
     '<p class="offer-toast-title"><span class="offer-toast-free">Free </span>' + offer.title + '</p>' +
     '<p class="offer-toast-text">' + offer.text + '</p>' +
-    '<a href="' + offer.href + '" class="offer-toast-btn" id="offerToastGo">' + offer.button + ' <span aria-hidden="true">&nbsp;&rarr;</span></a>' +
+    '<a href="' + href + '" class="offer-toast-btn" id="offerToastGo">' + offer.button + ' <span aria-hidden="true">&nbsp;&rarr;</span></a>' +
     '</div>' +
     '<button type="button" class="offer-toast-close" id="offerToastClose" aria-label="Close">&times;</button>' +
     '</aside>';
