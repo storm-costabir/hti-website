@@ -1,0 +1,308 @@
+/* ============================================================================
+   fcc-toast.css - the free food cost calculator notice
+   ----------------------------------------------------------------------------
+   Shown on the homepage and on the food cost blog posts (fcc-toast.js adds the
+   markup). A white card in the bottom-right corner on a computer, a red bar
+   on a phone that stays clear of the WhatsApp and Call buttons.
+   ========================================================================== */
+.fcc-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 998;
+  width: 360px;
+  background: #fff;
+  color: #111;
+  border: 1px solid #e6e6e6;
+  border-top: 4px solid #e32129;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .28);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .35s ease, transform .35s cubic-bezier(.16, .84, .34, 1);
+}
+
+.fcc-toast[hidden] {
+  display: none;
+}
+
+.fcc-toast.is-in {
+  opacity: 1;
+  transform: none;
+  animation: fcc-pop .7s cubic-bezier(.2, .9, .3, 1.25) both;
+}
+
+@keyframes fcc-pop {
+  0% { opacity: 0; transform: translateY(110%) scale(.92); }
+  60% { opacity: 1; transform: translateY(-6px) scale(1.02); }
+  100% { opacity: 1; transform: none; }
+}
+
+/* the icon gives a short wiggle soon after the notice lands, then every few seconds */
+.fcc-toast.is-in .fcc-toast-icon {
+  animation: fcc-wiggle 4.5s ease-in-out .8s infinite;
+}
+
+@keyframes fcc-wiggle {
+  0%, 14%, 100% { transform: rotate(0); }
+  3% { transform: rotate(-14deg); }
+  6% { transform: rotate(12deg); }
+  9% { transform: rotate(-8deg); }
+  12% { transform: rotate(4deg); }
+}
+
+.fcc-toast-eyebrow {
+  display: none;
+}
+
+.fcc-toast-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #e32129;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fcc-toast-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.fcc-toast-body {
+  flex: 1;
+  min-width: 0;
+  padding-right: 18px;
+}
+
+.fcc-toast-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff0000;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  line-height: 1;
+  text-decoration: none;
+  transition: transform .15s ease, background .15s ease;
+}
+
+.fcc-toast-btn:hover {
+  background: #d40f0f;
+  transform: translateY(-2px);
+}
+
+:where(.fcc-toast) p {
+  margin: 0;
+}
+
+.fcc-toast,
+.fcc-toast * {
+  box-sizing: border-box;
+}
+
+.fcc-toast-title {
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+
+.fcc-toast-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 14px;
+}
+
+/* a muted red, not the button's bright one */
+.fcc-toast-nosign {
+  color: #b3262c;
+  font-weight: 700;
+}
+
+.fcc-toast .fcc-toast-btn {
+  font-size: 15px;
+  padding: 11px 20px;
+}
+
+.fcc-toast-close {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #777;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.fcc-toast-close:hover {
+  background: #f1f1f1;
+  color: #111;
+}
+
+.fcc-toast-close:focus-visible,
+.fcc-toast .fcc-toast-btn:focus-visible {
+  outline: 3px solid #111;
+  outline-offset: 2px;
+}
+
+/* below 860px the WhatsApp and Call buttons sit bottom-right (enquiry.css),
+   so the notice keeps to the left of them. On a phone it is one red bar:
+   the whole bar is the link, the title fits on one line, and a shine and a
+   nudging arrow catch the eye without covering anything. */
+@media(max-width:860px) {
+  .fcc-toast {
+    left: 12px;
+    right: 80px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: auto;
+    padding: 10px 36px 10px 10px;
+    gap: 9px;
+    align-items: center;
+    border: 0;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #f0323a 0%, #c8141b 100%);
+    color: #fff;
+    box-shadow: 0 10px 28px rgba(200, 20, 27, .45), 0 2px 6px rgba(0, 0, 0, .2);
+    overflow: hidden;
+  }
+
+  .fcc-toast::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 45%;
+    background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+  }
+
+  .fcc-toast.is-in::before {
+    animation: fcc-shine 3.6s ease-in-out 1s infinite;
+  }
+
+  @keyframes fcc-shine {
+    0% { left: -60%; }
+    30%, 100% { left: 130%; }
+  }
+
+  .fcc-toast-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, .2);
+  }
+
+  .fcc-toast-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .fcc-toast-text,
+  .fcc-toast-free {
+    display: none;
+  }
+
+  .fcc-toast-body {
+    padding-right: 0;
+  }
+
+  .fcc-toast-eyebrow {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .85);
+    margin-bottom: 2px;
+  }
+
+  .fcc-toast-title {
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  .fcc-toast-title::after {
+    content: "\2192";
+    display: inline-block;
+    margin-left: 6px;
+  }
+
+  .fcc-toast.is-in .fcc-toast-title::after {
+    animation: fcc-nudge 1.2s ease-in-out infinite;
+  }
+
+  @keyframes fcc-nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+  }
+
+  /* the link covers the whole bar; its words stay for screen readers */
+  .fcc-toast .fcc-toast-btn {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    padding: 0;
+    background: transparent;
+    border-radius: inherit;
+    font-size: 0;
+    transform: none;
+  }
+
+  .fcc-toast .fcc-toast-btn:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -4px;
+  }
+
+  .fcc-toast-close {
+    z-index: 2;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    color: rgba(255, 255, 255, .9);
+  }
+
+  .fcc-toast-close:hover {
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+  }
+}
+
+/* the smallest phones need the icon's width for the title */
+@media(max-width:380px) {
+  .fcc-toast-icon {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fcc-toast,
+  .fcc-toast.is-in,
+  .fcc-toast.is-in .fcc-toast-icon,
+  .fcc-toast.is-in::before,
+  .fcc-toast.is-in .fcc-toast-title::after {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}
