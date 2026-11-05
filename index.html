@@ -2977,7 +2977,10 @@
         if (done) return;
         done = true;
         toast.hidden = false;
-        requestAnimationFrame(function () { requestAnimationFrame(function () { toast.classList.add('is-in'); }); });
+        /* read the layout once so the entrance animation starts from its first frame;
+           no requestAnimationFrame, which never fires in a background tab */
+        void toast.offsetWidth;
+        toast.classList.add('is-in');
       }
       function hide() {
         done = true;
