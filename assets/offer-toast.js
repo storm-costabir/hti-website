@@ -45,8 +45,10 @@
     }
   };
 
-  var script = document.currentScript;
-  var offer = OFFERS[(script && script.getAttribute('data-offer')) || 'fcc'];
+  /* looked up by attribute, not document.currentScript: previews such as
+     htmlpreview.github.io run a copy of this file without the attribute */
+  var tag = document.querySelector('script[data-offer]');
+  var offer = OFFERS[(tag && tag.getAttribute('data-offer')) || 'fcc'];
   if (!offer || document.getElementById('offerToast')) return;
 
   var WEEK = 7 * 24 * 60 * 60 * 1000;
