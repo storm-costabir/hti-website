@@ -887,6 +887,175 @@
       .cn-inner h2 { font-size: 24px; }
     }
 
+    /* ---- Closing calculator card: same look as the homepage's calculator
+         section, so the way to the tool cannot be mistaken for more text ---- */
+    .closing-note.fcc-close {
+      padding: 64px 24px;
+    }
+
+    .fcc-close-card {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 44px;
+      align-items: center;
+      background: radial-gradient(ellipse at 0% 0%, rgba(227, 33, 41, .38), transparent 55%), #111;
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .18);
+    }
+
+    .fcc-close .cn-inner {
+      max-width: none;
+      margin: 0;
+      text-align: left;
+    }
+
+    .fcc-close-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #ff6b70;
+      border: 1px solid rgba(227, 33, 41, .55);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 18px;
+    }
+
+    .fcc-close .cn-inner h2 {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .fcc-close .cn-inner p {
+      color: rgba(255, 255, 255, .82);
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .fcc-close .cn-inner p a {
+      color: #ff6b70;
+      font-weight: 700;
+    }
+
+    .fcc-close .cn-btn {
+      margin-top: 10px;
+      font-size: 16px;
+      padding: 15px 28px;
+    }
+
+    .fcc-close .cn-btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .fcc-mini {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 24px;
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .4);
+    }
+
+    .fcc-mini-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .6);
+      text-align: center;
+    }
+
+    .fcc-mini-num {
+      font-size: 52px;
+      font-weight: 800;
+      color: #2ecc71;
+      text-align: center;
+      line-height: 1.1;
+      margin: 6px 0 2px;
+    }
+
+    .fcc-mini-num small {
+      font-size: 22px;
+    }
+
+    .fcc-mini-verdict {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2ecc71;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .fcc-mini-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #E32129 0 30%, #27ae60 30% 100%);
+      margin-bottom: 16px;
+    }
+
+    .fcc-mini ul {
+      list-style: none;
+      margin: 0;
+      padding: 12px 0 0;
+      border-top: 1px solid #333;
+    }
+
+    .fcc-mini li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: rgba(255, 255, 255, .7);
+      padding: 4px 0;
+    }
+
+    .fcc-mini b {
+      color: #fff;
+    }
+
+    @media(max-width:860px) {
+      .fcc-close-card {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 36px 28px;
+      }
+
+      .fcc-close .cn-inner {
+        text-align: center;
+      }
+
+      .fcc-mini {
+        max-width: 340px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    @media(max-width:520px) {
+      .closing-note.fcc-close {
+        padding: 40px 16px;
+      }
+
+      .fcc-close-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+      }
+
+      .fcc-close .cn-btn {
+        display: block;
+        text-align: center;
+      }
+
+      .fcc-mini-num {
+        font-size: 44px;
+      }
+    }
+
   </style>
   <!-- Google tag (gtag.js) -->
   <script async fetchpriority="low" src="https://www.googletagmanager.com/gtag/js?id=G-SBKJQQRP0N"></script>
@@ -1123,12 +1292,28 @@
   </section>
 
   <!-- ============ CLOSING NOTE ============ -->
-  <section class="closing-note">
-    <div class="cn-inner">
-      <h2 id="what-does-your-bestseller-cost">&#2325;&#2381;&#2351;&#2366; &#2310;&#2346; &#2332;&#2366;&#2344;&#2340;&#2375; &#2361;&#2376;&#2306; &#2325;&#2367; &#2310;&#2346;&#2325;&#2368; &#2360;&#2348;&#2360;&#2375; &#2332;&#2364;&#2381;&#2351;&#2366;&#2342;&#2366; &#2348;&#2367;&#2325;&#2344;&#2375; &#2357;&#2366;&#2354;&#2368; &#2337;&#2367;&#2358; &#2309;&#2360;&#2354; &#2350;&#2375;&#2306; &#2325;&#2367;&#2340;&#2344;&#2375; &#2325;&#2368; &#2346;&#2337;&#2364;&#2340;&#2368; &#2361;&#2376;?</h2>
-      <p>&#2310;&#2332; &#2361;&#2368; &#2309;&#2346;&#2344;&#2368; &#2360;&#2348;&#2360;&#2375; &#2332;&#2364;&#2381;&#2351;&#2366;&#2342;&#2366; &#2348;&#2367;&#2325;&#2344;&#2375; &#2357;&#2366;&#2354;&#2368; &#2337;&#2367;&#2358; &#2325;&#2368; &#2354;&#2366;&#2327;&#2340; (costing) &#2325;&#2366; &#2361;&#2367;&#2360;&#2366;&#2348; &#2354;&#2327;&#2366;&#2319;&#2305;&#2404; &#2311;&#2360;&#2350;&#2375;&#2306; 15 &#2350;&#2367;&#2344;&#2335; &#2354;&#2327;&#2340;&#2375; &#2361;&#2376;&#2306; &#2324;&#2352; &#2332;&#2379; &#2310;&#2305;&#2325;&#2337;&#2364;&#2366; &#2360;&#2366;&#2350;&#2344;&#2375; &#2310;&#2340;&#2366; &#2361;&#2376;, &#2357;&#2361; &#2309;&#2325;&#2381;&#2360;&#2352; &#2354;&#2379;&#2327;&#2379;&#2306; &#2325;&#2379; &#2361;&#2376;&#2352;&#2366;&#2344; &#2325;&#2352; &#2342;&#2375;&#2340;&#2366; &#2361;&#2376;&#2404;</p>
-      <p>&#2361;&#2350;&#2366;&#2352;&#2366; <a href="food-cost-calculator.html">Free Food Cost Calculator</a> &#2325;&#2369;&#2331; &#2361;&#2368; &#2350;&#2367;&#2344;&#2335;&#2379;&#2306; &#2350;&#2375;&#2306; &#2310;&#2346;&#2325;&#2368; &#2309;&#2360;&#2354;&#2368; food cost &#2344;&#2367;&#2325;&#2366;&#2354; &#2342;&#2375;&#2340;&#2366; &#2361;&#2376;&#2404;</p>
-      <a href="food-cost-calculator.html" class="cn-btn">Free Food Cost Calculator &#2311;&#2360;&#2381;&#2340;&#2375;&#2350;&#2366;&#2354; &#2325;&#2352;&#2375;&#2306; &rarr;</a>
+  <section class="closing-note fcc-close">
+    <div class="fcc-close-card">
+      <div class="cn-inner">
+        <span class="fcc-close-tag">HTI &#2325;&#2366; Free Tool</span>
+        <h2 id="what-does-your-bestseller-cost">&#2325;&#2381;&#2351;&#2366; &#2310;&#2346; &#2332;&#2366;&#2344;&#2340;&#2375; &#2361;&#2376;&#2306; &#2325;&#2367; &#2310;&#2346;&#2325;&#2368; &#2360;&#2348;&#2360;&#2375; &#2332;&#2364;&#2381;&#2351;&#2366;&#2342;&#2366; &#2348;&#2367;&#2325;&#2344;&#2375; &#2357;&#2366;&#2354;&#2368; &#2337;&#2367;&#2358; &#2309;&#2360;&#2354; &#2350;&#2375;&#2306; &#2325;&#2367;&#2340;&#2344;&#2375; &#2325;&#2368; &#2346;&#2337;&#2364;&#2340;&#2368; &#2361;&#2376;?</h2>
+        <p>&#2310;&#2332; &#2361;&#2368; &#2309;&#2346;&#2344;&#2368; &#2360;&#2348;&#2360;&#2375; &#2332;&#2364;&#2381;&#2351;&#2366;&#2342;&#2366; &#2348;&#2367;&#2325;&#2344;&#2375; &#2357;&#2366;&#2354;&#2368; &#2337;&#2367;&#2358; &#2325;&#2368; &#2354;&#2366;&#2327;&#2340; (costing) &#2325;&#2366; &#2361;&#2367;&#2360;&#2366;&#2348; &#2354;&#2327;&#2366;&#2319;&#2305;&#2404; &#2311;&#2360;&#2350;&#2375;&#2306; 15 &#2350;&#2367;&#2344;&#2335; &#2354;&#2327;&#2340;&#2375; &#2361;&#2376;&#2306; &#2324;&#2352; &#2332;&#2379; &#2310;&#2305;&#2325;&#2337;&#2364;&#2366; &#2360;&#2366;&#2350;&#2344;&#2375; &#2310;&#2340;&#2366; &#2361;&#2376;, &#2357;&#2361; &#2309;&#2325;&#2381;&#2360;&#2352; &#2354;&#2379;&#2327;&#2379;&#2306; &#2325;&#2379; &#2361;&#2376;&#2352;&#2366;&#2344; &#2325;&#2352; &#2342;&#2375;&#2340;&#2366; &#2361;&#2376;&#2404;</p>
+        <p>&#2361;&#2350;&#2366;&#2352;&#2366; <a href="food-cost-calculator.html">Free Food Cost Calculator</a> &#2325;&#2369;&#2331; &#2361;&#2368; &#2350;&#2367;&#2344;&#2335;&#2379;&#2306; &#2350;&#2375;&#2306; &#2310;&#2346;&#2325;&#2368; &#2309;&#2360;&#2354;&#2368; food cost &#2344;&#2367;&#2325;&#2366;&#2354; &#2342;&#2375;&#2340;&#2366; &#2361;&#2376;&#2404;</p>
+        <a href="food-cost-calculator.html" class="cn-btn">Free Food Cost Calculator &#2311;&#2360;&#2381;&#2340;&#2375;&#2350;&#2366;&#2354; &#2325;&#2352;&#2375;&#2306; &rarr;</a>
+      </div>
+      <!-- A still of the calculator's own result card, with its default dish -->
+      <div class="fcc-mini" role="img"
+        aria-label="Example result: ingredients 120 rupees, menu price 400 rupees, food cost 30 percent, healthy">
+        <div class="fcc-mini-label">Your food cost</div>
+        <div class="fcc-mini-num">30.0<small>%</small></div>
+        <div class="fcc-mini-verdict">Healthy. This is the normal range.</div>
+        <div class="fcc-mini-bar"></div>
+        <ul>
+          <li><span>Ingredients</span><b>&#8377;120</b></li>
+          <li><span>Menu price</span><b>&#8377;400</b></li>
+          <li><span>Profit per portion</span><b>&#8377;280</b></li>
+        </ul>
+      </div>
     </div>
   </section>
 

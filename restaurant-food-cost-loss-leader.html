@@ -1364,6 +1364,175 @@
       .ld-bar, .ld-r, .ld-loss, .ld-fine { transition: none !important; }
       .ledger.js .ld-loss, .ledger.js .ld-kicker { animation: none !important; }
     }
+    /* ---- Closing calculator card: same look as the homepage's calculator
+         section, so the way to the tool cannot be mistaken for more text ---- */
+    .closing-note.fcc-close {
+      padding: 64px 24px;
+    }
+
+    .fcc-close-card {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 44px;
+      align-items: center;
+      background: radial-gradient(ellipse at 0% 0%, rgba(227, 33, 41, .38), transparent 55%), #111;
+      border-radius: 20px;
+      padding: 48px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .18);
+    }
+
+    .fcc-close .cn-inner {
+      max-width: none;
+      margin: 0;
+      text-align: left;
+    }
+
+    .fcc-close-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #ff6b70;
+      border: 1px solid rgba(227, 33, 41, .55);
+      border-radius: 999px;
+      padding: 6px 14px;
+      margin-bottom: 18px;
+    }
+
+    .fcc-close .cn-inner h2 {
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .fcc-close .cn-inner p {
+      color: rgba(255, 255, 255, .82);
+      font-size: 17px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .fcc-close .cn-inner p a {
+      color: #ff6b70;
+      font-weight: 700;
+    }
+
+    .fcc-close .cn-btn {
+      margin-top: 10px;
+      font-size: 16px;
+      padding: 15px 28px;
+    }
+
+    .fcc-close .cn-btn:focus-visible {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .fcc-mini {
+      background: #1c1c1c;
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 24px;
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .4);
+    }
+
+    .fcc-mini-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .6);
+      text-align: center;
+    }
+
+    .fcc-mini-num {
+      font-size: 52px;
+      font-weight: 800;
+      color: #2ecc71;
+      text-align: center;
+      line-height: 1.1;
+      margin: 6px 0 2px;
+    }
+
+    .fcc-mini-num small {
+      font-size: 22px;
+    }
+
+    .fcc-mini-verdict {
+      font-size: 14px;
+      font-weight: 700;
+      color: #2ecc71;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .fcc-mini-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #E32129 0 30%, #27ae60 30% 100%);
+      margin-bottom: 16px;
+    }
+
+    .fcc-mini ul {
+      list-style: none;
+      margin: 0;
+      padding: 12px 0 0;
+      border-top: 1px solid #333;
+    }
+
+    .fcc-mini li {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: rgba(255, 255, 255, .7);
+      padding: 4px 0;
+    }
+
+    .fcc-mini b {
+      color: #fff;
+    }
+
+    @media(max-width:860px) {
+      .fcc-close-card {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 36px 28px;
+      }
+
+      .fcc-close .cn-inner {
+        text-align: center;
+      }
+
+      .fcc-mini {
+        max-width: 340px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    @media(max-width:520px) {
+      .closing-note.fcc-close {
+        padding: 40px 16px;
+      }
+
+      .fcc-close-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+      }
+
+      .fcc-close .cn-btn {
+        display: block;
+        text-align: center;
+      }
+
+      .fcc-mini-num {
+        font-size: 44px;
+      }
+    }
+
   </style>
   <!-- Google tag (gtag.js) -->
   <script async fetchpriority="low" src="https://www.googletagmanager.com/gtag/js?id=G-SBKJQQRP0N"></script>
@@ -1632,12 +1801,28 @@
   </section>
 
   <!-- ============ CLOSING — FOOD COST CALCULATOR ============ -->
-  <section class="closing-note">
-    <div class="cn-inner">
-      <h2 id="what-does-your-biryani-cost">Do You Actually Know What Your Biryani Costs?</h2>
-      <p>Most restaurants don’t — at least not until they sit down and do the math.</p>
-      <p>Our <a href="food-cost-calculator.html">Free Food Cost Calculator</a> helps you work out your real food costs in minutes.</p>
-      <a href="food-cost-calculator.html" class="cn-btn">Work out your real food costs &rarr;</a>
+  <section class="closing-note fcc-close">
+    <div class="fcc-close-card">
+      <div class="cn-inner">
+        <span class="fcc-close-tag">Free tool from HTI</span>
+        <h2 id="what-does-your-biryani-cost">Do You Actually Know What Your Biryani Costs?</h2>
+        <p>Most restaurants don’t — at least not until they sit down and do the math.</p>
+        <p>Our <a href="food-cost-calculator.html">Free Food Cost Calculator</a> helps you work out your real food costs in minutes.</p>
+        <a href="food-cost-calculator.html" class="cn-btn">Work out your real food costs &rarr;</a>
+      </div>
+      <!-- A still of the calculator's own result card, with its default dish -->
+      <div class="fcc-mini" role="img"
+        aria-label="Example result: ingredients 120 rupees, menu price 400 rupees, food cost 30 percent, healthy">
+        <div class="fcc-mini-label">Your food cost</div>
+        <div class="fcc-mini-num">30.0<small>%</small></div>
+        <div class="fcc-mini-verdict">Healthy. This is the normal range.</div>
+        <div class="fcc-mini-bar"></div>
+        <ul>
+          <li><span>Ingredients</span><b>&#8377;120</b></li>
+          <li><span>Menu price</span><b>&#8377;400</b></li>
+          <li><span>Profit per portion</span><b>&#8377;280</b></li>
+        </ul>
+      </div>
     </div>
   </section>
 

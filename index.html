@@ -1374,39 +1374,52 @@
     }
 
     /* below 860px the WhatsApp and Call buttons sit bottom-right (enquiry.css),
-       so the notice keeps to the left of them */
+       so the notice keeps to the left of them, and shrinks to one slim row:
+       title, button, close - the card is too much of a small screen */
     @media(max-width:860px) {
       .fcc-toast {
         left: 12px;
         right: 82px;
         bottom: calc(16px + env(safe-area-inset-bottom, 0px));
         width: auto;
-        padding: 14px;
-        gap: 12px;
+        padding: 10px 40px 10px 14px;
+        border-top-width: 3px;
+        border-radius: 12px;
+        align-items: center;
       }
 
-      .fcc-toast-icon {
-        width: 36px;
-        height: 36px;
+      .fcc-toast-icon,
+      .fcc-toast-text {
+        display: none;
       }
 
-      .fcc-toast-icon svg {
-        width: 20px;
-        height: 20px;
+      .fcc-toast-body {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-right: 0;
       }
 
       .fcc-toast-title {
-        font-size: 15px;
-      }
-
-      .fcc-toast-text {
-        font-size: 13px;
-        margin-bottom: 10px;
+        flex: 1;
+        font-size: 14px;
+        margin: 0;
       }
 
       .fcc-toast .btn-red {
-        font-size: 14px;
-        padding: 10px 16px;
+        flex: none;
+        font-size: 13px;
+        padding: 9px 12px;
+        border-radius: 7px;
+      }
+
+      .fcc-toast-close {
+        top: 50%;
+        right: 2px;
+        transform: translateY(-50%);
+        width: 36px;
+        height: 36px;
+        font-size: 22px;
       }
     }
 
