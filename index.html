@@ -2966,8 +2966,11 @@
       var KEY = 'hti-fcc-toast-closed';
       var WEEK = 7 * 24 * 60 * 60 * 1000;
       var done = false;
+      /* #show-popup on the address skips the one-week memory, so the notice can
+         be checked again by someone who has already closed it */
+      var force = location.hash === '#show-popup';
       try {
-        if (Date.now() - Number(localStorage.getItem(KEY) || 0) < WEEK) return;
+        if (!force && Date.now() - Number(localStorage.getItem(KEY) || 0) < WEEK) return;
       } catch (e) {}
 
       function remember() {
@@ -2989,7 +2992,7 @@
       }
 
       /* after 6 seconds, or sooner once the visitor scrolls past the first screen */
-      var timer = setTimeout(show, 6000);
+      var timer = setTimeout(show, force ? 2000 : 6000);
       window.addEventListener('scroll', function onScroll() {
         if (window.scrollY > window.innerHeight * 0.6) {
           clearTimeout(timer);
