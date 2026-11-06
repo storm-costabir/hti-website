@@ -18,10 +18,10 @@
 (function () {
   var OFFERS = {
     survey: {
-      label: 'Free Training Needs Analysis',
+      label: 'Free Training Survey Analysis',
       icon: '<path d="M9 4h6v3H9z"/><path d="M15 5h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
       eyebrow: 'Free &middot; 3 minutes',
-      title: 'Training Needs Analysis',
+      title: 'Training Survey Analysis',
       text: 'Answer 15 quick questions and see which HTI training programs fit your team. <span class="offer-toast-nosign">No obligation.</span>',
       href: 'training-needs-survey.html',
       button: 'Get my free analysis',
