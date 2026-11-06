@@ -10,7 +10,7 @@
 
    The page picks the offer on the script tag:
      <script src="assets/offer-toast.js" data-offer="survey" defer></script>
-     survey - the training needs survey (homepage)
+     survey - the free training needs analysis (homepage)
      fcc    - the food cost calculator (the food cost blog posts)
    Clicks on the link go to GA4 as survey_popup_click or fcc_popup_click.
    ========================================================================== */
@@ -18,13 +18,13 @@
 (function () {
   var OFFERS = {
     survey: {
-      label: 'Free Training Needs Survey',
+      label: 'Free Training Needs Analysis',
       icon: '<path d="M9 4h6v3H9z"/><path d="M15 5h2a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M9 14l2 2 4-4"/>',
       eyebrow: 'Free &middot; 3 minutes',
-      title: 'Training Needs Survey',
+      title: 'Training Needs Analysis',
       text: 'Answer 15 quick questions and see which HTI training programs fit your team. <span class="offer-toast-nosign">No obligation.</span>',
       href: 'training-needs-survey.html',
-      button: 'Start the survey',
+      button: 'Get my free analysis',
       key: 'hti-survey-toast-closed',
       event: 'survey_popup_click',
       /* the homepage's closing call to action already offers the survey */

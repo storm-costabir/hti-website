@@ -4,22 +4,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Training Needs Survey for Hotels, Restaurants &amp; QSRs | HTI India</title>
-  <meta name="description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
+  <title>Free Training Needs Analysis for Hotels, Restaurants &amp; QSRs | HTI India</title>
+  <meta name="description" content="Free training needs analysis for hotels, restaurants and QSRs. Answer 15 quick questions in 3 minutes and instantly see which training programs fit your team." />
   <link rel="canonical" href="https://www.hti-india.com/training-needs-survey.html" />
   <script>(function(l){var p=l.pathname;if(p!=="/"&&!/\.html$/.test(p)&&!/\/$/.test(p))l.replace(p+".html"+l.search+l.hash)})(location)</script>
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Free Training Needs Survey for Hotels, Restaurants & QSRs | HTI India" />
-  <meta property="og:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
+  <meta property="og:title" content="Free Training Needs Analysis for Hotels, Restaurants & QSRs | HTI India" />
+  <meta property="og:description" content="Free training needs analysis for hotels, restaurants and QSRs. Answer 15 quick questions in 3 minutes and instantly see which training programs fit your team." />
   <meta property="og:url" content="https://www.hti-india.com/training-needs-survey.html" />
   <meta property="og:image" content="https://www.hti-india.com/images/og/training-needs-survey.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Free training needs survey for hotels, restaurants and QSRs - HTI India" />
+  <meta property="og:image:alt" content="Free training needs analysis for hotels, restaurants and QSRs - HTI India" />
   <meta property="og:site_name" content="HTI India" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Free Training Needs Survey for Hotels, Restaurants & QSRs | HTI India" />
-  <meta name="twitter:description" content="Free 3-minute training needs survey for hotels, restaurants and QSRs. Answer 15 questions and instantly see which training programs fit your team." />
+  <meta name="twitter:title" content="Free Training Needs Analysis for Hotels, Restaurants & QSRs | HTI India" />
+  <meta name="twitter:description" content="Free training needs analysis for hotels, restaurants and QSRs. Answer 15 quick questions in 3 minutes and instantly see which training programs fit your team." />
   <meta name="twitter:image" content="https://www.hti-india.com/images/og/training-needs-survey.jpg" />
   <link rel="icon" href="images/brand/hti-favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1258,6 +1258,348 @@
       }
     }
 
+    /* ============ STEP-BY-STEP FORM ============
+       Script adds .wizard to #start; without it the form stays one long page. */
+    .stepper,
+    .wiz-nav .wiz-back,
+    .wiz-nav .wiz-next {
+      display: none;
+    }
+
+    .wizard .stepper {
+      display: flex;
+      list-style: none;
+      margin: 0 0 14px;
+      padding: 0;
+      counter-reset: none;
+    }
+
+    .stepper li {
+      flex: 1;
+      position: relative;
+    }
+
+    /* the line joining one step to the next */
+    .stepper li:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: calc(50% + 22px);
+      right: calc(-50% + 22px);
+      height: 3px;
+      border-radius: 3px;
+      background: #ddd6cd;
+      transition: background .3s ease;
+    }
+
+    .stepper li.is-done:not(:last-child)::after {
+      background: var(--hti-red);
+    }
+
+    .stepper button {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 0;
+      padding: 0;
+      font-family: inherit;
+      cursor: pointer;
+      color: #888;
+    }
+
+    .stepper button:disabled {
+      cursor: default;
+    }
+
+    .stepper i {
+      font-style: normal;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      background: #fff;
+      border: 2px solid #ddd6cd;
+      color: #999;
+      transition: all .25s ease;
+    }
+
+    .stepper span {
+      font-size: 12.5px;
+      font-weight: 700;
+    }
+
+    .stepper li.is-done i {
+      background: var(--hti-red);
+      border-color: var(--hti-red);
+      color: transparent;
+      position: relative;
+    }
+
+    .stepper li.is-done i::after {
+      content: "\2713";
+      position: absolute;
+      color: #fff;
+    }
+
+    .stepper li.is-current i {
+      border-color: var(--hti-red);
+      color: var(--hti-red);
+      box-shadow: 0 0 0 5px rgba(232, 25, 26, .14);
+      transform: scale(1.08);
+    }
+
+    .stepper li.is-current span,
+    .stepper li.is-done span {
+      color: #111;
+    }
+
+    .stepper button:not(:disabled):hover i {
+      transform: scale(1.12);
+    }
+
+    .wizard .step {
+      display: none;
+    }
+
+    .wizard .step.is-active {
+      display: block;
+    }
+
+    .step.from-fwd {
+      animation: step-in-fwd .45s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .step.from-back {
+      animation: step-in-back .45s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    @keyframes step-in-fwd {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    @keyframes step-in-back {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: none; }
+    }
+
+    .card-head h2:focus {
+      outline: none;
+    }
+
+    .wiz-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid #eee7df;
+    }
+
+    .wizard .wiz-nav .wiz-back,
+    .wizard .wiz-nav .wiz-next {
+      display: inline-flex;
+    }
+
+    .wiz-nav .wiz-back {
+      margin-right: auto;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: 1.5px solid #ddd6cd;
+      border-radius: 10px;
+      padding: 13px 20px;
+      font-family: inherit;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #555;
+      cursor: pointer;
+      transition: border-color .15s ease, color .15s ease;
+    }
+
+    .wiz-nav .wiz-back:hover {
+      border-color: #111;
+      color: #111;
+    }
+
+    .wiz-nav .wiz-next {
+      align-items: center;
+      gap: 8px;
+      background: #111;
+      color: #fff;
+      border: 0;
+      border-radius: 10px;
+      padding: 14px 26px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .wiz-nav .wiz-next:hover {
+      background: var(--hti-red);
+      transform: translateX(2px);
+    }
+
+    .wiz-final .btn-submit {
+      box-shadow: 0 10px 24px rgba(232, 25, 26, .28);
+    }
+
+    .wiz-final+.submit-note {
+      text-align: center;
+    }
+
+    /* the consent tick sat on a line of its own: .field>label is display:block */
+    .field>label.choice {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0;
+    }
+
+    /* a small pop when an answer is picked */
+    .choice:has(input:checked) {
+      animation: pick .28s ease;
+    }
+
+    @keyframes pick {
+      50% { transform: scale(1.03); }
+    }
+
+    /* business type as picture tiles */
+    .choices.tiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .choices.tiles .choice {
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      padding: 16px 10px;
+      min-height: 104px;
+      font-size: 13.5px;
+      line-height: 1.3;
+    }
+
+    .choices.tiles .box {
+      display: none;
+    }
+
+    .tile-ic {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: #f1ece6;
+      color: #555;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s ease;
+    }
+
+    .tile-ic svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .choices.tiles .choice:hover .tile-ic {
+      transform: translateY(-2px);
+    }
+
+    .choices.tiles .choice:has(input:checked) .tile-ic {
+      background: var(--hti-red);
+      color: #fff;
+    }
+
+    /* the 1-10 score takes the colour of the number picked */
+    .scale input:checked+span {
+      background: var(--c, var(--hti-red));
+      border-color: var(--c, var(--hti-red));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, .12);
+    }
+
+    .scale-verdict {
+      min-height: 22px;
+      margin: 10px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .scale-verdict:not(:empty) {
+      animation: pick .3s ease;
+    }
+
+    @media(max-width:640px) {
+      .stepper span {
+        display: none;
+      }
+
+      .stepper li.is-current span {
+        display: block;
+      }
+
+      .stepper i {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+      }
+
+      .stepper li:not(:last-child)::after {
+        top: 14px;
+        left: calc(50% + 19px);
+        right: calc(-50% + 19px);
+      }
+
+      .choices.tiles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .wiz-nav .wiz-next,
+      .wiz-final .btn-submit {
+        flex: 1;
+        justify-content: center;
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+      .wiz-final .btn-submit {
+        width: auto;
+      }
+
+      .wiz-nav .wiz-back {
+        padding: 13px 14px;
+      }
+
+      /* the floating Call and WhatsApp buttons sit over the right edge */
+      .wiz-nav {
+        padding-right: 44px;
+      }
+
+      .wiz-to {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .step.from-fwd,
+      .step.from-back,
+      .choice:has(input:checked),
+      .scale-verdict:not(:empty) {
+        animation: none;
+      }
+    }
+
   </style>
   <script type="application/ld+json">
   {
@@ -1395,7 +1737,7 @@
   <!-- ============ HERO ============ -->
   <section class="survey-hero">
     <span class="survey-eyebrow">Free &middot; 3 minutes &middot; No obligation</span>
-    <h1>Free Training Needs Survey</h1>
+    <h1>Free Training Needs Analysis</h1>
     <p>Tell us how your team works today and where guests notice the gaps. The moment you send it, you'll see which HTI
       programs fit your team best &mdash; then a consultant sends the full plan, in the right languages and around your
       shifts.</p>
@@ -1415,7 +1757,7 @@
       </div>
     </div>
     <div class="sec-cta">
-      <a href="#start" class="sec-cta-btn">Start the free survey <span aria-hidden="true">&darr;</span></a>
+      <a href="#start" class="sec-cta-btn">Start my free analysis <span aria-hidden="true">&darr;</span></a>
     </div>
   </section>
 
@@ -1423,7 +1765,13 @@
   <div class="survey-wrap" id="start">
 
     <div class="progress-shell" id="progressShell">
-      <div class="progress-label"><span>Your progress</span><b id="progressPct">0%</b></div>
+      <ol class="stepper" id="stepper">
+        <li class="is-current"><button type="button" data-go="0"><i>1</i><span>Your team</span></button></li>
+        <li><button type="button" data-go="1" disabled><i>2</i><span>The gaps</span></button></li>
+        <li><button type="button" data-go="2" disabled><i>3</i><span>Format</span></button></li>
+        <li><button type="button" data-go="3" disabled><i>4</i><span>About you</span></button></li>
+      </ol>
+      <div class="progress-label"><span id="stepLabel">Your progress</span><b id="progressPct">0%</b></div>
       <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
       </div>
@@ -1433,30 +1781,30 @@
     <form id="surveyForm" novalidate>
 
       <!-- ---------- STEP 1 ---------- -->
-      <section class="card">
+      <section class="card step">
         <div class="card-head">
           <div class="step-num">1</div>
-          <h2>Your team</h2>
+          <h2 tabindex="-1">Your team</h2>
         </div>
         <p class="card-sub">This decides which of our program families is the right starting point.</p>
 
         <div class="field" data-required data-group="business_type">
           <span class="q">What kind of business is it? <span class="req">*</span></span>
-          <div class="choices">
+          <div class="choices tiles">
             <label class="choice radio"><input type="radio" name="business_type" value="Hotel / Resort" /><span
-                class="box"></span>Hotel / Resort</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V4h14v17M9 8h2M13 8h2M9 12h2M13 12h2M10 21v-4h4v4"/></svg></span>Hotel / Resort</label>
             <label class="choice radio"><input type="radio" name="business_type" value="Restaurant / Cafe" /><span
-                class="box"></span>Restaurant / Cafe</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v18M4 3v5a3 3 0 0 0 6 0V3M17 21V3c-2.5 1.5-3.5 4.5-3.5 9H17"/></svg></span>Restaurant / Cafe</label>
             <label class="choice radio"><input type="radio" name="business_type" value="QSR chain" /><span
-                class="box"></span>QSR chain</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11c0-3.5 3.6-6 8-6s8 2.5 8 6zM3 15h18M5 18h14v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/></svg></span>QSR chain</label>
             <label class="choice radio"><input type="radio" name="business_type" value="Cloud kitchen" /><span
-                class="box"></span>Cloud kitchen</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16v7a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3zM2 10h20M9 7c0-1.5 1-1.5 1-3M14 7c0-1.5 1-1.5 1-3"/></svg></span>Cloud kitchen</label>
             <label class="choice radio"><input type="radio" name="business_type"
-                value="Corporate office / Facility" /><span class="box"></span>Corporate office / Facility</label>
+                value="Corporate office / Facility" /><span class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>Corporate office / Facility</label>
             <label class="choice radio"><input type="radio" name="business_type" value="Retail" /><span
-                class="box"></span>Retail</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 14H5zM9 7a3 3 0 0 1 6 0"/></svg></span>Retail</label>
             <label class="choice radio"><input type="radio" name="business_type" value="Other" /><span
-                class="box"></span>Other</label>
+                class="box"></span><span class="tile-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="18" cy="12" r="1.5"/></svg></span>Other</label>
           </div>
           <div class="err">Please pick one.</div>
         </div>
@@ -1509,13 +1857,16 @@
                 class="box"></span>Other</label>
           </div>
         </div>
+        <div class="wiz-nav">
+          <button type="button" class="wiz-next" data-next>Next<span class="wiz-to">: The gaps</span> <span aria-hidden="true">&rarr;</span></button>
+        </div>
       </section>
 
       <!-- ---------- STEP 2 ---------- -->
-      <section class="card">
+      <section class="card step">
         <div class="card-head">
           <div class="step-num">2</div>
-          <h2>Where the gaps are</h2>
+          <h2 tabindex="-1">Where the gaps are</h2>
         </div>
         <p class="card-sub">The heart of the survey &mdash; be as honest as you can, it only makes the plan sharper.</p>
 
@@ -1577,6 +1928,7 @@
           <span class="q">How would you rate your team's service standard today? <span class="req">*</span></span>
           <div class="scale" id="ratingScale"></div>
           <div class="scale-ends"><span>1 &mdash; Needs a full reset</span><span>10 &mdash; Best in class</span></div>
+          <p class="scale-verdict" id="scaleVerdict" aria-live="polite"></p>
           <div class="err">Please pick a number from 1 to 10.</div>
         </div>
 
@@ -1598,13 +1950,17 @@
           <textarea id="measure" name="measure"
             placeholder="e.g. guest feedback scores, mystery audits, average bill value, attrition - or 'we don't measure it yet'"></textarea>
         </div>
+        <div class="wiz-nav">
+          <button type="button" class="wiz-back" data-back><span aria-hidden="true">&larr;</span> Back</button>
+          <button type="button" class="wiz-next" data-next>Next<span class="wiz-to">: Format &amp; timing</span> <span aria-hidden="true">&rarr;</span></button>
+        </div>
       </section>
 
       <!-- ---------- STEP 3 ---------- -->
-      <section class="card">
+      <section class="card step">
         <div class="card-head">
           <div class="step-num">3</div>
-          <h2>Format &amp; timing</h2>
+          <h2 tabindex="-1">Format &amp; timing</h2>
         </div>
         <p class="card-sub">So the plan we send you is actually schedulable.</p>
 
@@ -1643,13 +1999,17 @@
           <textarea id="notes" name="notes"
             placeholder="Shift timings, a past training that didn't land, a specific outlet that needs help first..."></textarea>
         </div>
+        <div class="wiz-nav">
+          <button type="button" class="wiz-back" data-back><span aria-hidden="true">&larr;</span> Back</button>
+          <button type="button" class="wiz-next" data-next>Next<span class="wiz-to">: About you</span> <span aria-hidden="true">&rarr;</span></button>
+        </div>
       </section>
 
       <!-- ---------- STEP 4 ---------- -->
-      <section class="card">
+      <section class="card step">
         <div class="card-head">
           <div class="step-num">4</div>
-          <h2>About you</h2>
+          <h2 tabindex="-1">About you</h2>
         </div>
         <p class="card-sub">Last step &mdash; so we know who to send the recommendation to.</p>
 
@@ -1697,13 +2057,12 @@
           <label for="website">Leave this field empty</label>
           <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
         </div>
-      </section>
-
-      <!-- ---------- SUBMIT ---------- -->
-      <section class="card submit-card">
-        <button type="submit" class="btn-submit" id="submitBtn">Send my survey</button>
-        <p class="submit-note">We reply within one working day, Monday to Saturday.<br />Your answers are used only to
-          build your training recommendation.</p>
+        <div class="wiz-nav wiz-final">
+          <button type="button" class="wiz-back" data-back><span aria-hidden="true">&larr;</span> Back</button>
+          <button type="submit" class="btn-submit" id="submitBtn">Get my free analysis <span aria-hidden="true">&rarr;</span></button>
+        </div>
+        <p class="submit-note">Your analysis appears on screen straight away. A consultant follows up within one working
+          day, Monday to Saturday. Your answers are used only for your training recommendation.</p>
         <div class="form-msg warn" id="formMsg"></div>
       </section>
     </form>
@@ -1960,7 +2319,9 @@
         const scale = document.getElementById('ratingScale');
         let html = '';
         for (let i = 1; i <= 10; i++) {
-          html += `<label><input type="radio" name="service_rating" value="${i}" /><span>${i}</span></label>`;
+          /* red at 1 through amber to green at 10 */
+          const hue = Math.round((i - 1) / 9 * 130);
+          html += `<label style="--c:hsl(${hue} 70% 42%)"><input type="radio" name="service_rating" value="${i}" /><span>${i}</span></label>`;
         }
         scale.innerHTML = html;
       })();
@@ -2123,6 +2484,7 @@
         fill.style.width = p + '%';
         pct.textContent = p + '%';
         updateFitLive();
+        if (typeof paintStepper === 'function' && steps.length) paintStepper();
       }
 
       form.addEventListener('input', e => {
@@ -2133,6 +2495,85 @@
         }
       });
       form.addEventListener('change', updateProgress);
+      /* ---------- one step at a time ----------
+         The four cards become steps with Next / Back; each step checks its
+         own answers before moving on. Without this script the form is
+         simply one long page. */
+      const steps = Array.from(form.querySelectorAll('.step'));
+      const stepper = Array.from(document.querySelectorAll('#stepper li'));
+      const stepLabel = document.getElementById('stepLabel');
+      const TIME_LEFT = ['about 3 minutes', 'about 2 minutes left', 'about a minute left', 'last step'];
+      let current = 0, furthest = 0;
+      document.getElementById('start').classList.add('wizard');
+
+      const stepDone = n => Array.from(steps[n].querySelectorAll('.field[data-required]')).every(isFilled);
+
+      function paintStepper() {
+        stepper.forEach((li, n) => {
+          li.classList.toggle('is-current', n === current);
+          li.classList.toggle('is-done', n !== current && n <= furthest && stepDone(n));
+          li.querySelector('button').disabled = n > furthest;
+        });
+        stepLabel.textContent = `Step ${current + 1} of ${steps.length} · ${TIME_LEFT[current]}`;
+      }
+
+      function checkStep(n) {
+        let firstBad = null;
+        steps[n].querySelectorAll('.field[data-required]').forEach(field => {
+          const ok = isFilled(field);
+          field.classList.toggle('invalid', !ok);
+          if (!ok && !firstBad) firstBad = field;
+        });
+        if (firstBad) {
+          firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const focusable = firstBad.querySelector('input:not([type=radio]):not([type=checkbox]), select, textarea');
+          if (focusable) setTimeout(() => focusable.focus({ preventScroll: true }), 400);
+        }
+        return !firstBad;
+      }
+
+      function goTo(n) {
+        if (n === current || n < 0 || n >= steps.length) return;
+        const dir = n > current ? 'from-fwd' : 'from-back';
+        steps[current].classList.remove('is-active', 'from-fwd', 'from-back');
+        current = n;
+        furthest = Math.max(furthest, n);
+        const step = steps[n];
+        step.classList.add('is-active', dir);
+        paintStepper();
+        const top = document.getElementById('start').getBoundingClientRect().top + window.scrollY - 70;
+        if (window.scrollY > top) window.scrollTo({ top, behavior: 'smooth' });
+        step.querySelector('h2').focus({ preventScroll: true });
+        if (typeof gtag === 'function') gtag('event', 'survey_step', { step: n + 1 });
+      }
+
+      function next() {
+        if (checkStep(current)) goTo(current + 1);
+      }
+
+      steps[0].classList.add('is-active');
+      form.addEventListener('click', e => {
+        if (e.target.closest('[data-next]')) next();
+        else if (e.target.closest('[data-back]')) goTo(current - 1);
+      });
+      document.getElementById('stepper').addEventListener('click', e => {
+        const b = e.target.closest('[data-go]');
+        if (!b || b.disabled) return;
+        const n = Number(b.dataset.go);
+        if (n > current && !checkStep(current)) return;
+        goTo(n);
+      });
+
+      /* the score explains itself */
+      const verdict = document.getElementById('scaleVerdict');
+      form.addEventListener('change', e => {
+        if (e.target.name !== 'service_rating') return;
+        const r = Number(e.target.value);
+        const v = r <= 4 ? 'A full reset will help most.'
+          : r <= 7 ? 'Solid base, with room to grow.' : 'Strong. Training keeps it that way.';
+        verdict.textContent = `${r}/10 — ${v}`;
+        verdict.style.color = `hsl(${Math.round((r - 1) / 9 * 130)} 70% 36%)`;
+      });
       updateProgress();
 
       /* ---------- answers -> object ---------- */
@@ -2207,6 +2648,7 @@
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         msg.classList.remove('show');
+        if (current < steps.length - 1) { next(); return; }
 
         /* bots fill hidden fields; people don't */
         if (val('website')) return;
@@ -2219,6 +2661,8 @@
         });
 
         if (firstBad) {
+          const at = steps.findIndex(st => st.contains(firstBad));
+          if (at !== -1 && at !== current) goTo(at);
           const y = firstBad.getBoundingClientRect().top + window.scrollY - 160;
           window.scrollTo({ top: y, behavior: 'smooth' });
           const focusable = firstBad.querySelector('input:not([type=radio]):not([type=checkbox]), select, textarea');
