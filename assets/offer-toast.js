@@ -5,8 +5,8 @@
    tools, so this brings the offer to them: it slides in after a few seconds
    or a little scrolling, keeps out of the way of the WhatsApp and Call
    buttons, goes away once the page's own section for that tool is on screen,
-   and once closed stays closed for a week (on every page with that offer).
-   #show-popup on the address skips that memory, for reviewing.
+   and once closed stays closed only for the rest of that visit, so it is
+   back the next time the site is opened. #show-popup shows it regardless.
 
    The page picks the offer on the script tag:
      <script src="assets/offer-toast.js" data-offer="survey" defer></script>
@@ -51,12 +51,14 @@
   var offer = OFFERS[(tag && tag.getAttribute('data-offer')) || 'fcc'];
   if (!offer || document.getElementById('offerToast')) return;
 
-  var WEEK = 7 * 24 * 60 * 60 * 1000;
-  /* #show-popup on the address skips the one-week memory, so the notice can
-     be checked again by someone who has already closed it */
+  /* a close is remembered for this visit only (sessionStorage), so the
+     notice is back the next time the site is opened. Earlier versions kept
+     it hidden for a week in localStorage; clear that, or browsers that
+     closed it then would not see it until the week ran out */
   var force = location.hash === '#show-popup';
+  try { localStorage.removeItem(offer.key); } catch (e) {}
   try {
-    if (!force && Date.now() - Number(localStorage.getItem(offer.key) || 0) < WEEK) return;
+    if (!force && sessionStorage.getItem(offer.key)) return;
   } catch (e) {}
 
   /* htmlpreview.github.io rewrites the links a page starts with, not ones
@@ -84,7 +86,7 @@
   var done = false;
 
   function remember() {
-    try { localStorage.setItem(offer.key, String(Date.now())); } catch (e) {}
+    try { sessionStorage.setItem(offer.key, String(Date.now())); } catch (e) {}
   }
   function show() {
     if (done) return;
