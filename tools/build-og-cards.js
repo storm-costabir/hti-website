@@ -159,13 +159,6 @@ const CARDS = [
     alt: 'Free food cost percentage calculator - HTI India'
   },
   {
-    slug: 'restaurant-cost-calculator',
-    bg: 'images/blog/food-cost-percentage/04-ladle-portion-control-kitchen.jpg',
-    head: 'Restaurant Cost Calculator',
-    sub: 'Prime cost, net profit and break-even, from your own monthly numbers. Free.',
-    alt: 'Free restaurant operating cost calculator - HTI India'
-  },
-  {
     slug: 'training-needs-survey',
     bg: 'images/blog/hti-training-programs/11-hti-trainer-led-table-session.webp',
     head: 'Free Training Needs Survey',

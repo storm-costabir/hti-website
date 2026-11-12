@@ -765,8 +765,9 @@
   .sec-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.14em;
     text-transform:uppercase;color:var(--red);background:rgba(227,30,36,.08);
     border:1px solid rgba(227,30,36,.22);border-radius:30px;padding:6px 15px;margin-bottom:14px}
-  .sec-head h2{font-size:clamp(1.6rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
-  .sec-head h2 em{font-style:normal;color:var(--red)}
+  .sec-head h2,.qc-head h1{font-size:clamp(1.6rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+  .sec-head h2 em,.qc-head h1 em{font-style:normal;color:var(--red)}
+  .qc-head p b{color:var(--ink)}
   .sec-head p{margin:12px auto 0;color:var(--muted);font-size:15.5px;line-height:1.7;font-weight:500}
 
 
@@ -1137,7 +1138,6 @@
           <div class="dropdown">
             <div style="font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#8a857d;padding:4px 0 6px;">Free Tools</div>
             <a href="food-cost-calculator.html"><b>Food Cost Calculator</b><span>Free tool &mdash; work out your food cost %</span></a>
-            <a href="restaurant-cost-calculator.html"><b>Restaurant Cost Calculator</b><span>Free tool &mdash; prime cost, profit &amp; break-even</span></a>
             <div style="border-top:1px solid #eee;margin:8px 0 6px;"></div>
             <a href="trainers.html"><b>Our Trainers</b><span>The people who run the sessions</span></a>
             <a href="brands.html"><b>Our Brands</b><span>HTI, Woosh Biz, Star, Lead, Dox &amp; T3</span></a>
@@ -1160,21 +1160,10 @@
 
 <main>
 
-<!-- Somebody who searched "food cost calculator" already knows what one is.
-     The hero used to be a headline, a three-line lede, a formula plate, a
-     button and a line of small print, which is a full screen of reading before
-     the tool. It is now a title and one line; the calculator starts directly
-     under it, and everything that explains it sits below the calculator. -->
-<section class="hero hero-slim">
-  <div class="hero-inner">
-    <span class="hero-tag">Free tool from HTI India</span>
-    <h1>Free Food Cost <em>Calculator</em></h1>
-    <!-- The answer to "what is food cost", in the first screen and in plain
-         text, because that is where search engines look for a quotable
-         definition. Currency-free on purpose: it has to be true everywhere. -->
-    <p class="hero-lede"><b>Food cost % = ingredient cost &divide; menu price &times; 100.</b> A dish that costs 30 to make and sells for 100 has a 30% food cost, in any currency.</p>
-  </div>
-</section>
+<!-- Somebody who searched "food cost calculator" came to use one. There is no
+     hero band any more: the calculator is the first thing under the navbar,
+     its heading is the page's H1, and the formula sits in its one-line intro
+     because that is where search engines look for a quotable definition. -->
 
 <div class="fcc-wrap">
 
@@ -1184,8 +1173,8 @@
        a whole recipe, many units and a batch yield. -->
   <section class="qcalc" id="calculator" aria-labelledby="qcalcH">
     <div class="sec-head qc-head">
-      <h2 id="qcalcH">Work out your <em>food cost percentage</em></h2>
-      <p>Free, no sign-up, in your own currency. Enter what a portion costs you and what you charge for it &mdash; for restaurants, hotels, cafes, cloud kitchens and bakeries.</p>
+      <h1 id="qcalcH">Free Food Cost <em>Calculator</em></h1>
+      <p><b>Food cost % = ingredient cost &divide; menu price &times; 100.</b> Free, no sign-up, in any currency.</p>
     </div>
 
     <div class="qc-grid">
@@ -1505,7 +1494,6 @@
     <ul class="fcc-more">
       <li><a href="restaurant-menu-engineering-cricket-team.html">If Your Menu Was a Cricket Team<span>Menu engineering: which dishes to promote, fix or cut, using portions sold and profit per portion</span></a></li>
       <li><a href="restaurant-food-cost-loss-leader.html">The Biryani Can Lose Money. The Raita Can&rsquo;t.<span>When a low food cost on the extras pays for a loss-leader dish</span></a></li>
-      <li><a href="restaurant-cost-calculator.html">Restaurant Cost Calculator<span>Prime cost, profit and break-even for the whole restaurant</span></a></li>
     </ul>
   </section>
 </div>
@@ -1552,7 +1540,6 @@
           <a href="blog.html">Blogs</a>
           <a href="privacy-policy.html">Privacy Policy</a>
           <a href="food-cost-calculator.html">Food Cost Calculator</a>
-          <a href="restaurant-cost-calculator.html">Restaurant Cost Calculator</a>
         </div>
       </div>
       <div class="footer-div"></div>

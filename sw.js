@@ -11,7 +11,7 @@
    never respond to is a request the browser fetches itself, exactly as if no
    service worker existed. No caching, no rewriting, no interception.
 
-   That means index.html, contact.html, restaurant-cost-calculator.html and
+   That means index.html, contact.html, food-cost-calculator.html and
    every other page on the site are always served fresh from the network.
 
    Do not add wildcards, extension matching, or a catch-all cache here.
