@@ -890,6 +890,8 @@
   <link rel="stylesheet" href="assets/polish.css" />
   <link rel="stylesheet" href="assets/enquiry.css" />
   <script src="assets/motion.js" defer></script>
+  <!-- reserves the "Listen to this article" player's height, see assets/listen.js -->
+  <style>.listen-slot{margin-top:16px;min-height:70px}@media (max-width:520px){.listen-slot{min-height:64px}}</style>
 </head>
 
 <body>
@@ -990,6 +992,7 @@
             <span class="mc-value">03 min read</span>
           </div>
         </div>
+        <div class="listen-slot" data-listen-slot></div>
       </div>
       <div class="hero-right">
         <div class="hero-cover">
@@ -1357,6 +1360,7 @@
   </div>
   <script src="assets/subscribe.js" defer></script>
   <script src="assets/track.js" defer></script>
+  <script src="assets/listen.js" defer></script>
 </body>
 
 </html>
