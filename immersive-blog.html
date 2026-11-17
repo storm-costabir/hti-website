@@ -1577,6 +1577,13 @@
   <script src="assets/motion.js" defer></script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"HTI India Blog","description":"Insights on hospitality, service excellence and training from HTI India.","url":"https://www.hti-india.com/immersive-blog.html","isPartOf":{"@type":"WebSite","name":"HTI India","url":"https://www.hti-india.com/"},"publisher":{"@type":"Organization","name":"HTI India","url":"https://www.hti-india.com/"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.hti-india.com/"},{"@type":"ListItem","position":2,"name":"' + esc(p.title || 'Untitled') + '","item":"https://www.hti-india.com/immersive-blog.html"}]}</script>
+  <!-- HTI 25 years: faint anniversary watermark in the footer (decorative) -->
+  <style id="hti25">
+    .footer{position:relative;overflow:hidden}
+    .footer>*{position:relative;z-index:1}
+    .footer::before{content:"";position:absolute;left:50%;top:175px;transform:translateX(-50%);width:min(380px,30vw);aspect-ratio:640/428;background:url(images/brand/hti-25-years-watermark-white.webp) no-repeat center/contain;opacity:.09;pointer-events:none;z-index:0}
+    @media(max-width:960px){.footer::before{left:auto;right:-16px;top:250px;transform:none;width:240px}}
+  </style>
 </head>
 
 <body>
