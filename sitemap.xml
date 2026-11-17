@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url><loc>https://www.hti-india.com/</loc><lastmod>2026-11-05</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+<url><loc>https://www.hti-india.com/</loc><lastmod>2026-11-17</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
 <url><loc>https://www.hti-india.com/training-by-role.html</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 <url><loc>https://www.hti-india.com/brands.html</loc><lastmod>2026-09-05</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
 <url><loc>https://www.hti-india.com/restaurants.html</loc><lastmod>2026-09-07</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -151,13 +151,13 @@
   </url>
   <url>
     <loc>https://www.hti-india.com/trainers.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.hti-india.com/dominic-costabir.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -169,19 +169,19 @@
   </url>
   <url>
     <loc>https://www.hti-india.com/kaushal-dutta.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.hti-india.com/ketaki-ponde.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.hti-india.com/rajan-kale.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -199,7 +199,25 @@
   </url>
   <url>
     <loc>https://www.hti-india.com/pushpa-chatterjee.html</loc>
-    <lastmod>2026-09-05</lastmod>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.hti-india.com/shrikala-sawant.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.hti-india.com/javed-afsar.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.hti-india.com/nitin-batawale.html</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
